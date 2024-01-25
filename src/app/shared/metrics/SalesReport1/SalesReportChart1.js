@@ -14,6 +14,7 @@ const SalesReportChart1 = () => {
                         return active ? (
                             <Div sx={{color: "common.white"}}>
                                 {payload.map((row, index) => {
+                                    console.log(row);
                                     return (
                                         <div key={index} className={index !== payload.length - 1 ? "mb-1" : ""}>
                                             <div style={{
@@ -22,12 +23,12 @@ const SalesReportChart1 = () => {
                                                 letterSpacing: 2,
                                                 textTransform: 'uppercase'
                                             }}>
-                                                {capitalizeFLetter(row.name)}
+                                                {capitalizeFLetter(row.name == "past" ? "Negative" : "Positive")}
                                             </div>
                                             <div style={{
                                                 color: row.color
                                             }}
-                                            >{row.value} USD
+                                            >{row.value} Feedbacks
                                             </div>
                                         </div>
                                     )
@@ -45,8 +46,8 @@ const SalesReportChart1 = () => {
                     cursor={false}
                 />
                 <XAxis dataKey="name" tickLine={false} axisLine={false}/>
-                <Bar dataKey="current" fill="#3EC3D0" stackId={"a"} maxBarSize={10} barSize={4}/>
-                <Bar dataKey="past" fill="#CDD8E4" stackId={"a"} maxBarSize={10} barSize={4}/>
+                <Bar dataKey="current" fill="#3bb143" stackId={"a"} maxBarSize={10} barSize={4}/>
+                <Bar dataKey="past" fill="#d1001f" stackId={"a"} maxBarSize={10} barSize={4}/>
             </BarChart>
         </ResponsiveContainer>
     );

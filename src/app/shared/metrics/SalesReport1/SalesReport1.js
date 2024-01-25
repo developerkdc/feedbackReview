@@ -1,6 +1,6 @@
 import React from 'react';
 import SalesReportChart1 from "./SalesReportChart1";
-import {Chip, Typography} from "@mui/material";
+import {Chip, Grid, Typography} from "@mui/material";
 import JumboCardQuick from "@jumbo/components/JumboCardQuick";
 import {useTranslation} from "react-i18next";
 
@@ -8,12 +8,15 @@ const SalesReport1 = () => {
     const {t} = useTranslation();
     return (
         <JumboCardQuick
-            title={<Typography variant={"h4"} mb={0}>{t('widgets.title.salesReport1')}</Typography>}
-            action={<Chip label={"Today"} color={"primary"} size={"small"} />}
+            title={<Typography variant={"h3"} mb={0}>{"Total Survey Results"}</Typography>}
+            // action={<Chip label={"Today"} color={"primary"} size={"small"} />}
             wrapperSx={{pt: 0}}
         >
-            <Typography variant={"h2"}>$685k+</Typography>
-            <Typography variant={"body1"} color="text.secondary" mb={1.5}>Past 9 months data</Typography>
+            <Grid display="flex" gap="10px" margin="0px 0px 30px 0px">
+
+            {/* <Typography variant={"h5"}>Current Month v/s Last Month</Typography> */}
+            <Typography variant={"body1"} color="text.secondary" mb={1.5}>Past 10 months data</Typography>
+            </Grid>
             <SalesReportChart1/>
         </JumboCardQuick>
     );

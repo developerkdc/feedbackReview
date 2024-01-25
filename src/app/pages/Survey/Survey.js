@@ -222,7 +222,7 @@ export default function Survey() {
       return (
         <ReactStars
           count={5}
-          isHalf={true}
+          isHalf={false}
           onChange={(rating) => ratingChanged(rating, question)}
           size={30}
           activeColor="#ffd700"
@@ -370,7 +370,7 @@ export default function Survey() {
                     <div>
                       <Box sx={{ padding: 3 }}>
                         <Typography fontSize={20}>
-                          Q{i + 1}. {e?.questionId?.question} ?.
+                          Q{i + 1}. {e?.questionId?.question}
                         </Typography>
                         <Typography fontSize={20} sx={{ marginLeft: 3 }}>
                           {renderType(e.questionId)}

@@ -12,7 +12,8 @@ const CreditScoreChart = ({score}) => {
             needleHeightRatio={0.5}
             needleTransitionDuration={4000}
             needleTransition="easeElastic"
-            segmentColors={['#E00930', '#FF8C00', '#FFCA41', '#8DCD03']}
+            // segmentColors={['#E00930', '#FF8C00', '#FFCA41', '#8DCD03']}
+            segmentColors={['#8DCD03', '#8DCD03', '#8DCD03', '#ECECEC']}
             currentValueText={`${score}`}
             valueTextFontSize={'18px'}
             valueTextFontWeight={"normal"}

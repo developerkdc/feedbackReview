@@ -1,28 +1,28 @@
 export const salesData = [
     {
-        "name": "Orders Monthly",
-        "amount": "48,548"
+        "name": "Feedback Monthly",
+        "amount": "500"
     },
     {
-        "name": "Orders Weekly",
-        "amount": "6,478"
+        "name": "Feedback Weekly",
+        "amount": "70"
     },
     {
-        "name": "Average Revenue",
-        "amount": "$210,213"
+        "name": "Average Feedback",
+        "amount": "400"
     },
     {
-        "name": "Total Revenue",
-        "amount": "$692,874"
+        "name": "Total Feedback",
+        "amount": "3,874"
     },
-    {
-        "name": "Total Orders",
-        "amount": "9,223"
-    },
-    {
-        "name": "Past Orders",
-        "amount": "8,543"
-    }
+    // {
+    //     "name": "Total Orders",
+    //     "amount": "9,223"
+    // },
+    // {
+    //     "name": "Past Orders",
+    //     "amount": "8,543"
+    // }
 ];
 export const dataItems = [
     {
@@ -50,62 +50,62 @@ export const data = [
     {
         "name": "Page A",
         "month": "Jan",
-        "sale": 1200,
+        "sale": 200,
     },
     {
         "name": "Page B",
         "month": "Feb",
-        "sale": 1600,
+        "sale": 600,
     },
     {
         "name": "Page C",
         "month": "Mar",
-        "sale": 3000,
+        "sale": 300,
     },
     {
         "name": "Page D",
         "month": "Apr",
-        "sale": 3600,
+        "sale": 360,
     },
     {
         "name": "Page E",
         "month": "May",
-        "sale": 4800,
+        "sale": 480,
     },
     {
         "name": "Page F",
         "month": "Jun",
-        "sale": 4200,
+        "sale": 420,
     },
     {
         "name": "Page G",
         "month": "Jul",
-        "sale": 4600,
+        "sale": 460,
     },
     {
         "name": "Page C",
         "month": "Aug",
-        "sale": 3800,
+        "sale": 380,
     },
     {
         "name": "Page D",
         "month": "Sep",
-        "sale": 5200,
+        "sale": 520,
     },
     {
         "name": "Page E",
         "month": "Oct",
-        "sale": 5800,
+        "sale": 580,
     },
     {
         "name": "Page F",
         "month": "Nov",
-        "sale": 6800,
+        "sale": 680,
     },
     {
         "name": "Page G",
         "month": "Dec",
-        "sale": 7200,
+        "sale": 200,
     }
 ];
 export const menuItems = [
