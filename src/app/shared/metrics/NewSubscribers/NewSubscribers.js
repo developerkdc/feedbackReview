@@ -9,16 +9,17 @@ const NewSubscribers = () => {
     const {t} = useTranslation();
     return (
         <JumboCardQuick
-            title={<StarIcon sx={{color: 'common.white'}}/>}
+            // title={<StarIcon sx={{color: 'common.white'}}/>}
+            title={ <Typography variant={"h2"} color={"common.white"}>Top Popular Malls</Typography>}
             bgColor={"#E44A77"}
             sx={{color: "common.white"}}
             wrapperSx={{pt: .5}}
         >
             <Grid container columnSpacing={2} alignItems={"flex-end"}>
                 <Grid item xs={6}>
-                    <Typography variant={"h2"} color={"common.white"}>85k+</Typography>
+                    <Typography variant={"h2"} color={"common.white"}>20+</Typography>
                     <Typography variant={"h6"} color={"common.white"}
-                                mb={0}>{t('widgets.subheader.newSubscribers')}</Typography>
+                                mb={0}>{"New Malls"}</Typography>
                 </Grid>
                 <Grid item xs={6}>
                     <NewSubscribersChart/>

@@ -1,5 +1,5 @@
 import React, {Suspense} from 'react';
-import {IconButton} from "@mui/material";
+import {IconButton, Typography} from "@mui/material";
 import menus from "./menus";
 import JumboVerticalNavbar from "@jumbo/components/JumboVerticalNavbar/JumboVerticalNavbar";
 import {DrawerHeader} from "@jumbo/components/JumboLayout/style";
@@ -58,7 +58,8 @@ const SidebarHeader = () => {
             {
                 sidebarOptions?.style !== SIDEBAR_STYLES.CLIPPED_UNDER_HEADER &&
                 <DrawerHeader>
-                    <Logo mini={isMiniAndClosed} mode={sidebarTheme.type}/>
+                    {/* <Logo mini={isMiniAndClosed} mode={sidebarTheme.type}/> */}
+                    <Typography variant='h5'>Customer Feedback</Typography>
                     {
                         sidebarOptions?.view !== SIDEBAR_VIEWS.MINI &&
                         <Zoom in={sidebarOptions?.open}>

@@ -1,5 +1,13 @@
-import React from 'react';
-import {Grid} from "@mui/material";
+import React from "react";
+import {
+  Box,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from "@mui/material";
 import LastMonthSales from "../../shared/metrics/LastMonthSales";
 import OnlineSignupsFilled from "../../shared/metrics/OnlineSignupsFilled";
 import NewVisitorsThisMonth from "../../shared/metrics/NewVisitorsThisMonth";
@@ -23,11 +31,68 @@ import ObjectCountRevenue from "../../shared/metrics/ObjectCountCards/ObjectCoun
 import ObjectCountVisits from "../../shared/metrics/ObjectCountCards/ObjectCountVisits";
 import ObjectCountQueries from "../../shared/metrics/ObjectCountCards/ObjectCountQueries";
 import Stocks from "../../shared/metrics/Stocks";
+import SalesStatistics from "app/shared/metrics/SalesStatistics";
+import AppUsers from "app/shared/metrics/AppUsers";
+import SalesReport1 from "app/shared/metrics/SalesReport1";
+import axios from "axios";
+import BitcoinPrice from "./components/BitcoinPrice";
+import RipplePrice from "./components/RipplePrice";
+import EthereumPrice from "./components/EthereumPrice";
+import LitecoinPrice from "./components/LitecoinPrice";
+import JumboCardQuick from "@jumbo/components/JumboCardQuick";
 
 const MetricsPage = () => {
-    return (
-        <Grid container spacing={3.75}>
-            <Grid item xs={12} sm={6} lg={3}>
+  const [mallName, setMallname] = React.useState("");
+  const [selectedmallName, setselectedMallname] = React.useState("");
+  const [mall, setMall] = React.useState([]);
+  const handleChange2 = function (event, key) {
+    setMallname(event.target.value);
+    setselectedMallname(key.props.children);
+  };
+
+  //   React.useEffect(() => {
+  //     if (mallName) {
+  //       (async () => {
+  //         const questions = await axios.get(
+  //           `http://localhost:8000/mappingQuestion/${mallName}?type=all`
+  //         );
+  //         setQuestion(questions.data.getMappingQuestions);
+  //       })();
+  //     }
+  //   }, [mallName, value]);
+
+  React.useEffect(async () => {
+    const mall = await axios.get("http://localhost:8000/mall");
+    setMall(mall.data.mall);
+  }, []);
+  return (
+    <>
+      <Box sx={{ marginBottom: "30px" }}>
+        <FormControl sx={{ minWidth: 320 }} size="small">
+          <InputLabel id="Types">malls</InputLabel>
+          <Select
+            labelId="types-label"
+            id="Types"
+            value={mallName || ""}
+            label="Types"
+            onChange={(event, key) => handleChange2(event, key)}
+          >
+            {mall.map((e) => (
+              <MenuItem value={e._id} key={e.name}>
+                {e.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
+      <Grid container spacing={3.75}>
+        <Grid item xs={12}>
+          <SalesStatistics />
+        </Grid>
+        <Grid item xs={12} sm={6} lg={4}>
+          <AppUsers />
+        </Grid>
+        {/* <Grid item xs={12} sm={6} lg={3}>
                 <LastMonthSales/>
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>
@@ -35,20 +100,20 @@ const MetricsPage = () => {
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>
                 <NewVisitorsThisMonth/>
-            </Grid>
-            <Grid item xs={12} sm={6} lg={3}>
+            </Grid> */}
+        {/* <Grid item xs={12} sm={6} lg={3}>
                 <TotalRevenueThisYear/>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
+            </Grid> */}
+        {/* <Grid item xs={12} md={6} lg={4}>
                 <OrdersReport/>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
+            </Grid> */}
+        {/* <Grid item xs={12} md={6} lg={4}>
                 <CreditScore/>
-            </Grid>
-            <Grid item xs={12} lg={4}>
+            </Grid> */}
+        {/* <Grid item xs={12} lg={4}>
                 <TrafficAnalysis/>
-            </Grid>
-            <Grid item xs={12} sm={6} lg={3}>
+            </Grid> */}
+        {/* <Grid item xs={12} sm={6} lg={3}>
                 <ObjectCountOrders vertical={true}/>
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>
@@ -59,21 +124,58 @@ const MetricsPage = () => {
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>
                 <ObjectCountQueries vertical={true}/>
+            </Grid> */}
+        <Grid item xs={12} md={6} lg={8}>
+          <SalesReport1 />
+        </Grid>
+
+        <Grid item lg={12}>
+          <JumboCardQuick
+            title={
+              <Typography variant={"h3"} mb={2}>
+                {"Customer Satisfaction Score"}
+              </Typography>
+            }
+            subheader={
+              <Typography variant={"h6"} color={"text.secondary"} mb={0}>
+                {"Current Month v/s Last Month"}
+              </Typography>
+            }
+            // action={<Chip label={"Today"} color={"primary"} size={"small"} />}
+            wrapperSx={{ pt: 0 }}
+          >
+            <Grid display="flex" gap="10px">
+
+            <Grid item xs={12} sm={6} lg={3}>
+              <BitcoinPrice />
+            </Grid>
+            <Grid item xs={12} sm={6} lg={3}>
+              <RipplePrice />
+            </Grid>
+            <Grid item xs={12} sm={6} lg={3}>
+              <EthereumPrice />
+            </Grid>
+            <Grid item xs={12} sm={6} lg={3}>
+              <LitecoinPrice />
+            </Grid>
+            </Grid>
+          </JumboCardQuick>
+        </Grid>
+        {/* <Grid item xs={12} md={6} lg={4}>
+                <SalesReport/>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
                 <OnlineSignups/>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
+            </Grid> */}
+
+        {/* <Grid item xs={12} md={6} lg={4}>
                 <RevenueThisYear/>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
                 <EmailCampaign/>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
+            </Grid> */}
+        {/* <Grid item xs={12} md={6} lg={4}>
                 <AvgDailyTraffic/>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-                <NewSubscribers/>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
                 <NewAuthors/>
@@ -81,25 +183,23 @@ const MetricsPage = () => {
             <Grid item xs={12} md={6} lg={4}>
                 <NewArticles/>
             </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-                <SalesReport/>
-            </Grid>
+            
             <Grid item xs={12} md={6} lg={4}>
                 <ActiveUsers/>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
+            </Grid> */}
+        {/* <Grid item xs={12} md={6} lg={4}>
                 <PageViews/>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
+            </Grid> */}
+        {/* <Grid item xs={12} md={6} lg={4}>
                 <Orders/>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
+            </Grid> */}
+        {/* <Grid item xs={12} md={6} lg={4}>
                 <Stocks/>
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>
                 <ObjectCountOrders vertical={true}/>
-            </Grid>
-            <Grid item xs={12} sm={6} lg={3}>
+            </Grid> */}
+        {/* <Grid item xs={12} sm={6} lg={3}>
                 <ObjectCountRevenue vertical={true}/>
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>
@@ -107,9 +207,10 @@ const MetricsPage = () => {
             </Grid>
             <Grid item xs={12} sm={6} lg={3}>
                 <ObjectCountQueries vertical={true}/>
-            </Grid>
-        </Grid>
-    );
+            </Grid> */}
+      </Grid>
+    </>
+  );
 };
 
 export default MetricsPage;

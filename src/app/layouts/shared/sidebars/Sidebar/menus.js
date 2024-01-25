@@ -36,12 +36,24 @@ import CreditCardIcon from "@mui/icons-material/CreditCard";
 import GridViewIcon from "@mui/icons-material/GridView";
 import Grid3x3OutlinedIcon from "@mui/icons-material/Grid3x3Outlined";
 import SourceOutlinedIcon from "@mui/icons-material/SourceOutlined";
+import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
+import InsightsOutlinedIcon from '@mui/icons-material/InsightsOutlined';
+import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
+import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined';
+import OtherHousesOutlinedIcon from '@mui/icons-material/OtherHousesOutlined';
+import MergeTypeIcon from '@mui/icons-material/MergeType';
 
 const menus = [
   {
-    label: "sidebar.menu.home",
+    label: "Metrics",
     type: "nav-item",
-    icon: <GraphicEqIcon sx={{ fontSize: 20 }} />,
+    icon: <InsightsOutlinedIcon sx={{ fontSize: 20 }} />,
+    uri: "/metric",
+  },
+  {
+    label: "Add Questions",
+    type: "nav-item",
+    icon: <QuestionMarkOutlinedIcon sx={{ fontSize: 20 }} />,
     uri: "/",
     // children: [
     //   {
@@ -54,9 +66,9 @@ const menus = [
   },
 
   {
-    label: "Questions",
+    label: "Mapping",
     type: "nav-item",
-    icon: <GraphicEqIcon sx={{ fontSize: 20 }} />,
+    icon: <MergeTypeIcon sx={{ fontSize: 20 }} />,
     uri: "/questions",
     // children: [
     //   {
@@ -76,25 +88,19 @@ const menus = [
   {
     label: "Mapped Questions",
     type: "nav-item",
-    icon: <GraphicEqIcon sx={{ fontSize: 20 }} />,
+    icon: <ListAltOutlinedIcon sx={{ fontSize: 20 }} />,
     uri: "/feedback",
   },
-  {
-    label: "Metrics",
-    type: "nav-item",
-    icon: <GraphicEqIcon sx={{ fontSize: 20 }} />,
-    uri: "/metric",
-  },
-  {
-    label: "Survey",
-    type: "nav-item",
-    icon: <GraphicEqIcon sx={{ fontSize: 20 }} />,
-    uri: "/survey",
-  },
+  // {
+  //   label: "Survey",
+  //   type: "nav-item",
+  //   icon: <QuestionAnswerOutlinedIcon sx={{ fontSize: 20 }} />,
+  //   uri: "/survey",
+  // },
   {
     label: "Review",
     type: "nav-item",
-    icon: <GraphicEqIcon sx={{ fontSize: 20 }} />,
+    icon: <ReviewsOutlinedIcon sx={{ fontSize: 20 }} />,
     uri: "/review",
   },
 ];

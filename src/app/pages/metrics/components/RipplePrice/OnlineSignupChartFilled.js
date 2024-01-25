@@ -1,26 +1,24 @@
 import React from 'react';
-import {CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import {CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip} from 'recharts';
+import {onlineSignups} from "./data";
 import Div from "@jumbo/shared/Div";
-import {data} from "./data";
 import {capitalizeFLetter} from "@jumbo/utils";
 
-const LineChartSales = () => {
+//todo: add ResponsiveContainer and fix the page reload ResponsiveContainer width issue
+const OnlineSignupChartFilled = ({color, shadowColor}) => {
     return (
-        <ResponsiveContainer height={250}>
-            <LineChart width={480} height={250} data={data}
-                       margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+        <ResponsiveContainer height={80}>
+            <LineChart data={onlineSignups} className={"mx-auto"}>
                 <defs>
                     <filter id="shadow" height="200%">
                         <feDropShadow
                             dx="0" dy="5" stdDeviation="8"
-                            floodColor={"#82ca9d"}
+                            floodColor={shadowColor ? shadowColor : "#6610f2"}
                         />
                     </filter>
                 </defs>
-                <CartesianGrid strokeDasharray="6 1 2" horizontal={false} strokeOpacity={0.3}/>
-                <XAxis dataKey="month" axisLine={false} tickLine={false}/>
-                <YAxis dataKey={"sale"} axisLine={false} tickLine={false}/>
                 <Tooltip
+                    animationEasing={"ease-in-out"}
                     content={({active, label, payload}) => {
                         return active ? (
                             <Div sx={{color: "common.white"}}>
@@ -33,13 +31,12 @@ const LineChartSales = () => {
                                                 letterSpacing: 2,
                                                 textTransform: 'uppercase'
                                             }}>
-                                                {/* {capitalizeFLetter(row.name)} */}
-                                                
+                                                {capitalizeFLetter(row.name)}
                                             </div>
                                             <div style={{
                                                 color: row.color
                                             }}
-                                            >{row.value} Feedbacks
+                                            >{row.value} Feedback
                                             </div>
                                         </div>
                                     )
@@ -48,17 +45,26 @@ const LineChartSales = () => {
                         ) : null;
                     }}
                     wrapperStyle={{
-                        background: 'rgba(0,0,0,0.9)',
+                        background: 'rgba(0,0,0,0.8)',
                         borderRadius: 4,
                         padding: '5px 8px',
                         fontWeight: 500,
                         boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px'
                     }}
+                    cursor={false}
                 />
-                <Line type="linear" strokeWidth={2} dataKey="sale" stroke="#82ca9d" filter="url(#shadow)"/>
+                <CartesianGrid strokeDasharray="6 1 2" horizontal={false} strokeOpacity={0.7}/>
+                <Line dataKey="count"
+                      filter="url(#shadow)"
+                      type="monotone"
+                      dot={null}
+                      strokeWidth={2}
+                      stackId="2"
+                      stroke={color ? color : "#0062FF"}
+                />
             </LineChart>
         </ResponsiveContainer>
     );
 };
 
-export default LineChartSales;
+export default OnlineSignupChartFilled;
