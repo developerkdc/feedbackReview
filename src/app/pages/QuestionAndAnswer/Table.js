@@ -13,15 +13,15 @@ import Swal from "sweetalert2";
 
 
 export default function BasicTable({data,mall}) {
-  console.log(data)
+  // console.log(data)
   const [mallIds,setMallIds] = React.useState([])
   const handleSubmit =async function(queId){
     try {
-      const mapped = await axios.post("http://localhost:8000/mappingQuestion", {
+      const mapped = await axios.post(`${process.env.REACT_APP_URL}/mappingQuestion`, {
         mallId: mallIds,
         questionId: queId,
       });
-      console.log(mapped)
+      // console.log(mapped)
       Swal.fire({ title: "<strong>success</strong>", icon: "success" });
     } catch (error) { 
       Swal.fire({ title: "<strong>not mapped</strong>", icon: "error" });

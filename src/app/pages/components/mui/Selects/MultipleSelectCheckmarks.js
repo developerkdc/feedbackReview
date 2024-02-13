@@ -23,7 +23,7 @@ const MenuProps = {
 };
 const MultipleSelectCheckmarks = ({ mall, questionId, setMallIds }) => {
   const [selected, setSelected] = React.useState([]);
-  console.log(selected);
+  // console.log(selected);
   const handleChange = (event) => {
     const {
       target: { value },

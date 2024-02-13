@@ -25,7 +25,7 @@ export default function Review() {
     try {
       if(mallName){
         const review = await axios.get(
-          `http://localhost:8000/RatingAndReviews?type=all&mallId=${mallName}`
+          `${process.env.REACT_APP_URL}/RatingAndReviews?type=all&mallId=${mallName}`
         );
         setReview(review.data);
       }
@@ -36,7 +36,7 @@ export default function Review() {
 
   React.useEffect(() => {
     const getMall = async () => {
-      const mallList = await axios.get("http://localhost:8000/mall");
+      const mallList = await axios.get(`${process.env.REACT_APP_URL}/mall`);
       setMallList(mallList.data.mall);
     }
     getMall();

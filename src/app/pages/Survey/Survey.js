@@ -67,9 +67,9 @@ export default function Survey() {
   const [selected, setSelected] = React.useState([]);
   const [userId, setUserId] = React.useState([]);
   const [QuestionAndAnswer, setQuestionAndAnswer] = React.useState([]);
-  console.log(value, "value");
-  console.log(mallName, "mallName");
-  console.log(question, "question");
+  // console.log(value, "value");
+  // console.log(mallName, "mallName");
+  // console.log(question, "question");
   const handleChange2 = function (event,key) {
     setMallname(event.target.value);
     setselectedMallname(key.props.children);
@@ -287,7 +287,7 @@ export default function Survey() {
   const handleNext = ()=>{
     (async () => {
       const questions = await axios.post(
-        `http://localhost:8000/RatingAndReviews`,
+        `${process.env.REACT_APP_URL}/RatingAndReviews`,
         {
           mall: { mallId: mallName, name: selectedmallName },
           questionAndAnswer: QuestionAndAnswer,
@@ -302,7 +302,7 @@ export default function Survey() {
     if (mallName) {
       (async () => {
         const questions = await axios.get(
-          `http://localhost:8000/mappingQuestion/${mallName}?type=all`
+          `${process.env.REACT_APP_URL}/mappingQuestion/${mallName}?type=all`
         );
         setQuestion(questions.data.getMappingQuestions);
       })();
@@ -310,7 +310,7 @@ export default function Survey() {
   }, [mallName, value]);
 
   React.useEffect(async () => {
-    const mall = await axios.get("http://localhost:8000/mall");
+    const mall = await axios.get(`${process.env.REACT_APP_URL}/mall`);
     setMall(mall.data.mall);
   }, []);
 

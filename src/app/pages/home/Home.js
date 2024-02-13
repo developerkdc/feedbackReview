@@ -13,7 +13,7 @@ export default function Home() {
   const [Questions, setQuestions] = React.useState(" ");
   const [multipleOptions, setMultipleOptions] = React.useState([]);
   const [optionInput, setOptionInput] = React.useState("");
-  console.log(multipleOptions);
+  // console.log(multipleOptions);
   const setQuestion = (value) => {
     setQuestionType(value);
   };
@@ -26,7 +26,7 @@ export default function Home() {
   };
   const handleSubmit = async () => {
     try {
-      await axios.post("http://localhost:8000/questions", {
+      await axios.post(`${process.env.REACT_APP_URL}/questions`, {
         question: Questions,
         typeOf: QuestionType,
         options: multipleOptions,

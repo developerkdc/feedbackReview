@@ -12,7 +12,7 @@ export default function Feedback() {
   }
 
   React.useEffect(async () => {
-    const mall = await axios.get("http://localhost:8000/mall");
+    const mall = await axios.get(`${process.env.REACT_APP_URL}/mall`);
     setMall(mall.data.mall);
   }, []);
 

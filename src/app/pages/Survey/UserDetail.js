@@ -32,11 +32,11 @@ export default function UserDetail({ id }) {
     const { name, value } = e.target;
     setUserDetail({ ...userDetail, [name]: value });
   };
-  console.log(userDetail);
+  // console.log(userDetail);
   const handleSubmit = () => {
     (async () => {
       const questions = await axios.patch(
-        `http://localhost:8000/RatingAndReviews/addUser/${id}`,
+        `${process.env.REACT_APP_URL}/RatingAndReviews/addUser/${id}`,
         userDetail
       );
       Swal.fire({

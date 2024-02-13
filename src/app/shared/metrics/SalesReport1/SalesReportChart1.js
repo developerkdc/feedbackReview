@@ -14,7 +14,7 @@ const SalesReportChart1 = () => {
                         return active ? (
                             <Div sx={{color: "common.white"}}>
                                 {payload.map((row, index) => {
-                                    console.log(row);
+                                    // console.log(row);
                                     return (
                                         <div key={index} className={index !== payload.length - 1 ? "mb-1" : ""}>
                                             <div style={{

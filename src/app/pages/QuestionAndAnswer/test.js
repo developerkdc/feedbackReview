@@ -25,7 +25,7 @@ export default function QandA({ mallId }) {
     const getData = async () => {
       setRes(false);
       const mall = await axios.get(
-        `http://localhost:8000/RatingAndReviews?id=${mallId}`
+        `${process.env.REACT_APP_URL}/RatingAndReviews?id=${mallId}`
       );
       setData(mall?.data);
       setRes(true);
@@ -254,12 +254,12 @@ const SurveyCard = ({ surveyData, mallId, queId }) => {
   const [userAnswer, setUserAnswer] = useState([]);
   const [openModal, setOpenModal] = useState(false);
 
-  console.log(userAnswer);
+  // console.log(userAnswer);
 
   var handleGetUserAnswer = async () => {
     try {
       const data = await axios.get(
-        `http://localhost:8000/RatingAndReviews/getUserForQuestion?questionId=${queId}&mallId=${mallId}`
+        `${process.env.REACT_APP_URL}/RatingAndReviews/getUserForQuestion?questionId=${queId}&mallId=${mallId}`
       );
       setUserAnswer(data.data);
     } catch (error) {
@@ -398,7 +398,7 @@ const SurveyCard = ({ surveyData, mallId, queId }) => {
 
 const SurveyList = ({ responseData, mallId }) => {
   const surveyIds = Object.keys(responseData);
-  console.log(responseData);
+  // console.log(responseData);
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       {surveyIds.map((surveyId) => (

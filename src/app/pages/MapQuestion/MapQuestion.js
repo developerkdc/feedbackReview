@@ -17,10 +17,10 @@ export default function MapQuestion() {
   // for question and answer
   React.useEffect(() => {
     (async () => {
-      let data = await axios.get("http://localhost:8000/questions");
-      let mallList = await axios.get("http://localhost:8000/mall");
+      let data = await axios.get(`${process.env.REACT_APP_URL}/questions`);
+      let mallList = await axios.get(`${process.env.REACT_APP_URL}/mall`);
       setMall(mallList.data.mall);
-      console.log(mallList.data.mall);
+      // console.log(mallList.data.mall);
       setData(data.data.question);
     })();
   }, []);

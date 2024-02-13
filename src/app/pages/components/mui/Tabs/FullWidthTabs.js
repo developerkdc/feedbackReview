@@ -60,7 +60,7 @@ const FullWidthTabs = ({ mallId }) => {
     if (mallId.length > 0) {
       (async () => {
         const questions = await axios.get(
-          `http://localhost:8000/mappingQuestion/${mallId}?type=${
+          `${process.env.REACT_APP_URL}/mappingQuestion/${mallId}?type=${
             value === 0 ? "stars" : ""
           }`
         );
@@ -70,7 +70,7 @@ const FullWidthTabs = ({ mallId }) => {
   }, [mallId, value]);
 
   return (
-    <JumboDemoCard title={"Fixed Tabs Full width"}>
+    <Div style={{display:"flex", justifyContent:"center",alignItems:"center",marginTop:"50px"}}>
       <Div sx={{ width: "80%", bgcolor: "background.paper" }}>
         <AppBar position="static">
           <Tabs
@@ -163,7 +163,7 @@ const FullWidthTabs = ({ mallId }) => {
           </TabPanel>
         </SwipeableViews>
       </Div>
-    </JumboDemoCard>
+     </Div>
   );
 };
 export default FullWidthTabs;

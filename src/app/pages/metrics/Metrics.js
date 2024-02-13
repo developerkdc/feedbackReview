@@ -54,7 +54,7 @@ const MetricsPage = () => {
   //     if (mallName) {
   //       (async () => {
   //         const questions = await axios.get(
-  //           `http://localhost:8000/mappingQuestion/${mallName}?type=all`
+  //           `${process.env.REACT_APP_URL}/mappingQuestion/${mallName}?type=all`
   //         );
   //         setQuestion(questions.data.getMappingQuestions);
   //       })();
@@ -62,7 +62,7 @@ const MetricsPage = () => {
   //   }, [mallName, value]);
 
   React.useEffect(async () => {
-    const mall = await axios.get("http://localhost:8000/mall");
+    const mall = await axios.get(`${process.env.REACT_APP_URL}/mall`);
     setMall(mall.data.mall);
   }, []);
   return (
