@@ -78,7 +78,7 @@ const MetricsPage = () => {
             label="Types"
             onChange={(event, key) => handleChange2(event, key)}
           >
-            {mall.map((e) => (
+            {mall?.map((e) => (
               <MenuItem value={e._id} key={e.name}>
                 {e.name}
               </MenuItem>
