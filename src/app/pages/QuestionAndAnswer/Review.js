@@ -39,7 +39,7 @@ export default function Review() {
     const getMall = async () => {
       // const mallList = await axios.get(`${process.env.REACT_APP_URL}/mall`);
       const mallList = await axios.get(`https://feedbackreviewbackend.onrender.com/mall`);
-      setMallList(mallList.data.mall);
+      setMallList(mallList.data.data);
     }
     getMall();
   }, []);
@@ -60,9 +60,9 @@ export default function Review() {
             label="Types"
             onChange={(event) => handleChange(event)}
           >
-            {mallList.map((e) => (
+            {mallList?.map((e) => (
               <MenuItem value={e._id} key={e._id}>
-                {e.name}
+                {e.mall_name}
               </MenuItem>
             ))}
           </Select>

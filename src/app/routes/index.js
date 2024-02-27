@@ -10,6 +10,8 @@ import Mall from "app/pages/mall/addMall";
 import AddMall from "app/pages/mall/addMall";
 import EditMall from "app/pages/mall/editMall";
 import ListMall from "app/pages/mall/listMall";
+import Customer from "app/pages/Customer";
+import CustomerReview from "app/pages/Customer/View";
 
 /**
  routes which you want to make accessible to both authenticated and anonymous users
@@ -50,6 +52,14 @@ const routesForPublic = [
   {
     path: "/review",
     element: <Page component={Review} />,
+  },
+  {
+    path: "/customer",
+    element: <Page component={Customer} />,
+  },
+  {
+    path: "/customer/review",
+    element: <Page component={CustomerReview} />,
   },
 ];
 
