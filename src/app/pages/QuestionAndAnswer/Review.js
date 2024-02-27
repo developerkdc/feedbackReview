@@ -25,8 +25,8 @@ export default function Review() {
     try {
       if(mallName){
         const review = await axios.get(
-          // `${process.env.REACT_APP_URL}/RatingAndReviews?type=all&mallId=${mallName}`
-          `https://feedbackreviewbackend.onrender.com/RatingAndReviews?type=all&mallId=${mallName}`
+          `${process.env.REACT_APP_URL}/RatingAndReviews?type=all&mallId=${mallName}`
+          // `https://feedbackreviewbackend.onrender.com/RatingAndReviews?type=all&mallId=${mallName}`
         );
         setReview(review.data);
       }
@@ -37,9 +37,10 @@ export default function Review() {
 
   React.useEffect(() => {
     const getMall = async () => {
-      // const mallList = await axios.get(`${process.env.REACT_APP_URL}/mall`);
-      const mallList = await axios.get(`https://feedbackreviewbackend.onrender.com/mall`);
+      const mallList = await axios.get(`${process.env.REACT_APP_URL}/mall`);
+      // const mallList = await axios.get(`https://feedbackreviewbackend.onrender.com/mall`);
       setMallList(mallList.data.data);
+      setMallname(mallList.data.data[0]._id)
     }
     getMall();
   }, []);
@@ -47,7 +48,7 @@ export default function Review() {
   React.useEffect(() => {
     // reviewCall()
   }, [mallName]);
-
+console.log(mallName);
   return (
     <>
       <Box sx={{ marginBottom: '30px' }}>
