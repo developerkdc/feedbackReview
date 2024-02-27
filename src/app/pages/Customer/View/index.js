@@ -257,16 +257,10 @@ const SurveyCard = ({ surveyData, mallId, queId }) => {
                                     style={{ marginLeft: "20px" }}
                                 /> */}
                             </Typography>
-                            <Button
-                                variant="contained"
-                                textAlign="center"
-                                onClick={() => {
-                                    handleGetUserAnswer();
-                                    setOpenModal(true);
-                                }}
-                            >
-                                View All Responses
-                            </Button>
+                            <Typography sx={{my:1}}>
+                            <span style={{ opacity: "0.5" }}> Ans. : </span>
+                                {surveyData?.answer?.[0]}
+                            </Typography>
                         </Grid>
                     ) : (
                         <Typography variant="h6" gutterBottom>
@@ -301,76 +295,8 @@ const SurveyCard = ({ surveyData, mallId, queId }) => {
                             data={surveyData}
                         />
                     )}
-
-                    {/* {typeOf === "multiLine" && (
-                        <SingleLineQuestion
-                            questionType="Single Choice"
-                            question={question}
-                            data={surveyData}
-                        />
-                    )} */}
                 </CardContent>
             </Card>
-
-            <Modal keepMounted open={openModal} onClose={() => setOpenModal(false)}>
-                <Card sx={style}>
-                    <Typography variant="h4" gutterBottom mb="10px">
-                        <span style={{ opacity: "0.5" }}> Que. : </span>
-                        {question}
-                        <Chip
-                            label={`Total User Answered: ${totalAnswers}`}
-                            style={{ marginLeft: "20px" }}
-                        />
-                    </Typography>
-                    {userAnswer &&
-                        userAnswer.length &&
-                        userAnswer.map((response, index) => (
-                            <Card key={index} style={{ marginBottom: "10px" }}>
-                                <CardContent>
-                                    <Grid
-                                        container
-                                        style={{ display: "flex", justifyContent: "space-around" }}
-                                    >
-                                        <Box width="30%">
-                                            <Typography variant="h5" component="div">
-                                                User Details
-                                            </Typography>
-                                            <Typography variant="body2">
-                                                <span style={{ opacity: "0.5" }}>Name:</span>{" "}
-                                                {response.user.name || "--"}
-                                            </Typography>
-                                            <Typography variant="body2">
-                                                <span style={{ opacity: "0.5" }}>Email:</span>{" "}
-                                                {response.user.email || "--"}
-                                            </Typography>
-                                            <Typography variant="body2">
-                                                <span style={{ opacity: "0.5" }}>Contact:</span>{" "}
-                                                {response.user.contact || "--"}
-                                            </Typography>
-                                            <Typography variant="body2">
-                                                <span style={{ opacity: "0.5" }}>City:</span>{" "}
-                                                {response.user.city || "--"}
-                                            </Typography>
-                                            <Typography variant="body2">
-                                                <span style={{ opacity: "0.5" }}>Feedback:</span>{" "}
-                                                {response.user.feedback || "--"}
-                                            </Typography>
-                                        </Box>
-
-                                        <Box width="70%">
-                                            <Typography variant="h5" component="div">
-                                                Answer
-                                            </Typography>
-                                            <Typography variant="body2">
-                                                {response.questionAndAnswer.answer.join(", ")}
-                                            </Typography>
-                                        </Box>
-                                    </Grid>
-                                </CardContent>
-                            </Card>
-                        ))}
-                </Card>
-            </Modal>
         </>
     );
 };
