@@ -42,6 +42,7 @@ import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined';
 import OtherHousesOutlinedIcon from '@mui/icons-material/OtherHousesOutlined';
 import MergeTypeIcon from '@mui/icons-material/MergeType';
+import StoreMallDirectoryIcon from '@mui/icons-material/StoreMallDirectory';
 
 const menus = [
   {
@@ -49,6 +50,12 @@ const menus = [
     type: "nav-item",
     icon: <InsightsOutlinedIcon sx={{ fontSize: 20 }} />,
     uri: "/metric",
+  },
+  {
+    label: "Mall",
+    type: "nav-item",
+    icon: <StoreMallDirectoryIcon sx={{ fontSize: 20 }} />,
+    uri: "/mall",
   },
   {
     label: "Add Questions",

@@ -24,9 +24,8 @@ export default function QandA({ mallId }) {
   React.useEffect(() => {
     const getData = async () => {
       setRes(false);
-      const mall = await axios.get(
-        `${process.env.REACT_APP_URL}/RatingAndReviews?id=${mallId}`
-      );
+      // const mall = await axios.get(`${process.env.REACT_APP_URL}/RatingAndReviews?id=${mallId}`);
+      const mall = await axios.get(`https://feedbackreviewbackend.onrender.com/RatingAndReviews?id=${mallId}`);
       setData(mall?.data);
       setRes(true);
     };
@@ -258,8 +257,11 @@ const SurveyCard = ({ surveyData, mallId, queId }) => {
 
   var handleGetUserAnswer = async () => {
     try {
+      // const data = await axios.get(
+      //   `${process.env.REACT_APP_URL}/RatingAndReviews/getUserForQuestion?questionId=${queId}&mallId=${mallId}`
+      // );
       const data = await axios.get(
-        `${process.env.REACT_APP_URL}/RatingAndReviews/getUserForQuestion?questionId=${queId}&mallId=${mallId}`
+        `https://feedbackreviewbackend.onrender.com/RatingAndReviews/getUserForQuestion?questionId=${queId}&mallId=${mallId}`
       );
       setUserAnswer(data.data);
     } catch (error) {

@@ -287,12 +287,19 @@ export default function Survey() {
   const handleNext = ()=>{
     (async () => {
       const questions = await axios.post(
-        `${process.env.REACT_APP_URL}/RatingAndReviews`,
+        `https://feedbackreviewbackend.onrender.com/RatingAndReviews`,
         {
           mall: { mallId: mallName, name: selectedmallName },
           questionAndAnswer: QuestionAndAnswer,
         }
       );
+      // const questions = await axios.post(
+      //   `${process.env.REACT_APP_URL}/RatingAndReviews`,
+      //   {
+      //     mall: { mallId: mallName, name: selectedmallName },
+      //     questionAndAnswer: QuestionAndAnswer,
+      //   }
+      // );
       setUserId(questions?.data?.RatingAndReviews?._id);
     })();
     setValue((prevValue) => prevValue + 1);
@@ -301,8 +308,11 @@ export default function Survey() {
   React.useEffect(() => {
     if (mallName) {
       (async () => {
+        // const questions = await axios.get(
+        //   `${process.env.REACT_APP_URL}/mappingQuestion/${mallName}?type=all`
+        // );
         const questions = await axios.get(
-          `${process.env.REACT_APP_URL}/mappingQuestion/${mallName}?type=all`
+          `https://feedbackreviewbackend.onrender.com/mappingQuestion/${mallName}?type=all`
         );
         setQuestion(questions.data.getMappingQuestions);
       })();
@@ -310,7 +320,8 @@ export default function Survey() {
   }, [mallName, value]);
 
   React.useEffect(async () => {
-    const mall = await axios.get(`${process.env.REACT_APP_URL}/mall`);
+    // const mall = await axios.get(`${process.env.REACT_APP_URL}/mall`);
+    const mall = await axios.get(`https://feedbackreviewbackend.onrender.com/mall`);
     setMall(mall.data.mall);
   }, []);
 

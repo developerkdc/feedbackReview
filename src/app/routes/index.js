@@ -6,6 +6,10 @@ import MapQuestion from "app/pages/MapQuestion/MapQuestion";
 import MetricsPage from "app/pages/metrics/Metrics";
 import Survey from "app/pages/Survey/Survey";
 import Review from "app/pages/QuestionAndAnswer/Review";
+import Mall from "app/pages/mall/addMall";
+import AddMall from "app/pages/mall/addMall";
+import EditMall from "app/pages/mall/editMall";
+import ListMall from "app/pages/mall/listMall";
 
 /**
  routes which you want to make accessible to both authenticated and anonymous users
@@ -14,6 +18,18 @@ const routesForPublic = [
   {
     path: "/",
     element: <Page component={Home} />,
+  },
+  {
+    path: "/mall",
+    element: <Page component={ListMall} />,
+  },
+  {
+    path: "/mall-add",
+    element: <Page component={AddMall} />,
+  },
+  {
+    path: "/mall-edit/:id",
+    element: <Page component={EditMall} />,
   },
   {
     path: "/feedback",

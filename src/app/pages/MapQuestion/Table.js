@@ -17,7 +17,8 @@ export default function BasicTable({data,mall}) {
   const [mallIds,setMallIds] = React.useState([])
   const handleSubmit =async function(queId){
     try {
-      const mapped = await axios.post(`${process.env.REACT_APP_URL}/mappingQuestion`, {
+      // const mapped = await axios.post(`${process.env.REACT_APP_URL}/mappingQuestion`, {
+      const mapped = await axios.post(`https://feedbackreviewbackend.onrender.com/mappingQuestion`, {
         mallId: mallIds,
         questionId: queId,
       });

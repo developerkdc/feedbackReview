@@ -12,7 +12,8 @@ export default function Feedback() {
   }
 
   React.useEffect(async () => {
-    const mall = await axios.get(`${process.env.REACT_APP_URL}/mall`);
+    // const mall = await axios.get(`${process.env.REACT_APP_URL}/mall`);
+    const mall = await axios.get(`https://feedbackreviewbackend.onrender.com/mall`);
     setMall(mall.data.mall);
   }, []);
 

@@ -26,7 +26,8 @@ export default function Home() {
   };
   const handleSubmit = async () => {
     try {
-      await axios.post(`${process.env.REACT_APP_URL}/questions`, {
+      // await axios.post(`${process.env.REACT_APP_URL}/questions`, {
+      await axios.post(`https://feedbackreviewbackend.onrender.com/questions`, {
         question: Questions,
         typeOf: QuestionType,
         options: multipleOptions,

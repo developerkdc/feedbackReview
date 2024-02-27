@@ -51,55 +51,55 @@ const Header = () => {
                 <Logo sx={{mr: 3}} mode={headerTheme.type ?? "light"}/>
             }
             {
-                showDropdownSearch &&
-                <Slide in={dropdownSearchVisibility}>
-                    <Div
-                        sx={{
-                            zIndex: 5,
-                            left: 0,
-                            right: 0,
-                            position: 'absolute',
-                            height: '100%',
-                        }}
-                    >
-                        <SearchGlobal
-                            sx={{
-                                maxWidth: 'none',
-                                height: '100%',
-                                display: 'flex',
+                // showDropdownSearch &&
+                // <Slide in={dropdownSearchVisibility}>
+                //     <Div
+                //         sx={{
+                //             zIndex: 5,
+                //             left: 0,
+                //             right: 0,
+                //             position: 'absolute',
+                //             height: '100%',
+                //         }}
+                //     >
+                //         <SearchGlobal
+                //             sx={{
+                //                 maxWidth: 'none',
+                //                 height: '100%',
+                //                 display: 'flex',
 
-                                '& .MuiInputBase-root': {
-                                    flex: 1,
-                                    borderRadius: 0,
-                                    background: theme => theme.palette.background.default,
-                                },
-                                '& .MuiInputBase-input': {
-                                    pr: 6,
-                                }
-                            }}
-                        />
-                        <IconButton
-                            sx={{
-                                position: 'absolute',
-                                right: 15,
-                                top: '50%',
-                                color: 'inherit',
-                                transform: 'translateY(-50%)',
-                            }}
-                            onClick={() => setDropdownSearchVisibility(false)}
-                        >
-                            <CloseIcon/>
-                        </IconButton>
-                    </Div>
-                </Slide>
+                //                 '& .MuiInputBase-root': {
+                //                     flex: 1,
+                //                     borderRadius: 0,
+                //                     background: theme => theme.palette.background.default,
+                //                 },
+                //                 '& .MuiInputBase-input': {
+                //                     pr: 6,
+                //                 }
+                //             }}
+                //         />
+                //         <IconButton
+                //             sx={{
+                //                 position: 'absolute',
+                //                 right: 15,
+                //                 top: '50%',
+                //                 color: 'inherit',
+                //                 transform: 'translateY(-50%)',
+                //             }}
+                //             onClick={() => setDropdownSearchVisibility(false)}
+                //         >
+                //             <CloseIcon/>
+                //         </IconButton>
+                //     </Div>
+                // </Slide>
             }
             {
-                !showDropdownSearch &&
-                <SearchGlobal
-                    sx={{
-                        maxWidth: {xs: 240, md: 320}
-                    }}
-                />
+                // !showDropdownSearch &&
+                // <SearchGlobal
+                //     sx={{
+                //         maxWidth: {xs: 240, md: 320}
+                //     }}
+                // />
             }
             <Stack direction="row" alignItems="center" spacing={1.25} sx={{ml: "auto"}}>
                 {
@@ -108,8 +108,8 @@ const Header = () => {
                         <SearchIcon fontSize={"small"}/>
                     </JumboIconButton>
                 }
-                <MessagesDropdown/>
-                <NotificationsDropdown/>
+                {/* <MessagesDropdown/> */}
+                {/* <NotificationsDropdown/> */}
                 <AuthUserDropdown/>
             </Stack>
         </React.Fragment>
