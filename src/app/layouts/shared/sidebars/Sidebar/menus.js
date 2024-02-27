@@ -43,6 +43,7 @@ import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlin
 import OtherHousesOutlinedIcon from '@mui/icons-material/OtherHousesOutlined';
 import MergeTypeIcon from '@mui/icons-material/MergeType';
 import StoreMallDirectoryIcon from '@mui/icons-material/StoreMallDirectory';
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 
 const menus = [
   {
@@ -109,6 +110,12 @@ const menus = [
     type: "nav-item",
     icon: <ReviewsOutlinedIcon sx={{ fontSize: 20 }} />,
     uri: "/review",
+  },
+  {
+    label: "Customer",
+    type: "nav-item",
+    icon: <InsertEmoticonIcon sx={{ fontSize: 20 }} />,
+    uri: "/customer",
   },
 ];
 
