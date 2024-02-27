@@ -37,9 +37,9 @@ export default function CustomerReview({ mallId }) {
     }, [mallId]);
 
     return (
-        <Card style={{ padding: "16px", marginTop: "50px" }}>
+        <Card style={{ padding: "16px" }}>
             <Typography variant="h1" gutterBottom textAlign="center">
-                Survey Responses
+                Customer Responses
             </Typography>
 
             <SurveyList responseData={data} mallId={mallId} />
