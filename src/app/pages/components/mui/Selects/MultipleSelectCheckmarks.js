@@ -55,7 +55,7 @@ const MultipleSelectCheckmarks = ({ mall, questionId, setMallIds }) => {
         {mall.map((name) => (
           <MenuItem key={name._id} value={name}>
             <Checkbox checked={selected.indexOf(name) > -1} />
-            <ListItemText primary={name.name} />
+            <ListItemText primary={name.mall_name} />
           </MenuItem>
         ))}
       </Select>

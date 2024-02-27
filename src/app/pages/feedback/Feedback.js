@@ -12,9 +12,9 @@ export default function Feedback() {
   }
 
   React.useEffect(async () => {
-    // const mall = await axios.get(`${process.env.REACT_APP_URL}/mall`);
-    const mall = await axios.get(`https://feedbackreviewbackend.onrender.com/mall`);
-    setMall(mall.data.mall);
+    const mall = await axios.get(`${process.env.REACT_APP_URL}/mall`);
+    // const mall = await axios.get(`https://feedbackreviewbackend.onrender.com/mall`);
+    setMall(mall.data.data);
   }, []);
 
   return (
@@ -30,7 +30,7 @@ export default function Feedback() {
             onChange={(event) => handleChange(event)}
           >
             {mall.map((e) => (
-              <MenuItem value={e._id}>{e.name}</MenuItem>
+              <MenuItem value={e._id}>{e.mall_name}</MenuItem>
             ))}
           </Select>
         </FormControl>

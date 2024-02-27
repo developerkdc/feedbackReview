@@ -1,25 +1,22 @@
 import Div from "@jumbo/shared/Div/Div";
 import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import { Autocomplete, Button, InputAdornment, TextField, Typography } from "@mui/material";
+import { Button, InputAdornment, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
-// import ViewUser from "../ViewUser";
-import LockResetOutlinedIcon from "@mui/icons-material/LockResetOutlined";
 import PreviewOutlinedIcon from "@mui/icons-material/PreviewOutlined";
-import Swal from "sweetalert2";
 import axios from "axios";
 import CustomTable from "../components/mui/Table";
+import ViewUser from "./ViewUser";
 
 export default function ListMall() {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   //   const showAlert = ToastAlerts();
 
-  const [selectedRole, setSelectedRole] = useState(null);
   const [openView, setOpenView] = useState(false);
-  const [mallDetails, setMallDetails] = useState([]);
+  const [singleMallDetails, setSingleMallDetails] = useState({});
+  const [mallDetails, setMallDetails] = useState({});
   const [query, setQuery] = useState({});
 
   const columns = [
@@ -81,7 +78,7 @@ export default function ListMall() {
       label: "View Details",
       color: "secondary",
       onClick: (row) => {
-        setMallDetails(row);
+        setSingleMallDetails(row);
         setOpenView(true);
       },
       icon: <PreviewOutlinedIcon />,
@@ -117,10 +114,15 @@ export default function ListMall() {
 
   useEffect(() => {
     (async () => {
+      let apiUrl = `${process.env.REACT_APP_URL}/mall`;
+      if (query) {
+        const queryParams = new URLSearchParams(query);
+        apiUrl = apiUrl + (queryParams.toString() ? `?${queryParams.toString()}` : "");
+      }
       try {
-        let data = await axios.get(`http://localhost:8000/mall`);
+        let data = await axios.get(apiUrl);
         console.log(data.data.data);
-        setMallDetails(data?.data?.data);
+        setMallDetails(data?.data);
       } catch (error) {}
     })();
   }, [query]);
@@ -178,15 +180,15 @@ export default function ListMall() {
         </Div>
       </Div>
       <Div>
-        <CustomTable data={mallDetails} columns={columns} actions={actions} fetchData={fetchData} totalCount={10} />
-      </Div>
-      {/* {openView && mallDetails && (
-        <ViewUser
-          openView={openView}
-          setOpenView={setOpenView}
-          data={mallDetails}
+        <CustomTable
+          data={mallDetails.data}
+          columns={columns}
+          actions={actions}
+          fetchData={fetchData}
+          totalCount={mallDetails.totalPages}
         />
-      )} */}
+      </Div>
+      {openView && singleMallDetails && <ViewUser openView={openView} setOpenView={setOpenView} data={singleMallDetails} />}
     </Div>
   );
 }

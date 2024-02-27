@@ -19,12 +19,12 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-// import ToastAlerts from "app/components/Toast";
 import { isValidEmail } from "@jumbo/utils";
 import axios from "axios";
+import ToastAlerts from "../components/Toast";
 const AddUser = () => {
   const navigate = useNavigate();
-  // const showAlert = ToastAlerts();
+  const showAlert = ToastAlerts();
   // const rolesList = useSelector((state) => state.roleReducer.globalRoleList);
 
   var initialValues = {
@@ -65,21 +65,21 @@ const AddUser = () => {
         "Email should contain lover case characters, '@' and '.' symbols",
         (value) => isValidEmail(value) // Check if the email is valid
       ),
-    mobile_no: yup
-      .string()
-      .typeError("Phone number must be a number")
-      .required("Phone Number is Required")
-      .matches(/^\d{10}$/, "Number should be 10 digits."),
+    // mobile_no: yup
+    //   .string()
+    //   .typeError("Phone number must be a number")
+    //   .required("Phone Number is Required")
+    //   .matches(/^\d{10}$/, "Number should be 10 digits."),
     password: yup.string().required("Password is Required"),
   });
 
   const handleUserAdd = async (data) => {
     try {
       await axios.post(`http://localhost:8000/mall`,data)
-      // showAlert("success", "User added successfully.");
+      showAlert("success", "User added successfully.");
       navigate("/mall");
     } catch (error) {
-      // showAlert("error", error.response.data.message);
+      showAlert("error", error.response.data.message);
     }
   };
   return (
@@ -176,7 +176,6 @@ const AddUser = () => {
                   <Grid item xs={6}>
                     <JumboTextField
                       fullWidth
-                      type="number"
                       id="model"
                       size="small"
                       name="model"
@@ -189,7 +188,7 @@ const AddUser = () => {
                       id="sr_no"
                       size="small"
                       name="sr_no"
-                      label="sr_no"
+                      label="Serial No."
                     />
                   </Grid>
                   <Grid item xs={6}>
@@ -266,7 +265,7 @@ const AddUser = () => {
                           cancelButtonText: "No",
                         }).then((result) => {
                           if (result.isConfirmed) {
-                            navigate("/user");
+                            navigate("/mall");
                           }
                         });
                       }}

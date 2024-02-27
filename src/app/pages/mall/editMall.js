@@ -6,9 +6,6 @@ import {
   FormControlLabel,
   FormHelperText,
   Grid,
-  InputLabel,
-  MenuItem,
-  Select,
   Switch,
   TextField,
   Typography,
@@ -22,63 +19,71 @@ import Swal from "sweetalert2";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import * as yup from "yup";
 import Div from "@jumbo/shared/Div";
-// import { useDispatch, useSelector } from "react-redux";
-// import { onUserAdd } from "app/redux/actions/User";
-// import { Axios } from "app/services/config";
-// import ToastAlerts from "app/components/Toast";
-// import { GlobalRoleList } from "app/redux/actions/Roles";
 import axios from "axios";
-// const role = [{ name: "admin" }, { name: "user" }];
+import { isValidEmail } from "@jumbo/utils";
+import ToastAlerts from "../components/Toast";
 const EditMall = () => {
   const navigate = useNavigate();
   const {id} = useParams();
   const { state } = useLocation();
-//   const dispatch = useDispatch();
-//   const showAlert = ToastAlerts();
-//   const rolesList = useSelector((state) => state.roleReducer.globalRoleList);
+  const showAlert = ToastAlerts();
 
   var initialValues = {
-    user_id: state.user_id,
+    mall_name: state.mall_name,
     first_name: state.first_name,
     last_name: state.last_name,
+    password: state.password,
     email_id: state.email_id,
-    role_id: state.role_id._id,
+    location: state.location,
     mobile_no: state.mobile_no,
     status: state.status,
+    device_type: state.device_type,
+    model: state.model,
+    sr_no: state.sr_no,
   };
   const validationSchema = yup.object({
-    user_id: yup.string("Enter User ID").required("User ID is required"),
-    // .matches(/^[0-9]+$/, "User ID must be a number"),
+    mall_name: yup.string("Enter Mall Name").required("Mall name is required"),
     first_name: yup
       .string("Enter First Name")
       .required("First Name is required")
-      .matches(/^[A-Za-z]+$/, "First Name must contain only alphabetic characters"),
+      .matches(
+        /^[A-Za-z]+$/,
+        "First Name must contain only alphabetic characters"
+      ),
     last_name: yup
       .string("Enter Last Name")
       .required("Last Name is required")
-      .matches(/^[A-Za-z]+$/, "Last Name must contain only alphabetic characters"),
-    email_id: yup.string("Enter your Email ID").email("Enter a valid Email ID").required("Email is required"),
-    mobile_no: yup
-      .string()
-      .typeError("Phone number must be a number")
-      .required("Phone Number is Required")
-      .matches(/^\d{10}$/, "Number should be 10 digits."),
-    role_id: yup.string().required("Please select role."),
+      .matches(
+        /^[A-Za-z]+$/,
+        "Last Name must contain only alphabetic characters"
+      ),
+    email_id: yup
+      .string("Enter your Email ID")
+      .required("Email is required")
+      .test(
+        "isValidEmail",
+        "Email should contain lover case characters, '@' and '.' symbols",
+        (value) => isValidEmail(value) // Check if the email is valid
+      ),
+    // mobile_no: yup
+    //   .string()
+    //   .typeError("Phone number must be a number")
+    //   .required("Phone Number is Required")
+    //   .matches(/^\d{10}$/, "Number should be 10 digits."),
+    password: yup.string().required("Password is Required"),
   });
 
   const handleUserAdd = async (data) => {
     try {
-      await axios.patch(`/user/edit/${id}`, data);
-    //   showAlert("success", "User added successfully.");
-      navigate("/user");
+      await axios.patch(`http://localhost:8000/mall/${id}`, data);
+      showAlert("success", "Mall updated successfully.");
+      navigate("/mall");
     } catch (error) {
-    //   showAlert("error", error.response.data.message);
+      showAlert("error", error.response.data.message);
     }
   };
 
-  useEffect(() => {
-    // dispatch(GlobalRoleList());
-  }, []);
+  
   return (
     <React.Fragment>
       <Typography variant="h1" mb={3}>
@@ -107,49 +112,127 @@ const EditMall = () => {
               <Form noValidate autoComplete="off">
                 <Grid container rowSpacing={3} columnSpacing={3}>
                   <Grid item xs={6}>
-                    <JumboTextField fullWidth id="user_id" name="user_id" label="User ID" />
+                    <JumboTextField
+                      fullWidth
+                      size="small"
+                      id="mall_name"
+                      name="mall_name"
+                      label="Mall Name"
+                    />
                   </Grid>
                   <Grid item xs={6}>
-                    <JumboTextField fullWidth id="first_name" name="first_name" label="First name" />
+                    <JumboTextField
+                      fullWidth
+                      id="first_name"
+                      size="small"
+                      name="first_name"
+                      label="First name"
+                    />
                   </Grid>
                   <Grid item xs={6}>
-                    <JumboTextField fullWidth id="last_name" name="last_name" label="Last name" />
+                    <JumboTextField
+                      fullWidth
+                      id="last_name"
+                      size="small"
+                      name="last_name"
+                      label="Last name"
+                    />
                   </Grid>
                   <Grid item xs={6}>
-                    <JumboTextField fullWidth id="email_id" name="email_id" label="Email" />
+                    <JumboTextField
+                      fullWidth
+                      size="small"
+                      id="email_id"
+                      name="email_id"
+                      label="Email"
+                    />
                   </Grid>
                   <Grid item xs={6}>
-                    <JumboTextField fullWidth type="number" id="mobile_no" name="mobile_no" label="Phone No." />
+                    <JumboTextField
+                      fullWidth
+                      id="password"
+                      size="small"
+                      name="password"
+                      label="Password"
+                    />
                   </Grid>
-                  {/* <Grid item xs={6}>
-                    <FormControl fullWidth error={errors.role_id && touched.role_id}>
-                      {rolesList && rolesList.length && (
-                        <Autocomplete
-                          fullWidth
-                          size="small"
-                          disablePortal
-                          getOptionLabel={(option) => option.role_name}
-                          options={rolesList}
-                          name="role_id"
-                          // value={JSON.parse(values?.role_id)}
-                          value={rolesList.find((ele) => ele._id == values.role_id)}
-                          onChange={(event, val) => {
-                            // setFieldValue("role_id", JSON.stringify(val));
-                            setFieldValue("role_id", val._id);
-                          }}
-                          renderInput={(params) => <TextField error={errors.role_id && touched.role_id} {...params} label="Roles" />}
-                        />
+                  <Grid item xs={6}>
+                    <JumboTextField
+                      fullWidth
+                      type="number"
+                      id="mobile_no"
+                      size="small"
+                      name="mobile_no"
+                      label="Phone No."
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <JumboTextField
+                      fullWidth
+                      id="location"
+                      size="small"
+                      name="location"
+                      label="Location"
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <JumboTextField
+                      fullWidth
+                      id="model"
+                      size="small"
+                      name="model"
+                      label="Model"
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <JumboTextField
+                      fullWidth
+                      id="sr_no"
+                      size="small"
+                      name="sr_no"
+                      label="Serial No."
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <FormControl
+                      fullWidth
+                      error={errors.role_id && touched.role_id}
+                    >
+                      <Autocomplete
+                        fullWidth
+                        size="small"
+                        disablePortal
+                        getOptionLabel={(option) => option}
+                        options={["Tab","Kiosk","Mobile"]}
+                        name="device_type"
+                        value={values.device_type}
+
+                        onChange={(event, val) => {
+                          setFieldValue("device_type", val);
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            error={errors.device_type && touched.device_type}
+                            {...params}
+                            label="Device Type"
+                          />
+                        )}
+                      />
+                      {errors && errors.role_id && touched.role_id && (
+                        <FormHelperText>{errors.role_id}</FormHelperText>
                       )}
-                      {errors && errors.role_id && touched.role_id && <FormHelperText>{errors.role_id}</FormHelperText>}
                     </FormControl>
-                  </Grid> */}
+                  </Grid>
                   <Grid item xs={6} alignContent="center">
                     <FormControlLabel
                       style={{ padding: "0px", margin: "0px", height: "100%" }}
                       control={
                         <Switch
                           onChange={(e) => {
-                            setFieldValue("status", values.status ? false : true);
+                            setFieldValue(
+                              "status",
+                              values.status ? false : true
+                            );
                           }}
                           defaultChecked={values.status ? true : false}
                           color="primary"
