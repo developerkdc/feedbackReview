@@ -44,6 +44,7 @@ const a11yProps = (index) => {
 };
 
 const FullWidthTabs = ({ mallId }) => {
+  console.log(mallId);
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const [question, setQuestion] = React.useState([]);
@@ -60,11 +61,12 @@ const FullWidthTabs = ({ mallId }) => {
     if (mallId.length > 0) {
       (async () => {
         const questions = await axios.get(
-          // `${process.env.REACT_APP_URL}/mappingQuestion/${mallId}?type=${
-          `https://feedbackreviewbackend.onrender.com/mappingQuestion/${mallId}?type=${
+          `${process.env.REACT_APP_URL}/mappingQuestion/${mallId}?type=${
+          // `https://feedbackreviewbackend.onrender.com/mappingQuestion/${mallId}?type=${
             value === 0 ? "stars" : ""
           }`
         );
+        console.log(questions);
         setQuestion(questions.data.getMappingQuestions);
       })();
     }

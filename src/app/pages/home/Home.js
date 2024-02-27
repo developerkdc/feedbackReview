@@ -5,7 +5,7 @@ import { styled } from "@mui/system";
 import clsx from "clsx";
 import BasicSelect from "../components/mui/Selects/BasicSelect";
 import JumboDemoCard from "@jumbo/components/JumboDemoCard";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
 export default function Home() {
@@ -32,10 +32,10 @@ export default function Home() {
         typeOf: QuestionType,
         options: multipleOptions,
       });
-      Swal.fire({title: "<strong>success</strong>",icon: 'success'})
+      Swal.fire({ title: "<strong>success</strong>", icon: "success" });
       setQuestionType("");
       setQuestions("");
-      setMultipleOptions([])  
+      setMultipleOptions([]);
       setOptionInput("");
     } catch (error) {
       console.log(error);
@@ -48,64 +48,64 @@ export default function Home() {
         //   demoCode={code}
         wrapperSx={{ backgroundColor: "background.paper", pt: 0 }}
       >
-        <FormControl defaultValue="" required>
-          <Label>Question</Label>
-          <StyledInput
-            placeholder="Write your Question here"
-            value={Questions}
-            onChange={handleQuestion}
-          />
-          <HelperText />
-          <BasicSelect
-            options={[
-              { name: "Multiple Choice: Single option", value: "singleChoice" },
-              { name: "Multiple Option ", value: "multipleChoice" },
-              { name: "Multi Line ", value: "multiLine" },
-              { name: "Feedback", value: "stars" },
-            ]}
-            questionType={setQuestion}
-            value={QuestionType}
-          />
-          <HelperText />
-          {QuestionType == "singleChoice" ||
-          QuestionType == "multipleChoice" ? (
-            <div style={{ marginTop: "10px" }}>
-              <div>
-                <div>
-                  <TextField
-                    id="standard-basic"
-                    label="Option 1"
-                    variant="standard"
-                    sx={{ minWidth: 320 }}
-                    value={optionInput}
-                    onChange={(e) => setOptionInput(e.target.value)}
-                  />
-                  <Button
-                    variant="contained"
-                    sx={{ margin: 0 }}
-                    onClick={handleAddOption}
-                  >
-                    Add
-                  </Button>
-                </div>
-                {multipleOptions.map((option, index) => (
-                  <div key={index}>
-                    <Label required="false">
-                      {index + 1}.{option}
-                    </Label>
+        <div>
+          <FormControl defaultValue="" required>
+          <Typography variant="h5" mb={1} mt={1}>
+              Question
+            </Typography>
+            <StyledInput placeholder="Write your Question here" value={Questions} onChange={handleQuestion} />
+            <HelperText />
+            <BasicSelect
+              options={[
+                { name: "Multiple Choice: Single option", value: "singleChoice" },
+                { name: "Multiple Option ", value: "multipleChoice" },
+                { name: "Multi Line ", value: "multiLine" },
+                { name: "Star", value: "stars" },
+              ]}
+              questionType={setQuestion}
+              value={QuestionType}
+            />
+            <HelperText />
+            {QuestionType == "singleChoice" || QuestionType == "multipleChoice" ? (
+              <div style={{ marginTop: "10px" }}>
+                <div style={{ display: "flex" }}>
+                  <div style={{ marginBottom: "10px" }}>
+                    <TextField
+                      id="standard-basic"
+                      label="Option"
+                      size="small"
+                      variant="standard"
+                      sx={{ minWidth: 320 }}
+                      value={optionInput}
+                      onChange={(e) => setOptionInput(e.target.value)}
+                    />
+                    <Button variant="contained" size="small" onClick={handleAddOption}>
+                      Add
+                    </Button>
                   </div>
-                ))}
+                </div>
               </div>
+            ) : null}
+            <div style={{ marginTop: "10px" }}>
+              <Button variant="contained" onClick={handleSubmit}>
+                Submit
+              </Button>
             </div>
-          ) : null}
-          <div style={{ marginTop: "10px" }}>
-            <Button variant="contained" onClick={handleSubmit}>
-              Submit
-            </Button>
+          </FormControl>
+        </div>
+        {multipleOptions && multipleOptions.length > 0 && (
+          <div style={{ display: "block", marginLeft: "80px", height:"200px", width:"300px" }}>
+            <Typography variant="h5" mb={1} mt={1}>
+              Options
+            </Typography>
+            {multipleOptions.map((option, index) => (
+              <Typography variant="h6" mb={1} mt={1}>
+                {index + 1}. {option}
+              </Typography>
+            ))}
           </div>
-        </FormControl>
+        )}
       </JumboDemoCard>
-    
     </>
   );
 }
@@ -132,9 +132,7 @@ const StyledInput = styled(Input)(
     }
 
     &:focus {
-      outline: 3px solid ${
-        theme.palette.mode === "dark" ? blue[600] : blue[100]
-      };
+      outline: 3px solid ${theme.palette.mode === "dark" ? blue[600] : blue[100]};
     }
   }
 `

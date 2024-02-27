@@ -17,12 +17,12 @@ export default function MapQuestion() {
   // for question and answer
   React.useEffect(() => {
     (async () => {
-      // let data = await axios.get(`${process.env.REACT_APP_URL}/questions`);
-      let data = await axios.get(`https://feedbackreviewbackend.onrender.com/questions`);
-      // let mallList = await axios.get(`${process.env.REACT_APP_URL}/mall`);
-      let mallList = await axios.get(`https://feedbackreviewbackend.onrender.com/mall`);
-      setMall(mallList.data.mall);
-      // console.log(mallList.data.mall);
+      let data = await axios.get(`${process.env.REACT_APP_URL}/questions`);
+      // let data = await axios.get(`https://feedbackreviewbackend.onrender.com/questions`);
+      let mallList = await axios.get(`${process.env.REACT_APP_URL}/mall`);
+      // let mallList = await axios.get(`https://feedbackreviewbackend.onrender.com/mall`);
+      console.log(mallList.data.data);
+      setMall(mallList.data.data);
       setData(data.data.question);
     })();
   }, []);
