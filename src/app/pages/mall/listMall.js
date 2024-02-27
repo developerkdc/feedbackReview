@@ -8,11 +8,13 @@ import PreviewOutlinedIcon from "@mui/icons-material/PreviewOutlined";
 import axios from "axios";
 import CustomTable from "../components/mui/Table";
 import ViewUser from "./ViewUser";
+import Swal from "sweetalert2";
+import ToastAlerts from "../components/Toast";
 
 export default function ListMall() {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
-  //   const showAlert = ToastAlerts();
+    const showAlert = ToastAlerts();
 
   const [openView, setOpenView] = useState(false);
   const [singleMallDetails, setSingleMallDetails] = useState({});
@@ -21,6 +23,7 @@ export default function ListMall() {
 
   const columns = [
     { field: "mall_name", headerName: "Mall Name", sortable: true },
+    { field: "location", headerName: "Location", sortable: true },
     {
       field: "first_name",
       headerName: "User Name",
@@ -29,43 +32,43 @@ export default function ListMall() {
     },
     { field: "email_id", headerName: "Email Id", sortable: true },
     { field: "mobile_no", headerName: "Mobile", sortable: true },
-    // {
-    //   field: "status",
-    //   headerName: "Status",
-    //   sortable: true,
-    //   render: (value, elm) =>
-    //     value ? (
-    //       <Button size="small" variant="outlined" color="success">
-    //         Active
-    //       </Button>
-    //     ) : (
-    //       <Button size="small" variant="outlined" color="error">
-    //         Inactive
-    //       </Button>
-    //     ),
-    //   onClick: async (elm) => {
-    //     try {
-    //       console.log(elm, "elmelm");
-    //       let status = elm.status;
-    //       const result = await Swal.fire({
-    //         title: `Change user status to ${status ? "inactive" : "active"} ?`,
-    //         icon: "warning",
-    //         showCancelButton: true,
-    //         confirmButtonText: "Yes",
-    //         cancelButtonText: "No",
-    //       });
-    //       if (result.isConfirmed) {
-    //         await axios.patch(`/user/edit/${elm._id}`, { status: !status });
-    //         // showAlert("success", "User status updated successfully.");
-    //         navigate("/mall");
-    //         // dispatch(onUserList(query));
-    //       }
-    //     } catch (error) {
-    //       console.error("Error updating user:", error);
-    //     //   showAlert("error", "Failed to update user.");
-    //     }
-    //   },
-    // },
+    {
+      field: "status",
+      headerName: "Status",
+      sortable: true,
+      render: (value, elm) =>
+        value ? (
+          <Button size="small" variant="outlined" color="success">
+            Active
+          </Button>
+        ) : (
+          <Button size="small" variant="outlined" color="error">
+            Inactive
+          </Button>
+        ),
+      onClick: async (elm) => {
+        try {
+          let status = elm.status;
+          const result = await Swal.fire({
+            title: `Change user status to ${status ? "inactive" : "active"} ?`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
+          });
+          if (result.isConfirmed) {
+            await axios.patch(`${process.env.REACT_APP_URL}/mall/${elm._id}`, { status: !status });
+            showAlert("success", "User status updated successfully.");
+            navigate("/mall");
+            setQuery({ ...query, search: searchTerm });
+            // dispatch(onUserList(query));
+          }
+        } catch (error) {
+          console.error("Error updating user:", error);
+          showAlert("error", "Failed to update user.");
+        }
+      },
+    },
     // {
     //   field: "role_id",
     //   headerName: "Role",
