@@ -65,8 +65,8 @@ const MetricsPage = () => {
     // const mall = await axios.get(`${process.env.REACT_APP_URL}/mall`);
     (async () => {
       const mall = await axios.get(`${process.env.REACT_APP_URL}/mall`);
-      console.log(mall.data.data)
-      setMall(mall.data.data);
+      setMall(mall?.data?.data);
+      setMallId(mall?.data?.data?.[0]?._id)
     })()
   }, []);
   return (
@@ -131,12 +131,16 @@ const MetricsPage = () => {
             </FormControl>
           </Box>
         </Grid>
-        <Grid item xs={12}>
-          <SalesStatistics mallId={mallId}/>
-        </Grid>
-        <Grid item xs={12} sm={6} lg={4}>
-          <AppUsers mallId={mallId}/>
-        </Grid>
+        {
+         mallId && <>
+            <Grid item xs={12}>
+              <SalesStatistics mallId={mallId} />
+            </Grid>
+            <Grid item xs={12} sm={6} lg={4}>
+              <AppUsers mallId={mallId} />
+            </Grid>
+          </>
+        }
         {/* <Grid item xs={12} sm={6} lg={3}>
                 <LastMonthSales/>
             </Grid>
