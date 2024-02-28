@@ -4,7 +4,7 @@ import {Typography} from "@mui/material";
 import JumboCardQuick from "@jumbo/components/JumboCardQuick";
 import {useTranslation} from "react-i18next";
 
-const AppUsers = () => {
+const AppUsers = ({mallId}) => {
     const {t} = useTranslation();
     return (
         <JumboCardQuick
@@ -14,7 +14,7 @@ const AppUsers = () => {
                                    mb={0}>{"For particular Mall"}</Typography>}
             wrapperSx={{pt: 0}}
         >
-            <ChartAppUsers/>
+            <ChartAppUsers mallId={mallId}/>
         </JumboCardQuick>
     );
 };

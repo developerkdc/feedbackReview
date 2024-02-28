@@ -20,7 +20,7 @@ const month = {
     12:"Dec"
 }
 
-const LineChartSales = () => {
+const LineChartSales = ({mallId}) => {
 
     const [data,setData] = useState([]);
 
@@ -28,7 +28,7 @@ const LineChartSales = () => {
         (
             async function(){
                 try {
-                    const {data} = await axios(`${process.env.REACT_APP_URL}/graph/monthviseresult`);
+                    const {data} = await axios(`${process.env.REACT_APP_URL}/graph/mallMonthResult?id=${mallId}`);
                     setData(data.Data.map((e)=> ({
                         "month": month[e._id.month],
                         "sale": e.totalFeedback,
@@ -39,7 +39,7 @@ const LineChartSales = () => {
                 }
             }    
         )()
-    },[])
+    },[mallId])
 
 
     return (

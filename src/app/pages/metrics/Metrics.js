@@ -42,56 +42,100 @@ import LitecoinPrice from "./components/LitecoinPrice";
 import JumboCardQuick from "@jumbo/components/JumboCardQuick";
 
 const MetricsPage = () => {
-  const [mallName, setMallname] = React.useState("");
+  const [mallId, setMallId] = React.useState("");
   const [selectedmallName, setselectedMallname] = React.useState("");
   const [mall, setMall] = React.useState([]);
   const handleChange2 = function (event, key) {
-    setMallname(event.target.value);
+    setMallId(event.target.value);
     setselectedMallname(key.props.children);
   };
 
   //   React.useEffect(() => {
-  //     if (mallName) {
+  //     if (mallId) {
   //       (async () => {
   //         const questions = await axios.get(
-  //           `${process.env.REACT_APP_URL}/mappingQuestion/${mallName}?type=all`
+  //           `${process.env.REACT_APP_URL}/mappingQuestion/${mallId}?type=all`
   //         );
   //         setQuestion(questions.data.getMappingQuestions);
   //       })();
   //     }
-  //   }, [mallName, value]);
+  //   }, [mallId, value]);
 
-  React.useEffect(async () => {
+  React.useEffect(() => {
     // const mall = await axios.get(`${process.env.REACT_APP_URL}/mall`);
-    const mall = await axios.get(`https://feedbackreviewbackend.onrender.com/mall`);
-    setMall(mall.data.mall);
+    (async () => {
+      const mall = await axios.get(`${process.env.REACT_APP_URL}/mall`);
+      console.log(mall.data.data)
+      setMall(mall.data.data);
+    })()
   }, []);
   return (
     <>
-      <Box sx={{ marginBottom: "30px" }}>
-        <FormControl sx={{ minWidth: 320 }} size="small">
-          <InputLabel id="Types">malls</InputLabel>
-          <Select
-            labelId="types-label"
-            id="Types"
-            value={mallName || ""}
-            label="Types"
-            onChange={(event, key) => handleChange2(event, key)}
-          >
-            {mall?.map((e) => (
-              <MenuItem value={e._id} key={e.name}>
-                {e.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Box>
       <Grid container spacing={3.75}>
+        <Grid item xs={12} md={6} lg={12}>
+          <SalesReport1 />
+        </Grid>
+        <Grid item lg={12}>
+          <JumboCardQuick
+            title={
+              <Typography variant={"h3"} mb={2}>
+                {"Customer Satisfaction Score"}
+              </Typography>
+            }
+            subheader={
+              <Typography variant={"h6"} color={"text.secondary"} mb={0}>
+                {"Current Month v/s Last Month"}
+              </Typography>
+            }
+            // action={<Chip label={"Today"} color={"primary"} size={"small"} />}
+            wrapperSx={{ pt: 0 }}
+          >
+            <Grid display="flex" gap="10px">
+
+              {/* <Grid item xs={12} sm={6} lg={3}>
+              <BitcoinPrice />
+            </Grid> */}
+              {
+                mall?.map((e) => {
+                  return <Grid item xs={12} sm={6} lg={3}>
+                    <RipplePrice mall={e} />
+                  </Grid>
+                })
+              }
+              {/* <Grid item xs={12} sm={6} lg={3}>
+              <EthereumPrice />
+            </Grid>
+            <Grid item xs={12} sm={6} lg={3}>
+              <LitecoinPrice />
+            </Grid> */}
+            </Grid>
+          </JumboCardQuick>
+        </Grid>
+        <Grid item xs={3} md={3} lg={3}>
+          <Box sx={{ my: "15px" }}>
+            <FormControl sx={{ minWidth: 320 }} size="small">
+              <InputLabel id="Types">malls</InputLabel>
+              <Select
+                labelId="types-label"
+                id="Types"
+                value={mallId || ""}
+                label="Types"
+                onChange={(event, key) => handleChange2(event, key)}
+              >
+                {mall?.map((e) => (
+                  <MenuItem value={e._id} key={e.mall_name}>
+                    {e.mall_name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+        </Grid>
         <Grid item xs={12}>
-          <SalesStatistics />
+          <SalesStatistics mallId={mallId}/>
         </Grid>
         <Grid item xs={12} sm={6} lg={4}>
-          <AppUsers />
+          <AppUsers mallId={mallId}/>
         </Grid>
         {/* <Grid item xs={12} sm={6} lg={3}>
                 <LastMonthSales/>
@@ -126,42 +170,8 @@ const MetricsPage = () => {
             <Grid item xs={12} sm={6} lg={3}>
                 <ObjectCountQueries vertical={true}/>
             </Grid> */}
-        <Grid item xs={12} md={6} lg={8}>
-          <SalesReport1 />
-        </Grid>
 
-        <Grid item lg={12}>
-          <JumboCardQuick
-            title={
-              <Typography variant={"h3"} mb={2}>
-                {"Customer Satisfaction Score"}
-              </Typography>
-            }
-            subheader={
-              <Typography variant={"h6"} color={"text.secondary"} mb={0}>
-                {"Current Month v/s Last Month"}
-              </Typography>
-            }
-            // action={<Chip label={"Today"} color={"primary"} size={"small"} />}
-            wrapperSx={{ pt: 0 }}
-          >
-            <Grid display="flex" gap="10px">
 
-            <Grid item xs={12} sm={6} lg={3}>
-              <BitcoinPrice />
-            </Grid>
-            <Grid item xs={12} sm={6} lg={3}>
-              <RipplePrice />
-            </Grid>
-            <Grid item xs={12} sm={6} lg={3}>
-              <EthereumPrice />
-            </Grid>
-            <Grid item xs={12} sm={6} lg={3}>
-              <LitecoinPrice />
-            </Grid>
-            </Grid>
-          </JumboCardQuick>
-        </Grid>
         {/* <Grid item xs={12} md={6} lg={4}>
                 <SalesReport/>
             </Grid>
