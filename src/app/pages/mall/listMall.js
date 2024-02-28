@@ -13,8 +13,9 @@ import ToastAlerts from "../components/Toast";
 
 export default function ListMall() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState(0);
   const navigate = useNavigate();
-    const showAlert = ToastAlerts();
+  const showAlert = ToastAlerts();
 
   const [openView, setOpenView] = useState(false);
   const [singleMallDetails, setSingleMallDetails] = useState({});
@@ -186,9 +187,11 @@ export default function ListMall() {
         <CustomTable
           data={mallDetails.data}
           columns={columns}
+          setPage={setPage}
+          page={page}
           actions={actions}
           fetchData={fetchData}
-          totalCount={mallDetails.totalPages}
+          totalCount={mallDetails.totalPages || 0}
         />
       </Div>
       {openView && singleMallDetails && <ViewUser openView={openView} setOpenView={setOpenView} data={singleMallDetails} />}
