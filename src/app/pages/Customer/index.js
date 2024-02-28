@@ -16,6 +16,7 @@ export default function Customer() {
     const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
     const [mallReviewDetails, setMallReviewDetails] = useState([]);
+    const [totalPage,setTotalPage] = useState(0);
     const [query, setQuery] = useState({});
 
     const columns = [
@@ -29,6 +30,23 @@ export default function Customer() {
         { field: "email_id", headerName: "Email Id", sortable: true, render: (_, elm) => elm.user.email, },
         { field: "mobile_no", headerName: "Mobile", sortable: true, render: (_, elm) => elm.user.contact, },
         { field: "city", headerName: "City", sortable: true, render: (_, elm) => elm.user.city, },
+        {
+            field: "created_at", headerName: "Date/Time", sortable: true, render: (_, elm) => {
+                const date = new Date(elm.created_at);
+                const options = {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    hour12: true,
+                    timeZone: 'Asia/Kolkata' // Indian time zone
+                };
+
+                const indianDateTime = date.toLocaleString('en-IN', options);
+                return indianDateTime
+            }
+        },
     ];
 
     const actions = [
@@ -58,8 +76,9 @@ export default function Customer() {
             }
             try {
                 let data = await axios.get(apiUrl);
-                console.log(data.data.RatingAndReviews);
+                // console.log(data.data.RatingAndReviews);
                 setMallReviewDetails(data?.data?.RatingAndReviews);
+                setTotalPage(data?.data?.totalPages)
             } catch (error) { }
         })();
     }, [query]);
@@ -112,7 +131,7 @@ export default function Customer() {
                 </Div>
             </Div>
             <Div>
-                <CustomTable data={mallReviewDetails} columns={columns} actions={actions} fetchData={fetchData} totalCount={10} />
+                <CustomTable data={mallReviewDetails} columns={columns} actions={actions} fetchData={fetchData} totalCount={totalPage} />
             </Div>
         </Div>
     );
