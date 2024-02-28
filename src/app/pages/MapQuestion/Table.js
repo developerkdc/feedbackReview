@@ -11,36 +11,38 @@ import { Button } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-
-export default function BasicTable({data,mall}) {
+export default function BasicTable({ data, mall }) {
   // console.log(data)
-  const [mallIds,setMallIds] = React.useState([])
-  const handleSubmit =async function(queId){
+  const [mallIds, setMallIds] = React.useState([]);
+  const handleSubmit = async function (queId) {
     try {
       // const mapped = await axios.post(`${process.env.REACT_APP_URL}/mappingQuestion`, {
-      const mapped = await axios.post(`https://feedbackreviewbackend.onrender.com/mappingQuestion`, {
-        mallId: mallIds,
-        questionId: queId,
-      });
+      const mapped = await axios.post(
+        `https://feedbackreviewbackend.onrender.com/mappingQuestion`,
+        {
+          mallId: mallIds,
+          questionId: queId,
+        }
+      );
       // console.log(mapped)
       Swal.fire({ title: "<strong>success</strong>", icon: "success" });
-    } catch (error) { 
+    } catch (error) {
       Swal.fire({ title: "<strong>not mapped</strong>", icon: "error" });
     }
-    
-  }
+  };
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Questions</TableCell>
-            <TableCell align="right">Types</TableCell>
-            <TableCell align="right">Option 1</TableCell>
-            <TableCell align="right">Option 2</TableCell>
-            <TableCell align="right">Option 3</TableCell>
-            <TableCell align="right">Option 4</TableCell>
-            <TableCell align="right">Location</TableCell>
+            <TableCell align="left">Types</TableCell>
+            <TableCell align="left">Option 1</TableCell>
+            <TableCell align="left">Option 2</TableCell>
+            <TableCell align="left">Option 3</TableCell>
+            <TableCell align="left">Option 4</TableCell>
+            <TableCell align="center">Location</TableCell>
+            <TableCell align="center"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -52,13 +54,37 @@ export default function BasicTable({data,mall}) {
               <TableCell component="th" scope="row">
                 {row.question}
               </TableCell>
-              <TableCell align="right">{row.typeOf}</TableCell>
-              <TableCell align="right">{row.options[0]}</TableCell>
-              <TableCell align="right">{row.options[1]}</TableCell>
-              <TableCell align="right">{row.options[2]}</TableCell>
-              <TableCell align="right">{row.options[3]}</TableCell>
-              <TableCell align="right"><MultipleSelectCheckmarks mall={mall} questionId={row._id} setMallIds={setMallIds}/></TableCell>
-              <TableCell align="right"><Button variant="contained" onClick={()=>handleSubmit(row._id)}>Ok</Button></TableCell>
+              {row.typeOf === "singleChoice" && ( 
+                <TableCell align="center">Single Choice</TableCell>
+              )}
+              {row.typeOf === "multipleChoice" && (
+                <TableCell align="center">Multiple Choice</TableCell>
+              )}
+              {row.typeOf === "multiLine" && ( 
+                <TableCell align="center">Multiline</TableCell>
+              )}
+              {row.typeOf === "stars" && ( 
+                <TableCell align="center">Stars</TableCell>
+              )}
+              <TableCell align="left">{row.options[0]}</TableCell>
+              <TableCell align="left">{row.options[1]}</TableCell>
+              <TableCell align="left">{row.options[2]}</TableCell>
+              <TableCell align="left">{row.options[3]}</TableCell>
+              <TableCell align="left">
+                <MultipleSelectCheckmarks
+                  mall={mall}
+                  questionId={row._id}
+                  setMallIds={setMallIds}
+                />
+              </TableCell>
+              <TableCell align="left">
+                <Button
+                  variant="contained"
+                  onClick={() => handleSubmit(row._id)}
+                >
+                  Ok
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
