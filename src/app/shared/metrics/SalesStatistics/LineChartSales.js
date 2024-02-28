@@ -1,10 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import Div from "@jumbo/shared/Div";
 import {data} from "./data";
 import {capitalizeFLetter} from "@jumbo/utils";
+import axios from 'axios';
+
+const month = {
+    1:"Jan",
+    2:"Feb",
+    3:"Mar",
+    4:"Apr",
+    5:"May",
+    6:"Jun",
+    7:"Jul",
+    8:"Aug",
+    9:"Sep",
+    10:"Oct",
+    11:"Nov",
+    12:"Dec"
+}
 
 const LineChartSales = () => {
+
+    const [data,setData] = useState([]);
+
+    useEffect(()=>{
+        (
+            async function(){
+                try {
+                    const {data} = await axios(`${process.env.REACT_APP_URL}/graph/monthviseresult`);
+                    setData(data.Data.map((e)=> ({
+                        "month": month[e._id.month],
+                        "sale": e.totalFeedback,
+                    })))
+                    
+                } catch (error) {
+                    console.error(error)
+                }
+            }    
+        )()
+    },[])
+
+
     return (
         <ResponsiveContainer height={250}>
             <LineChart width={480} height={250} data={data}
