@@ -13,9 +13,8 @@ import {
 } from "@mui/material";
 import CustomActionMenu from "../Menu";
 
-const CustomTable = ({ data, columns, actions, fetchData, totalCount }) => {
-
-  const [page, setPage] = useState(0);
+const CustomTable = ({ data, page, setPage, columns, actions, fetchData, totalCount }) => {
+  console.log(totalCount);
   const rowsPerPage = 10;
   const [sortField, setSortField] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
@@ -24,6 +23,7 @@ const CustomTable = ({ data, columns, actions, fetchData, totalCount }) => {
     const isAsc = sortField === field && sortOrder === "asc";
     setSortField(field);
     setSortOrder(isAsc ? "desc" : "asc");
+    setPage(0);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -92,7 +92,9 @@ const CustomTable = ({ data, columns, actions, fetchData, totalCount }) => {
                       sx={{ padding: "8px 0px 8px 20px", paddingRight: column.width ? "20px" : "0px" }}
                       onClick={() => column.onClick && column.onClick(row)}
                     >
-                      <Typography noWrap width={column.width ? column.width : "auto"}>{renderCellContent(row, column)}</Typography>
+                      <Typography noWrap width={column.width ? column.width : "auto"}>
+                        {renderCellContent(row, column)}
+                      </Typography>
                     </TableCell>
                   ))}
                   {actions && (
@@ -117,6 +119,7 @@ const CustomTable = ({ data, columns, actions, fetchData, totalCount }) => {
       <TablePagination
         rowsPerPageOptions={""}
         component="div"
+        // count={totalCount * rowsPerPage}
         count={totalCount}
         rowsPerPage={rowsPerPage}
         page={page}
