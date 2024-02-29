@@ -1,18 +1,43 @@
-import React from 'react';
-import {Bar, BarChart, ResponsiveContainer, Tooltip, XAxis} from 'recharts';
-import {salesHistoryWithPast} from "./data";
+import React, { useEffect, useState } from 'react';
+import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
+import { salesHistoryWithPast } from "./data";
 import Div from "@jumbo/shared/Div";
-import {capitalizeFLetter} from "@jumbo/utils";
+import { capitalizeFLetter } from "@jumbo/utils";
+import axios from 'axios';
 
 const SalesReportChart1 = () => {
+    const [data,setData] = useState([]);
+
+    useEffect(()=>{
+        (
+            async function(){
+                try {
+                    const {data} = await axios(`${process.env.REACT_APP_URL}/graph/positiveNegativeFeedback`);
+                    setData(data.Data.map((e)=> {
+                        const data = {name: e._id.mallName, current: 0, past: 0};
+                        e.mallData.forEach(element => {
+                            if(element?._id?.status === "negative"){
+                                data["past"] = element?.totalFeedback
+                            }else{
+                                data["current"] = element?.totalFeedback
+                            }
+                        });
+                        return data
+                    }))
+                } catch (error) {
+                    console.error(error)
+                }
+            }    
+        )()
+    },[])
     return (
         <ResponsiveContainer height={138}>
-            <BarChart data={salesHistoryWithPast}>
+            <BarChart data={data}>
                 <Tooltip
                     animationEasing={"ease-in-out"}
-                    content={({active, label, payload}) => {
+                    content={({ active, label, payload }) => {
                         return active ? (
-                            <Div sx={{color: "common.white"}}>
+                            <Div sx={{ color: "common.white" }}>
                                 {payload.map((row, index) => {
                                     // console.log(row);
                                     return (
@@ -45,9 +70,9 @@ const SalesReportChart1 = () => {
                     }}
                     cursor={false}
                 />
-                <XAxis dataKey="name" tickLine={false} axisLine={false}/>
-                <Bar dataKey="current" fill="#3bb143" stackId={"a"} maxBarSize={10} barSize={4}/>
-                <Bar dataKey="past" fill="#d1001f" stackId={"a"} maxBarSize={10} barSize={4}/>
+                <XAxis dataKey="name" tickLine={false} axisLine={false} />
+                <Bar dataKey="current" fill="#3bb143" stackId={"a"} maxBarSize={10} barSize={4} />
+                <Bar dataKey="past" fill="#d1001f" stackId={"a"} maxBarSize={10} barSize={4} />
             </BarChart>
         </ResponsiveContainer>
     );

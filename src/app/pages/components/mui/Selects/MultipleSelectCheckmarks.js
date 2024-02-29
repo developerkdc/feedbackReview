@@ -29,8 +29,9 @@ const MultipleSelectCheckmarks = ({ mall, questionId, setMallIds }) => {
     const fetchMappedMalls = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_URL}/mappingQuestion/list`
+          `${process.env.REACT_APP_URL}/mappingQuestion/mall/list`
         );
+        // console.log(response.data);
         const mappedMalls = response.data?.mappedquestion || [];
         setExistingMappedMalls(
           mappedMalls
@@ -44,12 +45,29 @@ const MultipleSelectCheckmarks = ({ mall, questionId, setMallIds }) => {
 
     fetchMappedMalls();
   }, [questionId]);
-  console.log(existingMappedMalls, "-----------------------------");
+
   const handleChange = (event) => {
-    const { value } = event.target;
-    setSelected(value);
-    setMallIds(value.map((e) => e._id));
-    console.log(value, "handleChange");
+    const selectedMalls = event.target.value;
+    const mallIds = selectedMalls.map((e) => e._id);
+
+    // Add new malls
+    const newMalls = mallIds.filter(
+      (mallId) => !existingMappedMalls.includes(mallId)
+    );
+    setExistingMappedMalls([...existingMappedMalls, ...newMalls]);
+
+    // Remove malls that are deselected
+    const removedMalls = existingMappedMalls.filter(
+      (mallId) => !mallIds.includes(mallId)
+    );
+    console.log(removedMalls,"wrwerwerwerwrwrwrwr")
+    setExistingMappedMalls(
+      existingMappedMalls.filter((mallId) => !removedMalls.includes(mallId))
+    );
+
+    // Set selected malls
+    setSelected(selectedMalls);
+    setMallIds(mallIds);
   };
 
   return (
@@ -59,21 +77,21 @@ const MultipleSelectCheckmarks = ({ mall, questionId, setMallIds }) => {
         labelId="demo-multiple-checkbox-label"
         id="demo-multiple-checkbox"
         multiple
-        value={selected}
+        value={mall}
+        size="small"
         onChange={handleChange}
         input={<OutlinedInput label="Tag" />}
         renderValue={(selected) =>
-          selected.map((value) => value.mall_name).join(", ")
+          selected
+            .filter((value) => existingMappedMalls.includes(value._id))
+            .map((value) => `${value.mall_name}`)
+            .join(", ")
         }
         MenuProps={MenuProps}
       >
         {mall.map((name, index) => (
-          <MenuItem key={name._id} value={name.mall_name}>
-            {/* {console.log(existingMappedMalls.includes(name._id))} */}
-            <Checkbox
-              checked={existingMappedMalls.includes(name._id)}
-              disabled={existingMappedMalls.includes(name._id)}
-            />
+          <MenuItem key={name._id} value={name}>
+            <Checkbox checked={existingMappedMalls.includes(name._id)} />
             <ListItemText primary={name.mall_name} />
           </MenuItem>
         ))}

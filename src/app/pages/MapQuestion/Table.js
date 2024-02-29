@@ -10,24 +10,30 @@ import MultipleSelectCheckmarks from "../components/mui/Selects/MultipleSelectCh
 import { Button } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
+import ToastAlerts from "../components/Toast";
 
 export default function BasicTable({ data, mall }) {
   // console.log(data)
   const [mallIds, setMallIds] = React.useState([]);
+  const showAlert = ToastAlerts();
   const handleSubmit = async function (queId) {
     try {
-      // const mapped = await axios.post(`${process.env.REACT_APP_URL}/mappingQuestion`, {
       const mapped = await axios.post(
-        `https://feedbackreviewbackend.onrender.com/mappingQuestion`,
+        `${process.env.REACT_APP_URL}/mappingQuestion`,
         {
+          // const mapped = await axios.post(
+          //   `https://feedbackreviewbackend.onrender.com/mappingQuestion`,
+          //   {
           mallId: mallIds,
           questionId: queId,
         }
       );
       // console.log(mapped)
-      Swal.fire({ title: "<strong>success</strong>", icon: "success" });
+      showAlert("success", "Mapped successfully.");
+      // Swal.fire({ title: "<strong>Success</strong>", icon: "success" });
     } catch (error) {
-      Swal.fire({ title: "<strong>not mapped</strong>", icon: "error" });
+      // Swal.fire({ title: "<strong>Not Mapped</strong>", icon: "error" });
+      showAlert("error", "Failed to map the question.");
     }
   };
   return (
@@ -54,17 +60,17 @@ export default function BasicTable({ data, mall }) {
               <TableCell component="th" scope="row">
                 {row.question}
               </TableCell>
-              {row.typeOf === "singleChoice" && ( 
-                <TableCell align="center">Single Choice</TableCell>
+              {row.typeOf === "singleChoice" && (
+                <TableCell align="left">Single Choice</TableCell>
               )}
               {row.typeOf === "multipleChoice" && (
-                <TableCell align="center">Multiple Choice</TableCell>
+                <TableCell align="left">Multiple Choice</TableCell>
               )}
-              {row.typeOf === "multiLine" && ( 
-                <TableCell align="center">Multiline</TableCell>
+              {row.typeOf === "multiLine" && (
+                <TableCell align="left">Multi Line</TableCell>
               )}
-              {row.typeOf === "stars" && ( 
-                <TableCell align="center">Stars</TableCell>
+              {row.typeOf === "stars" && (
+                <TableCell align="left">Stars</TableCell>
               )}
               <TableCell align="left">{row.options[0]}</TableCell>
               <TableCell align="left">{row.options[1]}</TableCell>

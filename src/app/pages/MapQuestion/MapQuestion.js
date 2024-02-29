@@ -10,7 +10,6 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 export default function MapQuestion() {
-
   const [data, setData] = React.useState([]);
   const [mall, setMall] = React.useState([]);
 
@@ -21,7 +20,6 @@ export default function MapQuestion() {
       // let data = await axios.get(`https://feedbackreviewbackend.onrender.com/questions`);
       let mallList = await axios.get(`${process.env.REACT_APP_URL}/mall`);
       // let mallList = await axios.get(`https://feedbackreviewbackend.onrender.com/mall`);
-      console.log(mallList.data.data);
       setMall(mallList.data.data);
       setData(data.data.question);
     })();
@@ -30,8 +28,7 @@ export default function MapQuestion() {
   return (
     <>
       <JumboDemoCard
-        title={"Questions Table"}
-        //   demoCode={code}
+        title={"Questions List"}
         wrapperSx={{ backgroundColor: "background.paper", pt: 0 }}
       >
         <BasicTable data={data} mall={mall} />
@@ -39,5 +36,3 @@ export default function MapQuestion() {
     </>
   );
 }
-
-

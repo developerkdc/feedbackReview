@@ -62,7 +62,7 @@ const FullWidthTabs = ({ mallId }) => {
       (async () => {
         const questions = await axios.get(
           `${process.env.REACT_APP_URL}/mappingQuestion/${mallId}?type=${
-          // `https://feedbackreviewbackend.onrender.com/mappingQuestion/${mallId}?type=${
+            // `https://feedbackreviewbackend.onrender.com/mappingQuestion/${mallId}?type=${
             value === 0 ? "stars" : ""
           }`
         );
@@ -73,8 +73,16 @@ const FullWidthTabs = ({ mallId }) => {
   }, [mallId, value]);
 
   return (
-    <Div style={{display:"flex", justifyContent:"center",alignItems:"center",marginTop:"50px"}}>
-      <Div sx={{ width: "80%", bgcolor: "background.paper" }}>
+    <Div
+      style={{
+        display: "flex",
+        justifyContent: "left ",
+        alignItems: "center",
+        marginTop: "50px",
+        width: "100%",
+      }}
+    >
+      <Div sx={{ width: "100%", bgcolor: "background.paper" }}>
         <AppBar position="static">
           <Tabs
             value={value}
@@ -84,8 +92,8 @@ const FullWidthTabs = ({ mallId }) => {
             variant="fullWidth"
             aria-label="full width tabs example"
           >
-            <Tab label="Feedback" {...a11yProps(0)} />
-            <Tab label="Survey" {...a11yProps(1)} />
+            <Tab label="Stars" {...a11yProps(0)} />
+            <Tab label="Questions" {...a11yProps(1)} />
           </Tabs>
         </AppBar>
         <SwipeableViews
@@ -99,11 +107,11 @@ const FullWidthTabs = ({ mallId }) => {
                 <TableHead>
                   <TableRow>
                     <TableCell>Questions</TableCell>
-                    <TableCell align="right">Types</TableCell>
-                    <TableCell align="right">Option 1</TableCell>
+                    <TableCell align="left">Types</TableCell>
+                    {/* <TableCell align="right">Option 1</TableCell>
                     <TableCell align="right">Option 2</TableCell>
                     <TableCell align="right">Option 3</TableCell>
-                    <TableCell align="right">Option 4</TableCell>
+                    <TableCell align="right">Option 4</TableCell> */}
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -117,11 +125,31 @@ const FullWidthTabs = ({ mallId }) => {
                       <TableCell component="th" scope="row">
                         {row.questionId.question}
                       </TableCell>
-                      <TableCell align="right">{row.questionId.typeOf}</TableCell>
-                      <TableCell align="right">{row.questionId?.options[0] ? row.questionId?.options[0] : "-"}</TableCell>
-                      <TableCell align="right">{row.questionId?.options[1] ? row.questionId?.options[1] : "-"}</TableCell>
-                      <TableCell align="right">{row.questionId?.options[2] ? row.questionId?.options[2] : "-"}</TableCell>
-                      <TableCell align="right">{row.questionId?.options[3] ? row.questionId?.options[3] : "-"}</TableCell>
+                      <TableCell align="left">
+                        {row.questionId.typeOf == "stars"
+                          ? "Stars"
+                          : row.questionId.typeOf}
+                      </TableCell>
+                      {/* <TableCell align="right">
+                        {row.questionId?.options[0]
+                          ? row.questionId?.options[0]
+                          : "-"}
+                      </TableCell>
+                      <TableCell align="right">
+                        {row.questionId?.options[1]
+                          ? row.questionId?.options[1]
+                          : "-"}
+                      </TableCell>
+                      <TableCell align="right">
+                        {row.questionId?.options[2]
+                          ? row.questionId?.options[2]
+                          : "-"}
+                      </TableCell>
+                      <TableCell align="right">
+                        {row.questionId?.options[3]
+                          ? row.questionId?.options[3]
+                          : "-"}
+                      </TableCell> */}
                     </TableRow>
                   ))}
                 </TableBody>
@@ -134,12 +162,11 @@ const FullWidthTabs = ({ mallId }) => {
                 <TableHead>
                   <TableRow>
                     <TableCell>Questions</TableCell>
-                    <TableCell align="right">Types</TableCell>
-                    <TableCell align="right">Option 1</TableCell>
-                    <TableCell align="right">Option 2</TableCell>
-                    <TableCell align="right">Option 3</TableCell>
-                    <TableCell align="right">Option 4</TableCell>
-                    <TableCell align="right">Location</TableCell>
+                    <TableCell align="left">Types</TableCell>
+                    <TableCell align="left">Option 1</TableCell>
+                    <TableCell align="left">Option 2</TableCell>
+                    <TableCell align="left">Option 3</TableCell>
+                    <TableCell align="left">Option 4</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -153,11 +180,38 @@ const FullWidthTabs = ({ mallId }) => {
                       <TableCell component="th" scope="row">
                         {row.questionId.question}
                       </TableCell>
-                      <TableCell align="right">{row.questionId?.typeOf}</TableCell>
-                      <TableCell align="right">{row.questionId?.options[0] ? row.questionId?.options[0] : "-"}</TableCell>
-                      <TableCell align="right">{row.questionId?.options[1] ? row.questionId?.options[1] : "-"}</TableCell>
-                      <TableCell align="right">{row.questionId?.options[2] ? row.questionId?.options[2] : "-"}</TableCell>
-                      <TableCell align="right">{row.questionId?.options[3] ? row.questionId?.options[3] : "-"}</TableCell>
+                      {row.questionId?.typeOf === "singleChoice" && (
+                        <TableCell align="left">Single Choice</TableCell>
+                      )}
+                      {row.questionId?.typeOf === "multipleChoice" && (
+                        <TableCell align="left">Multiple Choice</TableCell>
+                      )}
+                      {row.questionId?.typeOf === "multiLine" && (
+                        <TableCell align="left">Multi Lines</TableCell>
+                      )}
+                      {row.questionId?.typeOf === "stars" && (
+                        <TableCell align="left">Stars</TableCell>
+                      )}
+                      <TableCell align="left">
+                        {row.questionId?.options[0]
+                          ? row.questionId?.options[0]
+                          : "-"}
+                      </TableCell>
+                      <TableCell align="left">
+                        {row.questionId?.options[1]
+                          ? row.questionId?.options[1]
+                          : "-"}
+                      </TableCell>
+                      <TableCell align="left">
+                        {row.questionId?.options[2]
+                          ? row.questionId?.options[2]
+                          : "-"}
+                      </TableCell>
+                      <TableCell align="left">
+                        {row.questionId?.options[3]
+                          ? row.questionId?.options[3]
+                          : "-"}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -166,7 +220,7 @@ const FullWidthTabs = ({ mallId }) => {
           </TabPanel>
         </SwipeableViews>
       </Div>
-     </Div>
+    </Div>
   );
 };
 export default FullWidthTabs;

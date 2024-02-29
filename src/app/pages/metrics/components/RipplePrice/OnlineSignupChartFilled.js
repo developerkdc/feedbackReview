@@ -5,10 +5,10 @@ import Div from "@jumbo/shared/Div";
 import {capitalizeFLetter} from "@jumbo/utils";
 
 //todo: add ResponsiveContainer and fix the page reload ResponsiveContainer width issue
-const OnlineSignupChartFilled = ({color, shadowColor}) => {
+const OnlineSignupChartFilled = ({color, shadowColor,data}) => {
     return (
         <ResponsiveContainer height={80}>
-            <LineChart data={onlineSignups} className={"mx-auto"}>
+            <LineChart data={data} className={"mx-auto"}>
                 <defs>
                     <filter id="shadow" height="200%">
                         <feDropShadow
@@ -23,6 +23,7 @@ const OnlineSignupChartFilled = ({color, shadowColor}) => {
                         return active ? (
                             <Div sx={{color: "common.white"}}>
                                 {payload.map((row, index) => {
+                                    console.log(row)
                                     return (
                                         <div key={index} className={index !== payload.length - 1 ? "mb-1" : ""}>
                                             <div style={{
@@ -31,7 +32,8 @@ const OnlineSignupChartFilled = ({color, shadowColor}) => {
                                                 letterSpacing: 2,
                                                 textTransform: 'uppercase'
                                             }}>
-                                                {capitalizeFLetter(row.name)}
+                                                {/* {capitalizeFLetter(row.name)} */}
+                                                {capitalizeFLetter(row.payload["month"])}
                                             </div>
                                             <div style={{
                                                 color: row.color

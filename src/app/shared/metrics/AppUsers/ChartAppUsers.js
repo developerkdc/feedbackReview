@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Cell, Pie, PieChart, ResponsiveContainer} from 'recharts';
 import List from "@mui/material/List";
 import {ListItem, ListItemIcon, ListItemText} from "@mui/material";
 import styled from "@emotion/styled";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import axios from 'axios';
 
 const data = [
     {name: '1 Star', value: 30},
@@ -20,7 +21,27 @@ const ListItemInline = styled(ListItem)(({theme}) => ({
     padding: theme.spacing(0, .5),
 }));
 
-const ChartAppUsers = () => {
+const ChartAppUsers = ({mallId}) => {
+    console.log(mallId)
+
+
+    const [data,setData] = useState([]);
+
+    useEffect(()=>{
+        (
+            async function(){
+                try {
+                    const {data} = await axios(`${process.env.REACT_APP_URL}/graph/mallTotalStar?id=${mallId}`);
+                    setData(data.Data.map((e)=> ( {name: `${e._id.star} Star`, value: e.totalStar,index:Number(e._id.star)})))
+                    console.log(data.Data)
+                    
+                } catch (error) {
+                    console.error(error)
+                }
+            }    
+        )()
+    },[mallId])
+
     return (
         <React.Fragment>
             <ResponsiveContainer width="100%" height={140}>
@@ -36,7 +57,7 @@ const ChartAppUsers = () => {
                     >
                         {
                             data.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]}/>
+                                <Cell key={`cell-${entry?.inde-1}`} fill={COLORS[entry?.index-1 % COLORS.length]}/>
                             ))
                         }
                     </Pie>
