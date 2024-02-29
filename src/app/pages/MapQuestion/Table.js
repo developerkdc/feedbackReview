@@ -15,27 +15,61 @@ import ToastAlerts from "../components/Toast";
 export default function BasicTable({ data, mall }) {
   // console.log(data)
   const [mallIds, setMallIds] = React.useState([]);
+  const [removedMallIds, setRemoveMallIds] = React.useState([]);
+  const [mappedQuestions, setMappedQuestion] = React.useState([]);
   const showAlert = ToastAlerts();
   const handleSubmit = async function (queId) {
-    try {
-      const mapped = await axios.post(
-        `${process.env.REACT_APP_URL}/mappingQuestion`,
-        {
-          // const mapped = await axios.post(
-          //   `https://feedbackreviewbackend.onrender.com/mappingQuestion`,
-          //   {
-          mallId: mallIds,
-          questionId: queId,
+    const newMallIds = mallIds.filter(
+      (mallId) => !removedMallIds.includes(mallId)
+    );
+
+    if (removedMallIds.length > 0) {
+      removedMallIds.forEach(async (mallId) => {
+        try {
+          await axios.delete(
+            `${process.env.REACT_APP_URL}/mappingQuestion/${mallId}/${queId}`
+          );
+          showAlert("success", "Removed successfully.");
+        } catch (error) {
+          showAlert("error", "Failed to Unmap the question.");
         }
-      );
-      // console.log(mapped)
-      showAlert("success", "Mapped successfully.");
-      // Swal.fire({ title: "<strong>Success</strong>", icon: "success" });
-    } catch (error) {
-      // Swal.fire({ title: "<strong>Not Mapped</strong>", icon: "error" });
-      showAlert("error", "Failed to map the question.");
+      });
+    }
+
+    if (newMallIds.length > 0) {
+      try {
+        const mapped = await axios.post(
+          `${process.env.REACT_APP_URL}/mappingQuestion`,
+          {
+            mallId: newMallIds,
+            questionId: queId,
+          }
+        );
+        showAlert("success", "Mapped successfully.");
+      } catch (error) {
+        if (error.status == 409) {
+          showAlert("error", error.message);
+        }
+        showAlert("error", "Failed to map the question.");
+      }
     }
   };
+
+  React.useEffect(() => {
+    const fetchMappedMalls = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_URL}/mappingQuestion/mall/list`
+        );
+        console.log(response.data);
+        setMappedQuestion(response?.data?.mappedquestion);
+      } catch (error) {
+        console.error("Error fetching mapped malls:", error);
+      }
+    };
+
+    fetchMappedMalls();
+  }, []);
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -78,9 +112,11 @@ export default function BasicTable({ data, mall }) {
               <TableCell align="left">{row.options[3]}</TableCell>
               <TableCell align="left">
                 <MultipleSelectCheckmarks
+                  mappedQuestions={mappedQuestions}
                   mall={mall}
                   questionId={row._id}
                   setMallIds={setMallIds}
+                  setRemoveMallIds={setRemoveMallIds}
                 />
               </TableCell>
               <TableCell align="left">
