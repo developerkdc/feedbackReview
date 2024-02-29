@@ -31,7 +31,7 @@ const MultipleSelectCheckmarks = ({ mall, questionId, setMallIds }) => {
         const response = await axios.get(
           `${process.env.REACT_APP_URL}/mappingQuestion/mall/list`
         );
-        console.log(response.data);
+        // console.log(response.data);
         const mappedMalls = response.data?.mappedquestion || [];
         setExistingMappedMalls(
           mappedMalls
@@ -60,6 +60,7 @@ const MultipleSelectCheckmarks = ({ mall, questionId, setMallIds }) => {
     const removedMalls = existingMappedMalls.filter(
       (mallId) => !mallIds.includes(mallId)
     );
+    console.log(removedMalls,"wrwerwerwerwrwrwrwr")
     setExistingMappedMalls(
       existingMappedMalls.filter((mallId) => !removedMalls.includes(mallId))
     );
