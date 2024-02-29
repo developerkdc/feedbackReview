@@ -48,12 +48,12 @@ const SalesReportChart1 = () => {
                                                 letterSpacing: 2,
                                                 textTransform: 'uppercase'
                                             }}>
-                                                {capitalizeFLetter(row.name == "past" ? "Negative" : "Positive")}
+                                                {capitalizeFLetter(row.name == "past" ? "Detractor" : "Promoter")}
                                             </div>
                                             <div style={{
                                                 color: row.color
                                             }}
-                                            >{row.value} Feedbacks
+                                            >{row.value} Feedback
                                             </div>
                                         </div>
                                     )

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import {Cell, Pie, PieChart, ResponsiveContainer} from 'recharts';
 import List from "@mui/material/List";
-import {ListItem, ListItemIcon, ListItemText} from "@mui/material";
+import {Chip, ListItem, ListItemIcon, ListItemText} from "@mui/material";
 import styled from "@emotion/styled";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import axios from 'axios';
+import Div from '@jumbo/shared/Div';
 
 const data = [
     {name: '1 Star', value: 30},
@@ -26,25 +27,45 @@ const ChartAppUsers = ({mallId}) => {
 
 
     const [data,setData] = useState([]);
+    const [totalresponse,setTotalresponse] = useState(0);
 
-    useEffect(()=>{
-        (
-            async function(){
-                try {
-                    const {data} = await axios(`${process.env.REACT_APP_URL}/graph/mallTotalStar?id=${mallId}`);
-                    setData(data.Data.map((e)=> ( {name: `${e._id.star} Star`, value: e.totalStar,index:Number(e._id.star)})))
-                    console.log(data.Data)
+    // useEffect(()=>{
+    //     (
+    //         async function(){
+    //             try {
+    //                 const {data} = await axios(`${process.env.REACT_APP_URL}/graph/mallTotalStar?id=${mallId}`);
+    //                 setData(data.Data.map((e)=> ( {name: `${e._id.star} Star`, value: e.totalStar,index:Number(e._id.star)})))
+    //                 console.log(data.Data)
                     
-                } catch (error) {
-                    console.error(error)
-                }
-            }    
-        )()
-    },[mallId])
-
+    //             } catch (error) {
+    //                 console.error(error)
+    //             }
+    //         }    
+    //     )()
+    // },[mallId])
+    useEffect(() => {
+        (async function () {
+            try {
+                const { data } = await axios(`${process.env.REACT_APP_URL}/graph/mallTotalStar?id=${mallId}`);
+                setData(
+                    data.Data.map((e) => ({
+                        totalStar: e._id.star,
+                        star: e._id.star,
+                        index: Number(e._id.star),
+                        value:e.totalStar
+                    }))
+                );
+                console.log(data.Data);
+            } catch (error) {
+                console.error(error);
+            }
+        })();
+    }, [mallId]);
+    console.log(data,"-------------------------------")
     return (
         <React.Fragment>
-            <ResponsiveContainer width="100%" height={140}>
+            <Div sx={{display:"flex",alignItems:"center" }}>
+            <ResponsiveContainer width="50%" height={140} >
                 <PieChart>
                     <Pie
                         data={data}
@@ -57,54 +78,48 @@ const ChartAppUsers = ({mallId}) => {
                     >
                         {
                             data.map((entry, index) => (
-                                <Cell key={`cell-${entry?.inde-1}`} fill={COLORS[entry?.index-1 % COLORS.length]}/>
+                                <Cell key={`cell-${entry?.index-1}`} fill={COLORS[entry?.index-1 % COLORS.length]}/>
                             ))
                         }
                     </Pie>
                 </PieChart>
+
             </ResponsiveContainer>
             <List
                 disablePadding
                 sx={{
                     display: 'flex',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    justifyContent: 'center',
+                    justifyContent: 'flex-start',
                     minWidth: 0,
-                    mt: 1
+                    mt: 1,
+                    flexDirection: 'column',
                 }}
             >
-                <ListItemInline>
-                    <ListItemIcon sx={{minWidth: 16}}>
-                        <FiberManualRecordIcon fontSize={"10px"} sx={{color: COLORS[0]}}/>
-                    </ListItemIcon>
-                    <ListItemText primary="1 Star"/>
-                </ListItemInline>
-                <ListItemInline>
-                    <ListItemIcon sx={{minWidth: 16}}>
-                        <FiberManualRecordIcon fontSize={"10px"} sx={{color: COLORS[1]}}/>
-                    </ListItemIcon>
-                    <ListItemText primary="2 Star"/>
-                </ListItemInline>
-                <ListItemInline>
-                    <ListItemIcon sx={{minWidth: 16}}>
-                        <FiberManualRecordIcon fontSize={"10px"} sx={{color: COLORS[2]}}/>
-                    </ListItemIcon>
-                    <ListItemText primary="3 Star"/>
-                </ListItemInline>
-                <ListItemInline>
-                    <ListItemIcon sx={{minWidth: 16}}>
-                        <FiberManualRecordIcon fontSize={"10px"} sx={{color: COLORS[3]}}/>
-                    </ListItemIcon>
-                    <ListItemText primary="4 Star"/>
-                </ListItemInline>
-                <ListItemInline>
-                    <ListItemIcon sx={{minWidth: 16}}>
-                        <FiberManualRecordIcon fontSize={"10px"} sx={{color: COLORS[4]}}/>
-                    </ListItemIcon>
-                    <ListItemText primary="5 Star"/>
-                </ListItemInline>
+                {data.map((entry, index) => (
+                    <ListItemInline key={index}>
+                        <ListItemIcon sx={{ minWidth: 16 }}>
+                            {Array.from({ length: entry.totalStar }).map((_, i) => (
+                                <svg
+                                    key={i}
+                                    width="25"
+                                    height="25"
+                                    viewBox="0 0 25 25"
+                                    fill={COLORS[entry.index - 1 % COLORS.length]}
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M12 2l2.2 6.6h7.1l-5.7 4.5 2.2 6.6-5.7-4.5-5.7 4.5 2.2-6.6-5.7-4.5h7.1z"
+                                        fill={COLORS[entry.index - 1 % COLORS.length]}
+                                    />
+                                </svg>
+                            ))}
+                        </ListItemIcon>
+                        {/* <ListItemText sx={{padding:"1%"}} primary={`${entry.value}`} /> */}
+                        <Chip label={`${entry.value}`} sx={{margin:'2%'}} />
+                    </ListItemInline>
+                ))}
             </List>
+            </Div>
         </React.Fragment>
     );
 };

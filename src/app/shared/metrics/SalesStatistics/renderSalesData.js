@@ -24,21 +24,25 @@ const Item = styled("div")(({ theme }) => ({
 const RenderSalesData = ({ mallId }) => {
 
     const [data, setData] = useState([]);
+    const [mallData, setMallData] = useState([]);
 
+console.log(mallId,"299999999999");
     useEffect(() => {
         (
             async function () {
                 try {
                     const { data } = await axios(`${process.env.REACT_APP_URL}/graph/averages?id=${mallId}`);
+                    const malldata = await axios(`${process.env.REACT_APP_URL}/graph/mallMonthResult?id=${mallId}`);
                     setData(data?.Data?.[0]);
-
+                    setMallData(malldata?.data?.Data)
+                    console.log(malldata.data,"3888");
                 } catch (error) {
                     console.error(error)
                 }
             }
         )()
     }, [mallId])
-
+console.log(mallData.length);
     return (
         <Stack
             direction={"row"}
@@ -48,24 +52,24 @@ const RenderSalesData = ({ mallId }) => {
             <Item>
                 <Typography variant={"body1"} color={"common.white"} mb={1}>
                     <DateRangeIcon fontSize={"small"} sx={{ verticalAlign: "middle", mr: 1, mt: -.5 }} />
-                    {Number(data?.monthAverage).toFixed(2)}
+                    {Number((data?.totalCount)/mallData.length).toFixed(2)}
                 </Typography>
                 <Typography variant={"h6"} color={"common.white"} mb={0}>{"Monthly Average"}</Typography>
             </Item>
             <Item>
                 <Typography variant={"body1"} color={"common.white"} mb={1}>
                     <DateRangeIcon fontSize={"small"} sx={{ verticalAlign: "middle", mr: 1, mt: -.5 }} />
-                    {Number(data?.weekAverage).toFixed(2)}
+                    {Number((data?.totalCount)/(mallData.length * 4)).toFixed(2)}
                 </Typography>
                 <Typography variant={"h6"} color={"common.white"} mb={0}>{"Weekly Average"}</Typography>
             </Item>
-            <Item>
+            {/* <Item>
                 <Typography variant={"body1"} color={"common.white"} mb={1}>
                     <DateRangeIcon fontSize={"small"} sx={{ verticalAlign: "middle", mr: 1, mt: -.5 }} />
                     {Math.round(Number(data?.average).toFixed(2))}
                 </Typography>
                 <Typography variant={"h6"} color={"common.white"} mb={0}>{"Average"}</Typography>
-            </Item>
+            </Item> */}
             <Item>
                 <Typography variant={"body1"} color={"common.white"} mb={1}>
                     <DateRangeIcon fontSize={"small"} sx={{ verticalAlign: "middle", mr: 1, mt: -.5 }} />

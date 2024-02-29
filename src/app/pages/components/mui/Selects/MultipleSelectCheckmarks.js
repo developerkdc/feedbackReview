@@ -1,101 +1,80 @@
 import React, { useEffect, useState } from "react";
-import {
-  Checkbox,
-  FormControl,
-  InputLabel,
-  ListItemText,
-  MenuItem,
-  OutlinedInput,
-  Select,
-} from "@mui/material";
-import axios from "axios";
+import { Autocomplete, Checkbox, FormControl, TextField } from "@mui/material";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-const MultipleSelectCheckmarks = ({ mall, questionId, setMallIds }) => {
-  const [selected, setSelected] = useState([]);
+const MultipleSelectCheckmarks = ({
+  mall,
+  questionId,
+  setMallIds,
+  mappedQuestions,
+  setRemoveMallIds,
+}) => {
+  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+  const checkedIcon = <CheckBoxIcon fontSize="small" />;
   const [existingMappedMalls, setExistingMappedMalls] = useState([]);
 
   useEffect(() => {
-    const fetchMappedMalls = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_URL}/mappingQuestion/mall/list`
-        );
-        // console.log(response.data);
-        const mappedMalls = response.data?.mappedquestion || [];
-        setExistingMappedMalls(
-          mappedMalls
-            .filter((mapping) => mapping.questionId === questionId)
-            .map((mapping) => mapping.mallId)
-        );
-      } catch (error) {
-        console.error("Error fetching mapped malls:", error);
-      }
-    };
-
-    fetchMappedMalls();
-  }, [questionId]);
-
-  const handleChange = (event) => {
-    const selectedMalls = event.target.value;
-    const mallIds = selectedMalls.map((e) => e._id);
-
-    // Add new malls
-    const newMalls = mallIds.filter(
-      (mallId) => !existingMappedMalls.includes(mallId)
-    );
-    setExistingMappedMalls([...existingMappedMalls, ...newMalls]);
-
-    // Remove malls that are deselected
-    const removedMalls = existingMappedMalls.filter(
-      (mallId) => !mallIds.includes(mallId)
-    );
-    console.log(removedMalls,"wrwerwerwerwrwrwrwr")
     setExistingMappedMalls(
-      existingMappedMalls.filter((mallId) => !removedMalls.includes(mallId))
+      mappedQuestions
+        .filter((mapping) => mapping.questionId === questionId)
+        .map((mapping) => mall.find((item) => item._id === mapping.mallId))
     );
+  }, [questionId, mall, mappedQuestions]);
 
-    // Set selected malls
-    setSelected(selectedMalls);
-    setMallIds(mallIds);
+  // const handleChange = (event, value) => {
+  //   const selectedMallIds = value.map((mall) => mall._id);
+  //   const removedMallIds = existingMappedMalls
+  //     .filter((mall) => !selectedMallIds.includes(mall._id))
+  //     .map((mall) => mall._id);
+  //   const addedMallIds = selectedMallIds
+  //     .filter(
+  //       (mallId) => !existingMappedMalls.some((mall) => mall._id === mallId)
+  //     )
+  //     .filter((mallId) => !removedMallIds.includes(mallId));
+  //   setMallIds(selectedMallIds);
+  //   setRemoveMallIds(removedMallIds);
+  //   setExistingMappedMalls(value);
+  // };
+  const handleChange = (event, value) => {
+    const selectedMallIds = value.map((mall) => mall._id);
+    const removedMallIds = existingMappedMalls
+      .filter((mall) => !selectedMallIds.includes(mall._id))
+      .map((mall) => mall._id); 
+    setMallIds(selectedMallIds);
+    setRemoveMallIds(removedMallIds);
+    setExistingMappedMalls(value);
   };
 
   return (
     <FormControl sx={{ m: 1, width: 300 }}>
-      <InputLabel id="demo-multiple-checkbox-label">Malls</InputLabel>
-      <Select
-        labelId="demo-multiple-checkbox-label"
-        id="demo-multiple-checkbox"
+      <Autocomplete
         multiple
-        value={mall}
+        id="checkboxes-tags-demo"
+        options={mall}
+        disableCloseOnSelect
+        getOptionLabel={(option) => option.mall_name}
+        renderOption={(props, option) => (
+          <li {...props}>
+            <Checkbox
+              icon={icon}
+              checkedIcon={checkedIcon}
+              style={{ marginRight: 8 }}
+              checked={existingMappedMalls.some(
+                (mall) => mall._id === option._id
+              )}
+            />
+            {option.mall_name}
+          </li>
+        )}
         size="small"
+        style={{ width: 400 }}
+        value={existingMappedMalls}
         onChange={handleChange}
-        input={<OutlinedInput label="Tag" />}
-        renderValue={(selected) =>
-          selected
-            .filter((value) => existingMappedMalls.includes(value._id))
-            .map((value) => `${value.mall_name}`)
-            .join(", ")
-        }
-        MenuProps={MenuProps}
-      >
-        {mall.map((name, index) => (
-          <MenuItem key={name._id} value={name}>
-            <Checkbox checked={existingMappedMalls.includes(name._id)} />
-            <ListItemText primary={name.mall_name} />
-          </MenuItem>
-        ))}
-      </Select>
+        renderInput={(params) => (
+          <TextField {...params} label="Malls" placeholder="Select Malls" />
+        )}
+      />
     </FormControl>
   );
 };
