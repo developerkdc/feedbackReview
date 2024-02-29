@@ -13,8 +13,9 @@ import AppUsers from "../AppUsers";
 import ChartAppUsers from "../AppUsers/ChartAppUsers";
 import CreditScoreChart from "../CreditScore/CreditScoreChart";
 import JumboCardQuick from "@jumbo/components/JumboCardQuick";
+import RenderSalesData from "./renderSalesData";
 
-const SalesStatistics = () => {
+const SalesStatistics = ({mallId}) => {
   const { t } = useTranslation();
   const theme = useTheme();
   return (
@@ -33,7 +34,8 @@ const SalesStatistics = () => {
         bgColor={(theme) => theme.palette.primary.main}
         sx={{ color: "common.white" }}
       >
-        {renderSalesData()}
+        {/* {renderSalesData()} */}
+        <RenderSalesData mallId={mallId}/>
       </JumboContent>
       <JumboContent>
         <Grid container>
@@ -43,7 +45,7 @@ const SalesStatistics = () => {
                 p: (theme) => theme.spacing(3, 2, 3, 0),
               }}
             >
-              <LineChartSales />
+              <LineChartSales mallId={mallId}/>
             </Div>
           </Grid>
           <Grid item xs={12} lg={6}>
