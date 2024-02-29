@@ -35,7 +35,7 @@ const RipplePrice = ({ mall }) => {
                 console.error(error)
             }
         })()
-    }, []);
+    }, []); 
 
     return (
         <JumboCardQuick

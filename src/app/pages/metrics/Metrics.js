@@ -114,7 +114,7 @@ const MetricsPage = () => {
         <Grid item xs={3} md={3} lg={3}>
           <Box sx={{ my: "15px" }}>
             <FormControl sx={{ minWidth: 320 }} size="small">
-              <InputLabel id="Types">malls</InputLabel>
+              <InputLabel id="Types">Malls</InputLabel>
               <Select
                 labelId="types-label"
                 id="Types"
