@@ -26,6 +26,7 @@ export default function Customer() {
       render: (_, elm) => elm.user.name,
     },
     { field: "mall.name", headerName: "Mall Name", sortable: true, render: (_, elm) => elm.mall.name },
+    { field: "ratingAvg", headerName: "Average Rating", sortable: true, render: (_, elm) => `${elm.ratingAvg} / 5` },
     { field: "email_id", headerName: "Email Id", sortable: true, render: (_, elm) => elm.user.email },
     { field: "mobile_no", headerName: "Mobile", sortable: true, render: (_, elm) => elm.user.contact },
     { field: "city", headerName: "City", sortable: true, render: (_, elm) => elm.user.city },
