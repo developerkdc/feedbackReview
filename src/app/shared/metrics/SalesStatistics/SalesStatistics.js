@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Grid, Typography } from "@mui/material";
 import LineChartSales from "./LineChartSales";
 import ChartOrderRevenue from "./ChartOrderRevenue";
@@ -14,10 +14,24 @@ import ChartAppUsers from "../AppUsers/ChartAppUsers";
 import CreditScoreChart from "../CreditScore/CreditScoreChart";
 import JumboCardQuick from "@jumbo/components/JumboCardQuick";
 import RenderSalesData from "./renderSalesData";
+import axios from "axios";
 
-const SalesStatistics = ({mallId}) => {
+const SalesStatistics = ({ mallId }) => {
   const { t } = useTranslation();
   const theme = useTheme();
+  const [totalFeedback, setTotalFeedback] = useState(0);
+  useEffect(() => {
+    (async function () {
+      try {
+        const { data } = await axios(
+          `${process.env.REACT_APP_URL}/graph/averages?id=${mallId}`
+        );
+        setTotalFeedback(data?.Data[0]?.totalCount);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, [mallId]);
   return (
     <Card>
       <JumboContent
@@ -35,7 +49,7 @@ const SalesStatistics = ({mallId}) => {
         sx={{ color: "common.white" }}
       >
         {/* {renderSalesData()} */}
-        <RenderSalesData mallId={mallId}/>
+        <RenderSalesData mallId={mallId} />
       </JumboContent>
       <JumboContent>
         <Grid container>
@@ -45,7 +59,7 @@ const SalesStatistics = ({mallId}) => {
                 p: (theme) => theme.spacing(3, 2, 3, 0),
               }}
             >
-              <LineChartSales mallId={mallId}/>
+              <LineChartSales mallId={mallId} />
             </Div>
           </Grid>
           <Grid item xs={12} lg={6}>
@@ -66,13 +80,13 @@ const SalesStatistics = ({mallId}) => {
               <JumboCardQuick
                 // title={t("widgets.title.creditScore")}
                 title={"Net Promoter Score"}
-                subheader={"Out of 3874 feedbacks"}
+                subheader={`Out of ${totalFeedback} feedbacks`}
                 sx={{
                   textAlign: "center",
                 }}
                 wrapperSx={{ pt: 0 }}
               >
-                <CreditScoreChart score={750} />
+                <CreditScoreChart score={100} mallId={mallId} />
               </JumboCardQuick>
             </Div>
           </Grid>
