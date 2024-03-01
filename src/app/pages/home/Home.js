@@ -26,7 +26,7 @@ export default function Home() {
   };
   const handleSubmit = async () => {
     try {
-      // await axios.post(`${process.env.REACT_APP_URL}/questions`, {
+      // await axios.post(`https://feedbackreviewbackend.onrender.com/questions`, {
       await axios.post(`https://feedbackreviewbackend.onrender.com/questions`, {
         question: Questions,
         typeOf: QuestionType,
@@ -50,14 +50,21 @@ export default function Home() {
       >
         <div>
           <FormControl defaultValue="" required>
-          <Typography variant="h5" mb={1} mt={1}>
+            <Typography variant="h5" mb={1} mt={1}>
               Question
             </Typography>
-            <StyledInput placeholder="Write your Question here" value={Questions} onChange={handleQuestion} />
+            <StyledInput
+              placeholder="Write your Question here"
+              value={Questions}
+              onChange={handleQuestion}
+            />
             <HelperText />
             <BasicSelect
               options={[
-                { name: "Multiple Choice: Single option", value: "singleChoice" },
+                {
+                  name: "Multiple Choice: Single option",
+                  value: "singleChoice",
+                },
                 { name: "Multiple Option ", value: "multipleChoice" },
                 { name: "Multi Line ", value: "multiLine" },
                 { name: "Star", value: "stars" },
@@ -66,7 +73,8 @@ export default function Home() {
               value={QuestionType}
             />
             <HelperText />
-            {QuestionType == "singleChoice" || QuestionType == "multipleChoice" ? (
+            {QuestionType == "singleChoice" ||
+            QuestionType == "multipleChoice" ? (
               <div style={{ marginTop: "10px" }}>
                 <div style={{ display: "flex" }}>
                   <div style={{ marginBottom: "10px" }}>
@@ -79,7 +87,11 @@ export default function Home() {
                       value={optionInput}
                       onChange={(e) => setOptionInput(e.target.value)}
                     />
-                    <Button variant="contained" size="small" onClick={handleAddOption}>
+                    <Button
+                      variant="contained"
+                      size="small"
+                      onClick={handleAddOption}
+                    >
                       Add
                     </Button>
                   </div>
@@ -94,7 +106,14 @@ export default function Home() {
           </FormControl>
         </div>
         {multipleOptions && multipleOptions.length > 0 && (
-          <div style={{ display: "block", marginLeft: "80px", height:"200px", width:"300px" }}>
+          <div
+            style={{
+              display: "block",
+              marginLeft: "80px",
+              height: "200px",
+              width: "300px",
+            }}
+          >
             <Typography variant="h5" mb={1} mt={1}>
               Options
             </Typography>
@@ -132,7 +151,9 @@ const StyledInput = styled(Input)(
     }
 
     &:focus {
-      outline: 3px solid ${theme.palette.mode === "dark" ? blue[600] : blue[100]};
+      outline: 3px solid ${
+        theme.palette.mode === "dark" ? blue[600] : blue[100]
+      };
     }
   }
 `

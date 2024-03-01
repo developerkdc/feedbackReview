@@ -58,7 +58,10 @@ export default function ListMall() {
             cancelButtonText: "No",
           });
           if (result.isConfirmed) {
-            await axios.patch(`${process.env.REACT_APP_URL}/mall/${elm._id}`, { status: !status });
+            await axios.patch(
+              `https://feedbackreviewbackend.onrender.com/mall/${elm._id}`,
+              { status: !status }
+            );
             showAlert("success", "User status updated successfully.");
             navigate("/mall");
             setQuery({ ...query, search: searchTerm });
@@ -118,10 +121,11 @@ export default function ListMall() {
 
   useEffect(() => {
     (async () => {
-      let apiUrl = `${process.env.REACT_APP_URL}/mall`;
+      let apiUrl = `https://feedbackreviewbackend.onrender.com/mall`;
       if (query) {
         const queryParams = new URLSearchParams(query);
-        apiUrl = apiUrl + (queryParams.toString() ? `?${queryParams.toString()}` : "");
+        apiUrl =
+          apiUrl + (queryParams.toString() ? `?${queryParams.toString()}` : "");
       }
       try {
         let data = await axios.get(apiUrl);
@@ -177,7 +181,12 @@ export default function ListMall() {
             }}
           />
           <Div>
-            <Button size="small" variant="contained" sx={{ p: 1, pl: 4, pr: 4 }} onClick={() => navigate("/mall-add")}>
+            <Button
+              size="small"
+              variant="contained"
+              sx={{ p: 1, pl: 4, pr: 4 }}
+              onClick={() => navigate("/mall-add")}
+            >
               Add Mall
             </Button>
           </Div>
@@ -194,7 +203,13 @@ export default function ListMall() {
           totalCount={mallDetails.totalPages || 0}
         />
       </Div>
-      {openView && singleMallDetails && <ViewUser openView={openView} setOpenView={setOpenView} data={singleMallDetails} />}
+      {openView && singleMallDetails && (
+        <ViewUser
+          openView={openView}
+          setOpenView={setOpenView}
+          data={singleMallDetails}
+        />
+      )}
     </Div>
   );
 }

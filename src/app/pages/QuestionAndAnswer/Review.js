@@ -6,7 +6,16 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Box, Card, FormControl, InputLabel, List, MenuItem, Select, TextField } from "@mui/material";
+import {
+  Box,
+  Card,
+  FormControl,
+  InputLabel,
+  List,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import { Button } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -23,9 +32,9 @@ export default function Review() {
 
   const reviewCall = async function () {
     try {
-      if(mallName){
+      if (mallName) {
         const review = await axios.get(
-          `${process.env.REACT_APP_URL}/RatingAndReviews?type=all&mallId=${mallName}`
+          `https://feedbackreviewbackend.onrender.com/RatingAndReviews?type=all&mallId=${mallName}`
           // `https://feedbackreviewbackend.onrender.com/RatingAndReviews?type=all&mallId=${mallName}`
         );
         setReview(review.data);
@@ -37,27 +46,29 @@ export default function Review() {
 
   React.useEffect(() => {
     const getMall = async () => {
-      const mallList = await axios.get(`${process.env.REACT_APP_URL}/mall`);
+      const mallList = await axios.get(
+        `https://feedbackreviewbackend.onrender.com/mall`
+      );
       // const mallList = await axios.get(`https://feedbackreviewbackend.onrender.com/mall`);
       setMallList(mallList.data.data);
-      setMallname(mallList.data.data[0]._id)
-    }
+      setMallname(mallList.data.data[0]._id);
+    };
     getMall();
   }, []);
 
   React.useEffect(() => {
     // reviewCall()
   }, [mallName]);
-console.log(mallName);
+  console.log(mallName);
   return (
     <>
-      <Box sx={{ marginBottom: '30px' }}>
+      <Box sx={{ marginBottom: "30px" }}>
         <FormControl sx={{ minWidth: 320 }} size="small">
           <InputLabel id="Types">malls</InputLabel>
           <Select
             labelId="types-label"
             id="Types"
-            value={mallName || ''}
+            value={mallName || ""}
             label="Types"
             onChange={(event) => handleChange(event)}
           >
@@ -68,7 +79,7 @@ console.log(mallName);
             ))}
           </Select>
         </FormControl>
-          <QandA mallId={mallName} />
+        <QandA mallId={mallName} />
       </Box>
     </>
   );

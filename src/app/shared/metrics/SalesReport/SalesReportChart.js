@@ -1,9 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import {Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts';
-import {salesHistoryWithPast} from "./data";
+import React, { useEffect, useState } from "react";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import { salesHistoryWithPast } from "./data";
 import Div from "@jumbo/shared/Div";
-import {capitalizeFLetter} from "@jumbo/utils";
-import axios from 'axios';
+import { capitalizeFLetter } from "@jumbo/utils";
+import axios from "axios";
 // const data = [
 //     { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
 //     { name: 'Page B', uv: 3000, pv: 1398, amt: 2210 },
@@ -19,30 +28,32 @@ import axios from 'axios';
 //     { name: 'Page G', uv: 3490, pv: 4300, amt: 2100 },
 //   ];
 
-const SalesReportChart = ({mallId}) => {
-    const [data,setData] = useState([]);
-    useEffect(() => {
-        (async function () {
-            try {
-                const { data } = await axios(`${process.env.REACT_APP_URL}/graph/citywiseResult?id=${mallId}`);
-                let res= data?.Data[0];
-                setData(
-                    res?.cities?.map((e) => ({
-                        name: e.city,
-                        city: e.count,
-                        // index: Number(e._id.star),
-                        // value:e.totalStar
-                    }))
-                );
-                // console.log(res,"city36666666");
-            } catch (error) {
-                console.error(error);
-            }
-        })();
-    }, [mallId]);
-    return (
-        <ResponsiveContainer height={215}>
-            {/* <BarChart data={salesHistoryWithPast}>
+const SalesReportChart = ({ mallId }) => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    (async function () {
+      try {
+        const { data } = await axios(
+          `https://feedbackreviewbackend.onrender.com/graph/citywiseResult?id=${mallId}`
+        );
+        let res = data?.Data[0];
+        setData(
+          res?.cities?.map((e) => ({
+            name: e.city,
+            city: e.count,
+            // index: Number(e._id.star),
+            // value:e.totalStar
+          }))
+        );
+        // console.log(res,"city36666666");
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, [mallId]);
+  return (
+    <ResponsiveContainer height={215}>
+      {/* <BarChart data={salesHistoryWithPast}>
                 <Tooltip
                     animationEasing={"ease-in-out"}
                     content={({active, label, payload}) => {
@@ -82,29 +93,33 @@ const SalesReportChart = ({mallId}) => {
                 <Bar dataKey="current" fill="#9046EB" stackId={"a"} maxBarSize={10} barSize={4}/>
                 <Bar dataKey="past" fill="#7B92D8" stackId={"a"} maxBarSize={10} barSize={4}/>
             </BarChart> */}
-              <BarChart data={data} margin={{top: 0, right: 0, left: 0, bottom: 0}}>
-                <XAxis dataKey="name"/>
-                <YAxis/>
-                <CartesianGrid strokeDasharray="2 2"/>
-                <Tooltip labelStyle={{color: 'black'}} itemStyle={{color: 'black'}} cursor={false}/>
-                <Legend/>
-                <defs>
-                    <linearGradient x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#6200EE" stopOpacity={1}/>
-                        <stop offset="95%" stopColor="#B819D2" stopOpacity={1}/>
-                    </linearGradient>
-                </defs>
-                <defs>
-                    <linearGradient x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#1ABBDE" stopOpacity={1}/>
-                        <stop offset="95%" stopColor="#09BCA7" stopOpacity={1}/>
-                    </linearGradient>
-                </defs>
-                <Bar dataKey="city" fill={"#1e88e5"}/>
-                {/* <Bar dataKey="uv" fill={"#e91e63"}/> */}
-            </BarChart>
-        </ResponsiveContainer>
-    );
+      <BarChart data={data} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+        <XAxis dataKey="name" />
+        <YAxis />
+        <CartesianGrid strokeDasharray="2 2" />
+        <Tooltip
+          labelStyle={{ color: "black" }}
+          itemStyle={{ color: "black" }}
+          cursor={false}
+        />
+        <Legend />
+        <defs>
+          <linearGradient x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#6200EE" stopOpacity={1} />
+            <stop offset="95%" stopColor="#B819D2" stopOpacity={1} />
+          </linearGradient>
+        </defs>
+        <defs>
+          <linearGradient x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#1ABBDE" stopOpacity={1} />
+            <stop offset="95%" stopColor="#09BCA7" stopOpacity={1} />
+          </linearGradient>
+        </defs>
+        <Bar dataKey="city" fill={"#1e88e5"} />
+        {/* <Bar dataKey="uv" fill={"#e91e63"}/> */}
+      </BarChart>
+    </ResponsiveContainer>
+  );
 };
 
 export default SalesReportChart;

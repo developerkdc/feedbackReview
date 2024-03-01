@@ -1,7 +1,13 @@
 import Div from "@jumbo/shared/Div/Div";
 import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import { Autocomplete, Button, InputAdornment, TextField, Typography } from "@mui/material";
+import {
+  Autocomplete,
+  Button,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import PreviewOutlinedIcon from "@mui/icons-material/PreviewOutlined";
 import Swal from "sweetalert2";
@@ -25,11 +31,36 @@ export default function Customer() {
       sortable: true,
       render: (_, elm) => elm.user.name,
     },
-    { field: "mall.name", headerName: "Mall Name", sortable: true, render: (_, elm) => elm.mall.name },
-    { field: "ratingAvg", headerName: "Average Rating", sortable: true, render: (_, elm) => `${elm.ratingAvg} / 5` },
-    { field: "email_id", headerName: "Email Id", sortable: true, render: (_, elm) => elm.user.email },
-    { field: "mobile_no", headerName: "Mobile", sortable: true, render: (_, elm) => elm.user.contact },
-    { field: "city", headerName: "City", sortable: true, render: (_, elm) => elm.user.city },
+    {
+      field: "mall.name",
+      headerName: "Mall Name",
+      sortable: true,
+      render: (_, elm) => elm.mall.name,
+    },
+    {
+      field: "ratingAvg",
+      headerName: "Average Rating",
+      sortable: true,
+      render: (_, elm) => `${elm.ratingAvg} / 5`,
+    },
+    {
+      field: "email_id",
+      headerName: "Email Id",
+      sortable: true,
+      render: (_, elm) => elm.user.email,
+    },
+    {
+      field: "mobile_no",
+      headerName: "Mobile",
+      sortable: true,
+      render: (_, elm) => elm.user.contact,
+    },
+    {
+      field: "city",
+      headerName: "City",
+      sortable: true,
+      render: (_, elm) => elm.user.city,
+    },
     {
       field: "created_at",
       headerName: "Date/Time",
@@ -77,7 +108,9 @@ export default function Customer() {
     console.log("object");
     (async () => {
       try {
-        let data = await axios.get(`${process.env.REACT_APP_URL}/mall`);
+        let data = await axios.get(
+          `https://feedbackreviewbackend.onrender.com/mall`
+        );
         console.log(data?.data?.data);
         setMallList(data?.data?.data);
       } catch (error) {
@@ -92,10 +125,11 @@ export default function Customer() {
 
   useEffect(() => {
     (async () => {
-      let apiUrl = `${process.env.REACT_APP_URL}/RatingAndReviews/user`;
+      let apiUrl = `https://feedbackreviewbackend.onrender.com/RatingAndReviews/user`;
       if (query) {
         const queryParams = new URLSearchParams(query);
-        apiUrl = apiUrl + (queryParams.toString() ? `?${queryParams.toString()}` : "");
+        apiUrl =
+          apiUrl + (queryParams.toString() ? `?${queryParams.toString()}` : "");
       }
       try {
         let data = await axios.get(apiUrl);
@@ -140,11 +174,21 @@ export default function Customer() {
             />
 
             <Div sx={{ display: "flex", gap: 1, flex: "1" }}>
-              <Button size="small" variant="outlined" sx={{ mt: 1, height: "35px" }} onClick={handleFilter}>
+              <Button
+                size="small"
+                variant="outlined"
+                sx={{ mt: 1, height: "35px" }}
+                onClick={handleFilter}
+              >
                 Apply
               </Button>
 
-              <Button size="small" variant="outlined" sx={{ mt: 1, height: "35px" }} onClick={handleClearFilter}>
+              <Button
+                size="small"
+                variant="outlined"
+                sx={{ mt: 1, height: "35px" }}
+                onClick={handleClearFilter}
+              >
                 Clear
               </Button>
             </Div>

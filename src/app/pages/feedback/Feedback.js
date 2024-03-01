@@ -13,7 +13,9 @@ export default function Feedback() {
   };
 
   React.useEffect(async () => {
-    const mall = await axios.get(`${process.env.REACT_APP_URL}/mall`);
+    const mall = await axios.get(
+      `https://feedbackreviewbackend.onrender.com/mall`
+    );
     // const mall = await axios.get(`https://feedbackreviewbackend.onrender.com/mall`);
     setMall(mall.data.data);
     setMallname(mall?.data?.data[0]?._id);
@@ -37,7 +39,7 @@ export default function Feedback() {
           </Select>
         </FormControl>
       </Box>
-      <JumboDemoCard wrapperSx={{ backgroundColor: "background.paper", pt: 0,}}>
+      <JumboDemoCard wrapperSx={{ backgroundColor: "background.paper", pt: 0 }}>
         <FullWidthTabs mallId={mallName} />
       </JumboDemoCard>
     </>

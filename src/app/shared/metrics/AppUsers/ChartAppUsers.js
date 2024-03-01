@@ -32,7 +32,7 @@ const ChartAppUsers = ({ mallId }) => {
   //     (
   //         async function(){
   //             try {
-  //                 const {data} = await axios(`${process.env.REACT_APP_URL}/graph/mallTotalStar?id=${mallId}`);
+  //                 const {data} = await axios(`https://feedbackreviewbackend.onrender.com/graph/mallTotalStar?id=${mallId}`);
   //                 setData(data.Data.map((e)=> ( {name: `${e._id.star} Star`, value: e.totalStar,index:Number(e._id.star)})))
   //                 console.log(data.Data)
 
@@ -46,7 +46,7 @@ const ChartAppUsers = ({ mallId }) => {
     (async function () {
       try {
         const { data } = await axios(
-          `${process.env.REACT_APP_URL}/graph/mallTotalStar?id=${mallId}`
+          `https://feedbackreviewbackend.onrender.com/graph/mallTotalStar?id=${mallId}`
         );
         setData(
           data.Data.map((e) => ({

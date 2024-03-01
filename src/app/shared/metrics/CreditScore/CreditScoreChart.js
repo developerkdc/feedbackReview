@@ -15,7 +15,7 @@ const CreditScoreChart = ({ score, mallId }) => {
     (async function () {
       try {
         const response = await axios(
-          `${process.env.REACT_APP_URL}/graph/mallTotalStar?id=${mallId}`
+          `https://feedbackreviewbackend.onrender.com/graph/mallTotalStar?id=${mallId}`
         );
         const data = response.data?.Data || [];
         setFeedbackData(data);

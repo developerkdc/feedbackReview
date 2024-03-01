@@ -41,7 +41,12 @@ export default function CustomerReview() {
           variant="h1"
           gutterBottom
           textAlign="center"
-          sx={{ backgroundColor: "#7352C7", p: 2, borderRadius: "5px", color: "white" }}
+          sx={{
+            backgroundColor: "#7352C7",
+            p: 2,
+            borderRadius: "5px",
+            color: "white",
+          }}
         >
           Customer Details
         </Typography>
@@ -93,13 +98,26 @@ export default function CustomerReview() {
               >
                 <ListItemText
                   primary={
-                    <Typography fontSize="12px" variant="h6" color="text.secondary" mb={0.5} sx={{ textTransform: "capitalize" }}>
+                    <Typography
+                      fontSize="12px"
+                      variant="h6"
+                      color="text.secondary"
+                      mb={0.5}
+                      sx={{ textTransform: "capitalize" }}
+                    >
                       {key}
                     </Typography>
                   }
                   secondary={
-                    <Typography variant="body1" color="text.primary" sx={{ textTransform: "capitalize" }}>
-                      {key === "dob" ? new Date(value).toLocaleDateString() : value || "--"} {/* Format dob value as date */}
+                    <Typography
+                      variant="body1"
+                      color="text.primary"
+                      sx={{ textTransform: "capitalize" }}
+                    >
+                      {key === "dob"
+                        ? new Date(value).toLocaleDateString()
+                        : value || "--"}{" "}
+                      {/* Format dob value as date */}
                     </Typography>
                   }
                 />
@@ -115,7 +133,13 @@ export default function CustomerReview() {
           >
             <ListItemText
               primary={
-                <Typography fontSize="12px" variant="h6" color="text.secondary" mb={0.5} sx={{ textTransform: "capitalize" }}>
+                <Typography
+                  fontSize="12px"
+                  variant="h6"
+                  color="text.secondary"
+                  mb={0.5}
+                  sx={{ textTransform: "capitalize" }}
+                >
                   Bill Image
                 </Typography>
               }
@@ -126,16 +150,27 @@ export default function CustomerReview() {
                     src={`http://localhost:8000/public/${user.bill}`}
                     alt="imgBill"
                     onClick={() => setOpen(true)}
-                    style={{ cursor: "pointer", height: "100px", width: "100px", border: "1px solid", padding: 2, borderRadius: "5px" }}
+                    style={{
+                      cursor: "pointer",
+                      height: "100px",
+                      width: "100px",
+                      border: "1px solid",
+                      padding: 2,
+                      borderRadius: "5px",
+                    }}
                   />
                   {/* <ImagePopup imageUrl={`http://localhost:8000/public/1709099364340-bill%20sample.png`} open={open} setOpen={setOpen} /> */}
-                  <ImagePopup imageUrl={`http://localhost:8000/public/${user.bill}`} open={open} setOpen={setOpen} />
+                  <ImagePopup
+                    imageUrl={`http://localhost:8000/public/${user.bill}`}
+                    open={open}
+                    setOpen={setOpen}
+                  />
                 </Div>
               }
             />
           </ListItem>
         </List>
-        {/* {console.log(`${process.env.REACT_APP_URL}${process.env.REACT_APP_IMAGES_PATH}/${user.bill}`)} */}
+        {/* {console.log(`https://feedbackreviewbackend.onrender.com${process.env.REACT_APP_IMAGES_PATH}/${user.bill}`)} */}
         <Divider variant="fullWidth" />
         <ListItem
           sx={{
@@ -146,12 +181,22 @@ export default function CustomerReview() {
         >
           <ListItemText
             primary={
-              <Typography fontSize="12px" variant="h6" color="text.secondary" mb={0.5} sx={{ textTransform: "capitalize" }}>
+              <Typography
+                fontSize="12px"
+                variant="h6"
+                color="text.secondary"
+                mb={0.5}
+                sx={{ textTransform: "capitalize" }}
+              >
                 FeedBack
               </Typography>
             }
             secondary={
-              <Typography variant="body1" color="text.primary" sx={{ textTransform: "capitalize" }}>
+              <Typography
+                variant="body1"
+                color="text.primary"
+                sx={{ textTransform: "capitalize" }}
+              >
                 {user?.feedback || "--"} {/* Format dob value as date */}
               </Typography>
             }
@@ -176,7 +221,13 @@ const MultipleChoiceQuestion = ({ questionType, question, data }) => {
         {questionType}
       </Typography>
       {data?.answer?.map((option, index) => (
-        <Grid container spacing={2} key={index} margin="5px" alignItems="center">
+        <Grid
+          container
+          spacing={2}
+          key={index}
+          margin="5px"
+          alignItems="center"
+        >
           <Grid item>
             <Typography variant="body1">
               <span style={{ opacity: "0.5" }}>Ans : &nbsp;</span> {option}
@@ -206,7 +257,12 @@ const StarsQuestion = ({ questionType, question, data }) => {
             </Typography>
           </Grid>
           <Grid item>
-            <Rating name={`rating-${star}`} value={parseFloat(data?.answer?.[0])} precision={0.5} readOnly />
+            <Rating
+              name={`rating-${star}`}
+              value={parseFloat(data?.answer?.[0])}
+              precision={0.5}
+              readOnly
+            />
           </Grid>
         </Grid>
       ))}
@@ -222,10 +278,17 @@ const SingleLineQuestion = ({ questionType, question, data }) => {
         {questionType}
       </Typography>
       {data?.answer?.map((option, index) => (
-        <Grid container spacing={2} key={index} margin="5px" alignItems="center">
+        <Grid
+          container
+          spacing={2}
+          key={index}
+          margin="5px"
+          alignItems="center"
+        >
           <Grid item>
             <Typography variant="body1">
-              <span style={{ opacity: "0.5" }}>Ans&nbsp; : &nbsp;</span> {option}
+              <span style={{ opacity: "0.5" }}>Ans&nbsp; : &nbsp;</span>{" "}
+              {option}
             </Typography>
           </Grid>
         </Grid>
@@ -247,14 +310,22 @@ const SurveyCard = ({ surveyData, mallId, queId }) => {
     p: 4,
     overflowY: "auto",
   };
-  const { question, typeOf, options, optionCounts, totalAnswers, users } = surveyData;
+  const { question, typeOf, options, optionCounts, totalAnswers, users } =
+    surveyData;
 
   return (
     <>
       <Card style={{ margin: "16px", padding: "16px" }}>
         <CardContent>
           {typeOf === "multiLine" ? (
-            <Grid container style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+            <Grid
+              container
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}
+            >
               <Typography variant="h6" gutterBottom>
                 <span style={{ opacity: "0.5" }}> Que : &nbsp;</span>
                 {question}
@@ -281,11 +352,29 @@ const SurveyCard = ({ surveyData, mallId, queId }) => {
               {question}
             </Typography>
           )}
-          {typeOf === "multipleChoice" && <MultipleChoiceQuestion questionType="Multiple Choice" question={question} data={surveyData} />}
+          {typeOf === "multipleChoice" && (
+            <MultipleChoiceQuestion
+              questionType="Multiple Choice"
+              question={question}
+              data={surveyData}
+            />
+          )}
 
-          {typeOf === "stars" && <StarsQuestion questionType="Rating" question={question} data={surveyData} />}
+          {typeOf === "stars" && (
+            <StarsQuestion
+              questionType="Rating"
+              question={question}
+              data={surveyData}
+            />
+          )}
 
-          {typeOf === "singleChoice" && <SingleLineQuestion questionType="Single Choice" question={question} data={surveyData} />}
+          {typeOf === "singleChoice" && (
+            <SingleLineQuestion
+              questionType="Single Choice"
+              question={question}
+              data={surveyData}
+            />
+          )}
         </CardContent>
       </Card>
     </>
@@ -298,7 +387,11 @@ const SurveyList = ({ responseData, mallId }) => {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       {responseData.map((surveyId) => (
-        <SurveyCard key={surveyId} surveyData={surveyId} queId={surveyId?.questionId} />
+        <SurveyCard
+          key={surveyId}
+          surveyData={surveyId}
+          queId={surveyId?.questionId}
+        />
       ))}
     </div>
   );
@@ -313,7 +406,11 @@ const ImagePopup = ({ imageUrl, open, setOpen }) => {
       <Dialog open={open} onClose={handleClose}>
         {/* <DialogTitle>Image</DialogTitle> */}
         <DialogContent>
-          <img src={imageUrl} alt="Preview" style={{ width: "100%", height: "80vh" }} />
+          <img
+            src={imageUrl}
+            alt="Preview"
+            style={{ width: "100%", height: "80vh" }}
+          />
         </DialogContent>
         {/* <DialogActions>
           <Button onClick={handleClose}>Close</Button>

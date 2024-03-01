@@ -36,7 +36,7 @@ export default function UserDetail({ id }) {
   const handleSubmit = () => {
     (async () => {
       // const questions = await axios.patch(
-      //   `${process.env.REACT_APP_URL}/RatingAndReviews/addUser/${id}`,
+      //   `https://feedbackreviewbackend.onrender.com/RatingAndReviews/addUser/${id}`,
       //   userDetail
       // );
       const questions = await axios.patch(

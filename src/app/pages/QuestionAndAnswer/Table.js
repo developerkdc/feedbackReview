@@ -11,24 +11,25 @@ import { Button } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-
-export default function BasicTable({data,mall}) {
+export default function BasicTable({ data, mall }) {
   // console.log(data)
-  const [mallIds,setMallIds] = React.useState([])
-  const handleSubmit =async function(queId){
+  const [mallIds, setMallIds] = React.useState([]);
+  const handleSubmit = async function (queId) {
     try {
-      // const mapped = await axios.post(`${process.env.REACT_APP_URL}/mappingQuestion`, {
-      const mapped = await axios.post(`https://feedbackreviewbackend.onrender.com/mappingQuestion`, {
-        mallId: mallIds,
-        questionId: queId,
-      });
+      // const mapped = await axios.post(`https://feedbackreviewbackend.onrender.com/mappingQuestion`, {
+      const mapped = await axios.post(
+        `https://feedbackreviewbackend.onrender.com/mappingQuestion`,
+        {
+          mallId: mallIds,
+          questionId: queId,
+        }
+      );
       // console.log(mapped)
       Swal.fire({ title: "<strong>success</strong>", icon: "success" });
-    } catch (error) { 
+    } catch (error) {
       Swal.fire({ title: "<strong>not mapped</strong>", icon: "error" });
     }
-    
-  }
+  };
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -57,8 +58,21 @@ export default function BasicTable({data,mall}) {
               <TableCell align="right">{row.options[1]}</TableCell>
               <TableCell align="right">{row.options[2]}</TableCell>
               <TableCell align="right">{row.options[3]}</TableCell>
-              <TableCell align="right"><MultipleSelectCheckmarks mall={mall} questionId={row._id} setMallIds={setMallIds}/></TableCell>
-              <TableCell align="right"><Button variant="contained" onClick={()=>handleSubmit(row._id)}>Ok</Button></TableCell>
+              <TableCell align="right">
+                <MultipleSelectCheckmarks
+                  mall={mall}
+                  questionId={row._id}
+                  setMallIds={setMallIds}
+                />
+              </TableCell>
+              <TableCell align="right">
+                <Button
+                  variant="contained"
+                  onClick={() => handleSubmit(row._id)}
+                >
+                  Ok
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

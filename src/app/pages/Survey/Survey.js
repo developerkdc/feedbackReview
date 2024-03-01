@@ -70,7 +70,7 @@ export default function Survey() {
   // console.log(value, "value");
   // console.log(mallName, "mallName");
   // console.log(question, "question");
-  const handleChange2 = function (event,key) {
+  const handleChange2 = function (event, key) {
     setMallname(event.target.value);
     setselectedMallname(key.props.children);
   };
@@ -284,7 +284,7 @@ export default function Survey() {
     }
   };
 
-  const handleNext = ()=>{
+  const handleNext = () => {
     (async () => {
       const questions = await axios.post(
         `https://feedbackreviewbackend.onrender.com/RatingAndReviews`,
@@ -294,7 +294,7 @@ export default function Survey() {
         }
       );
       // const questions = await axios.post(
-      //   `${process.env.REACT_APP_URL}/RatingAndReviews`,
+      //   `https://feedbackreviewbackend.onrender.com/RatingAndReviews`,
       //   {
       //     mall: { mallId: mallName, name: selectedmallName },
       //     questionAndAnswer: QuestionAndAnswer,
@@ -303,13 +303,13 @@ export default function Survey() {
       setUserId(questions?.data?.RatingAndReviews?._id);
     })();
     setValue((prevValue) => prevValue + 1);
-  }
+  };
 
   React.useEffect(() => {
     if (mallName) {
       (async () => {
         // const questions = await axios.get(
-        //   `${process.env.REACT_APP_URL}/mappingQuestion/${mallName}?type=all`
+        //   `https://feedbackreviewbackend.onrender.com/mappingQuestion/${mallName}?type=all`
         // );
         const questions = await axios.get(
           `https://feedbackreviewbackend.onrender.com/mappingQuestion/${mallName}?type=all`
@@ -320,8 +320,10 @@ export default function Survey() {
   }, [mallName, value]);
 
   React.useEffect(async () => {
-    // const mall = await axios.get(`${process.env.REACT_APP_URL}/mall`);
-    const mall = await axios.get(`https://feedbackreviewbackend.onrender.com/mall`);
+    // const mall = await axios.get(`https://feedbackreviewbackend.onrender.com/mall`);
+    const mall = await axios.get(
+      `https://feedbackreviewbackend.onrender.com/mall`
+    );
     setMall(mall.data.mall);
   }, []);
 
