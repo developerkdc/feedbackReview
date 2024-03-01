@@ -11,7 +11,7 @@ const CityReport = ({mallId}) => {
     return (
         <JumboCardQuick
             // title={<Typography variant={"h4"} mb={0}>{t('widgets.title.salesReports')}</Typography>}
-            title={<Typography variant={"h4"} mb={0}>City Wise Data</Typography>}
+            title={<Typography variant={"h4"} mb={0}>Profession Wise Data</Typography>}
             wrapperSx={{pt: 0}}
         >
             <Grid container columnSpacing={2}>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { siteAudiences } from "../data";
 import { LinearProgress, Typography } from "@mui/material";
 import Div from "@jumbo/shared/Div";
 import styled from "@mui/material/styles/styled";
@@ -12,17 +11,17 @@ const StyledLinearProgress = styled(LinearProgress)(({ theme }) => ({
   flex: 1,
 }));
 const COLORS = ["warning", "secondary", "success"];
-const SiteAudienceInfo = ({ mallId }) => {
+const SiteAudienceAgeInfo = ({ mallId }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     (async function () {
       try {
         const { data } = await axios(
-          `${process.env.REACT_APP_URL}/graph/genderviseResult?id=${mallId}`
+          `${process.env.REACT_APP_URL}/graph/agewiseResult?id=${mallId}`
         );
         setData(
-          data?.Data[0]?.counts?.map((e, index) => ({
-            label: e.gender,
+          data?.Data[0]?.ageGroups?.map((e, index) => ({
+            label: e.range,
             value: Math.round((e.count * 100) / data.Data[0].totalCount),
             count: e.count,
             color: COLORS[index],
@@ -37,7 +36,7 @@ const SiteAudienceInfo = ({ mallId }) => {
     <React.Fragment>
       <JumboCardQuick
         // title={<Typography variant={"h3"}>{t('widgets.title.appUsers')}</Typography>}
-        title={<Typography variant={"h3"}>{"Mall Audience"}</Typography>}
+        title={<Typography variant={"h3"}>{"Age Group"}</Typography>}
         // subheader={<Typography variant={"h6"} color={"text.secondary"}
         //                        mb={0}>{"For particular Mall"}</Typography>}
         wrapperSx={{ pt: 0 }}
@@ -54,7 +53,6 @@ const SiteAudienceInfo = ({ mallId }) => {
                   display: "flex",
                   alignItems: "center",
                   mb: 0.5,
-                  padding: 1.9,
                 }}
               >
                 <StyledLinearProgress
@@ -76,4 +74,4 @@ const SiteAudienceInfo = ({ mallId }) => {
   );
 };
 
-export default SiteAudienceInfo;
+export default SiteAudienceAgeInfo;

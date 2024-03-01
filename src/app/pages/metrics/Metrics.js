@@ -1,5 +1,13 @@
 import React from "react";
-import { Box, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from "@mui/material";
 import LastMonthSales from "../../shared/metrics/LastMonthSales";
 import OnlineSignupsFilled from "../../shared/metrics/OnlineSignupsFilled";
 import NewVisitorsThisMonth from "../../shared/metrics/NewVisitorsThisMonth";
@@ -33,6 +41,9 @@ import EthereumPrice from "./components/EthereumPrice";
 import LitecoinPrice from "./components/LitecoinPrice";
 import JumboCardQuick from "@jumbo/components/JumboCardQuick";
 import CityReport from "./components/SalesReport/CityReport";
+import SiteAudienceInfo from "app/shared/metrics/WelcomSummary/components/SiteAudienceInfo";
+import SimpleRadialBarChart from "./components/SimpleRadialBarChart";
+import SiteAudienceAgeInfo from "./components/SiteAudienceAgeInfo";
 
 const MetricsPage = () => {
   const [mallId, setMallId] = React.useState("");
@@ -151,11 +162,17 @@ const MetricsPage = () => {
             <Grid item xs={12} sm={6} lg={4}>
               <AppUsers mallId={mallId} />
             </Grid>
-            <Grid item xs={12} md={6} lg={8}>
-              <SalesReport mallId={mallId}/>
+            <Grid item xs={12} sm={6} lg={4}>
+              <SiteAudienceInfo mallId={mallId} />
             </Grid>
-            <Grid item xs={12} md={6} lg={8}>
-              <CityReport mallId={mallId}/>
+            <Grid item xs={12} sm={6} lg={4}>
+              <SiteAudienceAgeInfo mallId={mallId} />
+            </Grid>
+            <Grid item xs={12} md={6} lg={12}>
+              <SalesReport mallId={mallId} />
+            </Grid>
+            <Grid item xs={12} md={6} lg={12}>
+              <CityReport mallId={mallId} />
             </Grid>
           </>
         )}

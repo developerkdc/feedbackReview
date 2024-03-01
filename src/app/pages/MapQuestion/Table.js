@@ -22,7 +22,12 @@ export default function BasicTable({ data, mall }) {
     const newMallIds = mallIds.filter(
       (mallId) => !removedMallIds.includes(mallId)
     );
-
+    const filteredMallIds = newMallIds.filter((mallId) => {
+      const isMapped = mappedQuestions.some(
+        (mapping) => mapping.mallId === mallId && mapping.questionId === queId
+      );
+      return !isMapped;
+    });
     if (removedMallIds.length > 0) {
       removedMallIds.forEach(async (mallId) => {
         try {
@@ -41,7 +46,7 @@ export default function BasicTable({ data, mall }) {
         const mapped = await axios.post(
           `${process.env.REACT_APP_URL}/mappingQuestion`,
           {
-            mallId: newMallIds,
+            mallId: filteredMallIds,
             questionId: queId,
           }
         );
@@ -117,6 +122,7 @@ export default function BasicTable({ data, mall }) {
                   questionId={row._id}
                   setMallIds={setMallIds}
                   setRemoveMallIds={setRemoveMallIds}
+                  mallIds={mallIds}
                 />
               </TableCell>
               <TableCell align="left">
