@@ -24,12 +24,12 @@ const SalesReportChart = ({mallId}) => {
     useEffect(() => {
         (async function () {
             try {
-                const { data } = await axios(`${process.env.REACT_APP_URL}/graph/citywiseResult?id=${mallId}`);
+                const { data } = await axios(`${process.env.REACT_APP_URL}/graph/professionwiseResult?id=${mallId}`);
                 let res= data?.Data[0];
                 setData(
-                    res?.cities?.map((e) => ({
-                        name: e.city,
-                        city: e.count,
+                    res?.professions?.map((e) => ({
+                        name: e.profession,
+                        profession: e.count,
                         // index: Number(e._id.star),
                         // value:e.totalStar
                     }))
@@ -100,7 +100,7 @@ const SalesReportChart = ({mallId}) => {
                         <stop offset="95%" stopColor="#09BCA7" stopOpacity={1}/>
                     </linearGradient>
                 </defs>
-                <Bar dataKey="city" fill={"#1e88e5"}/>
+                <Bar dataKey="profession" fill={"#e91e63"}/>
                 {/* <Bar dataKey="uv" fill={"#e91e63"}/> */}
             </BarChart>
         </ResponsiveContainer>
