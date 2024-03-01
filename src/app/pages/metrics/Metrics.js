@@ -66,8 +66,8 @@ const MetricsPage = () => {
     (async () => {
       const mall = await axios.get(`${process.env.REACT_APP_URL}/mall`);
       setMall(mall?.data?.data);
-      setMallId(mall?.data?.data?.[0]?._id)
-    })()
+      setMallId(mall?.data?.data?.[0]?._id);
+    })();
   }, []);
   return (
     <>
@@ -91,17 +91,54 @@ const MetricsPage = () => {
             wrapperSx={{ pt: 0 }}
           >
             <Grid display="flex" gap="10px">
-
               {/* <Grid item xs={12} sm={6} lg={3}>
               <BitcoinPrice />
             </Grid> */}
-              {
-                mall?.map((e) => {
-                  return <Grid item xs={12} sm={6} lg={3}>
+              {mall?.map((e) => {
+                return (
+                  <Grid item xs={12} sm={6} lg={3}>
                     <RipplePrice mall={e} />
                   </Grid>
-                })
-              }
+                );
+              })}
+              {/* <Grid item xs={12} sm={6} lg={3}>
+              <EthereumPrice />
+            </Grid>
+            <Grid item xs={12} sm={6} lg={3}>
+              <LitecoinPrice />
+            </Grid> */}
+            </Grid>
+          </JumboCardQuick>
+        </Grid>
+        <Grid item lg={12}>
+          <JumboCardQuick
+            title={
+              <Typography variant={"h3"} mb={2}>
+                {"NPS Score"}
+              </Typography>
+            }
+            // subheader={
+            //   <Typography variant={"h6"} color={"text.secondary"} mb={0}>
+            //     {"Current Month v/s Last Month"}
+            //   </Typography>
+            // }
+            // action={<Chip label={"Today"} color={"primary"} size={"small"} />}
+            wrapperSx={{ pt: 0 }}
+          >
+            <Grid display="flex" gap="10px">
+              {/* <Grid item xs={12} sm={6} lg={3}>
+              <BitcoinPrice />
+            </Grid> */}
+              {mall?.map((e) => {
+                return (
+                  // <Grid item xs={12} sm={6} lg={3}>
+                  //   <RipplePrice mall={e} />
+                  // </Grid>
+                  <Grid item xs={12} sm={6} lg={3}>
+                    <LitecoinPrice mall={e} />
+                  </Grid>
+                );
+              })}
               {/* <Grid item xs={12} sm={6} lg={3}>
               <EthereumPrice />
             </Grid>
@@ -131,8 +168,8 @@ const MetricsPage = () => {
             </FormControl>
           </Box>
         </Grid>
-        {
-         mallId && <>
+        {mallId && (
+          <>
             <Grid item xs={12}>
               <SalesStatistics mallId={mallId} />
             </Grid>
@@ -140,16 +177,16 @@ const MetricsPage = () => {
               <AppUsers mallId={mallId} />
             </Grid>
           </>
-        }
+        )}
         {/* <Grid item xs={12} sm={6} lg={3}>
-                <LastMonthSales/>
-            </Grid>
-            <Grid item xs={12} sm={6} lg={3}>
-                <OnlineSignupsFilled/>
-            </Grid>
-            <Grid item xs={12} sm={6} lg={3}>
-                <NewVisitorsThisMonth/>
-            </Grid> */}
+          <LastMonthSales />
+        </Grid>
+        <Grid item xs={12} sm={6} lg={3}>
+          <OnlineSignupsFilled />
+        </Grid>
+        <Grid item xs={12} sm={6} lg={3}>
+          <NewVisitorsThisMonth />
+        </Grid> */}
         {/* <Grid item xs={12} sm={6} lg={3}>
                 <TotalRevenueThisYear/>
             </Grid> */}
@@ -174,7 +211,6 @@ const MetricsPage = () => {
             <Grid item xs={12} sm={6} lg={3}>
                 <ObjectCountQueries vertical={true}/>
             </Grid> */}
-
 
         {/* <Grid item xs={12} md={6} lg={4}>
                 <SalesReport/>

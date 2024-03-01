@@ -10,8 +10,8 @@ const AppUsers = ({mallId}) => {
         <JumboCardQuick
             // title={<Typography variant={"h3"}>{t('widgets.title.appUsers')}</Typography>}
             title={<Typography variant={"h3"}>{"Customer Satisfaction Breakdown"}</Typography>}
-            subheader={<Typography variant={"h6"} color={"text.secondary"}
-                                   mb={0}>{"For particular Mall"}</Typography>}
+            // subheader={<Typography variant={"h6"} color={"text.secondary"}
+            //                        mb={0}>{"For particular Mall"}</Typography>}
             wrapperSx={{pt: 0}}
         >
             <ChartAppUsers mallId={mallId}/>

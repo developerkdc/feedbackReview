@@ -80,7 +80,7 @@ const SalesStatistics = ({ mallId }) => {
               <JumboCardQuick
                 // title={t("widgets.title.creditScore")}
                 title={"Net Promoter Score"}
-                subheader={`Out of ${totalFeedback} feedbacks`}
+                subheader={`Out of ${totalFeedback} Users Feedback`}
                 sx={{
                   textAlign: "center",
                 }}
