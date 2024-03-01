@@ -40,6 +40,10 @@ import RipplePrice from "./components/RipplePrice";
 import EthereumPrice from "./components/EthereumPrice";
 import LitecoinPrice from "./components/LitecoinPrice";
 import JumboCardQuick from "@jumbo/components/JumboCardQuick";
+import CityReport from "./components/SalesReport/CityReport";
+import SiteAudienceInfo from "app/shared/metrics/WelcomSummary/components/SiteAudienceInfo";
+import SimpleRadialBarChart from "./components/SimpleRadialBarChart";
+import SiteAudienceAgeInfo from "./components/SiteAudienceAgeInfo";
 
 const MetricsPage = () => {
   const [mallId, setMallId] = React.useState("");
@@ -90,7 +94,7 @@ const MetricsPage = () => {
             // action={<Chip label={"Today"} color={"primary"} size={"small"} />}
             wrapperSx={{ pt: 0 }}
           >
-            <Grid display="flex" gap="10px">
+            <Grid display="flex" gap="10px" flexWrap="wrap">
               {/* <Grid item xs={12} sm={6} lg={3}>
               <BitcoinPrice />
             </Grid> */}
@@ -117,34 +121,16 @@ const MetricsPage = () => {
                 {"NPS Score"}
               </Typography>
             }
-            // subheader={
-            //   <Typography variant={"h6"} color={"text.secondary"} mb={0}>
-            //     {"Current Month v/s Last Month"}
-            //   </Typography>
-            // }
-            // action={<Chip label={"Today"} color={"primary"} size={"small"} />}
             wrapperSx={{ pt: 0 }}
           >
             <Grid display="flex" gap="10px">
-              {/* <Grid item xs={12} sm={6} lg={3}>
-              <BitcoinPrice />
-            </Grid> */}
               {mall?.map((e) => {
                 return (
-                  // <Grid item xs={12} sm={6} lg={3}>
-                  //   <RipplePrice mall={e} />
-                  // </Grid>
                   <Grid item xs={12} sm={6} lg={3}>
                     <LitecoinPrice mall={e} />
                   </Grid>
                 );
               })}
-              {/* <Grid item xs={12} sm={6} lg={3}>
-              <EthereumPrice />
-            </Grid>
-            <Grid item xs={12} sm={6} lg={3}>
-              <LitecoinPrice />
-            </Grid> */}
             </Grid>
           </JumboCardQuick>
         </Grid>
@@ -175,6 +161,18 @@ const MetricsPage = () => {
             </Grid>
             <Grid item xs={12} sm={6} lg={4}>
               <AppUsers mallId={mallId} />
+            </Grid>
+            <Grid item xs={12} sm={6} lg={4}>
+              <SiteAudienceInfo mallId={mallId} />
+            </Grid>
+            <Grid item xs={12} sm={6} lg={4}>
+              <SiteAudienceAgeInfo mallId={mallId} />
+            </Grid>
+            <Grid item xs={12} md={6} lg={12}>
+              <SalesReport mallId={mallId} />
+            </Grid>
+            <Grid item xs={12} md={6} lg={12}>
+              <CityReport mallId={mallId} />
             </Grid>
           </>
         )}
@@ -213,9 +211,6 @@ const MetricsPage = () => {
             </Grid> */}
 
         {/* <Grid item xs={12} md={6} lg={4}>
-                <SalesReport/>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
                 <OnlineSignups/>
             </Grid> */}
 

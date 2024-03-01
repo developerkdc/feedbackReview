@@ -68,7 +68,7 @@ const MultipleSelectCheckmarks = ({
           </li>
         )}
         size="small"
-        style={{ width: 400 }}
+        style={{ width: 350 }}
         value={existingMappedMalls}
         onChange={handleChange}
         renderInput={(params) => (

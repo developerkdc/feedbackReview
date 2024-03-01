@@ -6,12 +6,12 @@ import JumboCardQuick from "@jumbo/components/JumboCardQuick";
 import Div from "@jumbo/shared/Div";
 import {useTranslation} from "react-i18next";
 
-const SalesReport = ({mallId}) => {
+const CityReport = ({mallId}) => {
     const {t} = useTranslation();
     return (
         <JumboCardQuick
             // title={<Typography variant={"h4"} mb={0}>{t('widgets.title.salesReports')}</Typography>}
-            title={<Typography variant={"h4"} mb={0}>City Wise Data</Typography>}
+            title={<Typography variant={"h4"} mb={0}>Profession Wise Data</Typography>}
             wrapperSx={{pt: 0}}
         >
             <Grid container columnSpacing={2}>
@@ -29,4 +29,4 @@ const SalesReport = ({mallId}) => {
     );
 };
 
-export default SalesReport;
+export default CityReport;

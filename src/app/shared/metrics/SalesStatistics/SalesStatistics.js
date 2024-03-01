@@ -44,7 +44,7 @@ const SalesStatistics = ({ mallId }) => {
             Feedback Statistics
           </Typography>
         }
-        action={<JumboDdMenu menuItems={menuItems} />}
+        // action={<JumboDdMenu menuItems={menuItems} />}
         bgColor={(theme) => theme.palette.primary.main}
         sx={{ color: "common.white" }}
       >
