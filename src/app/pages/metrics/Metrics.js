@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Box,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  Typography,
-} from "@mui/material";
+import { Box, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import LastMonthSales from "../../shared/metrics/LastMonthSales";
 import OnlineSignupsFilled from "../../shared/metrics/OnlineSignupsFilled";
 import NewVisitorsThisMonth from "../../shared/metrics/NewVisitorsThisMonth";
@@ -40,6 +32,7 @@ import RipplePrice from "./components/RipplePrice";
 import EthereumPrice from "./components/EthereumPrice";
 import LitecoinPrice from "./components/LitecoinPrice";
 import JumboCardQuick from "@jumbo/components/JumboCardQuick";
+import CityReport from "./components/SalesReport/CityReport";
 
 const MetricsPage = () => {
   const [mallId, setMallId] = React.useState("");
@@ -90,7 +83,7 @@ const MetricsPage = () => {
             // action={<Chip label={"Today"} color={"primary"} size={"small"} />}
             wrapperSx={{ pt: 0 }}
           >
-            <Grid display="flex" gap="10px">
+            <Grid display="flex" gap="10px" flexWrap="wrap">
               {/* <Grid item xs={12} sm={6} lg={3}>
               <BitcoinPrice />
             </Grid> */}
@@ -158,6 +151,12 @@ const MetricsPage = () => {
             <Grid item xs={12} sm={6} lg={4}>
               <AppUsers mallId={mallId} />
             </Grid>
+            <Grid item xs={12} md={6} lg={8}>
+              <SalesReport mallId={mallId}/>
+            </Grid>
+            <Grid item xs={12} md={6} lg={8}>
+              <CityReport mallId={mallId}/>
+            </Grid>
           </>
         )}
         {/* <Grid item xs={12} sm={6} lg={3}>
@@ -195,9 +194,6 @@ const MetricsPage = () => {
             </Grid> */}
 
         {/* <Grid item xs={12} md={6} lg={4}>
-                <SalesReport/>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
                 <OnlineSignups/>
             </Grid> */}
 

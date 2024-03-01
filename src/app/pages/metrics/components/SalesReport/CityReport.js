@@ -6,7 +6,7 @@ import JumboCardQuick from "@jumbo/components/JumboCardQuick";
 import Div from "@jumbo/shared/Div";
 import {useTranslation} from "react-i18next";
 
-const SalesReport = ({mallId}) => {
+const CityReport = ({mallId}) => {
     const {t} = useTranslation();
     return (
         <JumboCardQuick
@@ -29,4 +29,4 @@ const SalesReport = ({mallId}) => {
     );
 };
 
-export default SalesReport;
+export default CityReport;
