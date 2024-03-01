@@ -1,12 +1,31 @@
 import React, { useState } from "react";
-import { Card, CardContent, Typography, Grid, Chip, TextField, Rating, Box, CircularProgress, Button, Modal, ListItem, ListItemText, List, Dialog, DialogTitle, DialogContent, DialogActions, Divider } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Grid,
+  Chip,
+  TextField,
+  Rating,
+  Box,
+  CircularProgress,
+  Button,
+  Modal,
+  ListItem,
+  ListItemText,
+  List,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Divider,
+} from "@mui/material";
 import axios from "axios";
 import Loader from "react-spinners/BarLoader";
 import { BarLoader } from "react-spinners";
 import { useLocation } from "react-router-dom";
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import Div from "@jumbo/shared/Div";
-
 
 export default function CustomerReview() {
   const { state } = useLocation();
@@ -14,14 +33,16 @@ export default function CustomerReview() {
   const [res, setRes] = useState(false);
   const [userAnswer, setUserAnswer] = useState(false);
   const [open, setOpen] = useState(false);
-
-
-  console.log(state.allData);
-  const user = state.allData.user
+  const user = state.allData.user;
   return (
     <>
       <Card style={{ padding: "16px", marginBottom: "10px" }}>
-        <Typography variant="h1" gutterBottom textAlign="center" sx={{ backgroundColor: "#7352C7", p: 2, borderRadius: "5px", color: "white" }}>
+        <Typography
+          variant="h1"
+          gutterBottom
+          textAlign="center"
+          sx={{ backgroundColor: "#7352C7", p: 2, borderRadius: "5px", color: "white" }}
+        >
           Customer Details
         </Typography>
         {/* <SurveyList responseData={state?.allData?.questionAndAnswer} /> */}
@@ -59,44 +80,39 @@ export default function CustomerReview() {
             margin: (theme) => theme.spacing(0, -2),
           }}
         >
-          {
-            Object.entries(user).map((entry) => {
-              const [key, value] = entry;
-              if (key === 'feedback' || key == "bill") return null; // Skip rendering feedback
-              return (
-                <ListItem
-                  key={key} // Key should be unique, using the property name as the key
-                  sx={{
-                    width: { xs: "100%", sm: "50%", xl: "33.33%" },
-                    textAlign: "center",
-                  }}
-                >
-                  <ListItemText
-                    primary={
-                      <Typography fontSize="12px" variant="h6" color="text.secondary" mb={0.5} sx={{ textTransform: "capitalize" }}>
-                        {key}
-                      </Typography>
-                    }
-                    secondary={
-                      <Typography variant="body1" color="text.primary" sx={{ textTransform: "capitalize" }}>
-                        {key === 'dob' ? new Date(value).toLocaleDateString() : value || "--"} {/* Format dob value as date */}
-                      </Typography>
-                    }
-                  />
-
-                </ListItem>
-              );
-            })
-          }
+          {Object.entries(user).map((entry) => {
+            const [key, value] = entry;
+            if (key === "feedback" || key == "bill") return null; // Skip rendering feedback
+            return (
+              <ListItem
+                key={key} // Key should be unique, using the property name as the key
+                sx={{
+                  width: { xs: "100%", sm: "50%", xl: "33.33%" },
+                  textAlign: "center",
+                }}
+              >
+                <ListItemText
+                  primary={
+                    <Typography fontSize="12px" variant="h6" color="text.secondary" mb={0.5} sx={{ textTransform: "capitalize" }}>
+                      {key}
+                    </Typography>
+                  }
+                  secondary={
+                    <Typography variant="body1" color="text.primary" sx={{ textTransform: "capitalize" }}>
+                      {key === "dob" ? new Date(value).toLocaleDateString() : value || "--"} {/* Format dob value as date */}
+                    </Typography>
+                  }
+                />
+              </ListItem>
+            );
+          })}
           <ListItem
-
             sx={{
               width: { xs: "100%", sm: "50%", xl: "33.33%" },
               textAlign: "center",
-              display: "flex"
+              display: "flex",
             }}
           >
-
             <ListItemText
               primary={
                 <Typography fontSize="12px" variant="h6" color="text.secondary" mb={0.5} sx={{ textTransform: "capitalize" }}>
@@ -105,23 +121,27 @@ export default function CustomerReview() {
               }
               secondary={
                 <Div>
-                  <img src={`http://localhost:8000/public/1709099364340-bill%20sample.png`} onClick={() => setOpen(true)} style={{ cursor: "pointer", height: "100px", width: "100px",border:"1px solid",padding:2,borderRadius:"5px" }} />
-                  <ImagePopup imageUrl={`http://localhost:8000/public/1709099364340-bill%20sample.png`} open={open} setOpen={setOpen} />
-                  {/* <ImagePopup imageUrl={encodeURIComponent(`http://localhost:8000/public/${user.bill}`)} open={open} setOpen={setOpen} /> */}
+                  {/* <img src={`http://localhost:8000/public/1709099364340-bill%20sample.png`} onClick={() => setOpen(true)} style={{ cursor: "pointer", height: "100px", width: "100px",border:"1px solid",padding:2,borderRadius:"5px" }} /> */}
+                  <img
+                    src={`http://localhost:8000/public/${user.bill}`}
+                    alt="imgBill"
+                    onClick={() => setOpen(true)}
+                    style={{ cursor: "pointer", height: "100px", width: "100px", border: "1px solid", padding: 2, borderRadius: "5px" }}
+                  />
+                  {/* <ImagePopup imageUrl={`http://localhost:8000/public/1709099364340-bill%20sample.png`} open={open} setOpen={setOpen} /> */}
+                  <ImagePopup imageUrl={`http://localhost:8000/public/${user.bill}`} open={open} setOpen={setOpen} />
                 </Div>
-
               }
             />
           </ListItem>
         </List>
         {console.log(`${process.env.REACT_APP_URL}${process.env.REACT_APP_IMAGES_PATH}/${user.bill}`)}
-        <Divider variant="fullWidth"/>
+        <Divider variant="fullWidth" />
         <ListItem
-
           sx={{
             width: { xs: "100%", sm: "100%", xl: "100%" },
             textAlign: "start",
-            display: "flex"
+            display: "flex",
           }}
         >
           <ListItemText
@@ -137,7 +157,7 @@ export default function CustomerReview() {
             }
           />
         </ListItem>
-      </Card >
+      </Card>
       <Card style={{ padding: "16px" }}>
         <Typography variant="h1" gutterBottom textAlign="center">
           Responses
@@ -285,7 +305,6 @@ const SurveyList = ({ responseData, mallId }) => {
 };
 
 const ImagePopup = ({ imageUrl, open, setOpen }) => {
-
   const handleClose = () => {
     setOpen(false);
   };
@@ -294,7 +313,7 @@ const ImagePopup = ({ imageUrl, open, setOpen }) => {
       <Dialog open={open} onClose={handleClose}>
         {/* <DialogTitle>Image</DialogTitle> */}
         <DialogContent>
-          <img src={imageUrl} alt="Preview" style={{ maxWidth: '100%', maxHeight: '80vh' }} />
+          <img src={imageUrl} alt="Preview" style={{ width: "100%", height: "80vh" }} />
         </DialogContent>
         {/* <DialogActions>
           <Button onClick={handleClose}>Close</Button>

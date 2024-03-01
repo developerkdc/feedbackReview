@@ -7,6 +7,7 @@ import { BarLoader } from "react-spinners";
 export default function QandA({ mallId }) {
   const [data, setData] = useState(null);
   const [res, setRes] = useState(false);
+
   const [userAnswer, setUserAnswer] = useState(false);
 
   React.useEffect(() => {
@@ -26,6 +27,9 @@ export default function QandA({ mallId }) {
     <Card style={{ padding: "16px", marginTop: "50px" }}>
       <Typography variant="h1" gutterBottom textAlign="center">
         Survey Responses
+      </Typography>
+      <Typography variant="h5" gutterBottom textAlign="center">
+        Total Responses:- {data && data[Object.keys(data)[0]].totalAnswers}
       </Typography>
 
       {mallId && res && data && <SurveyList responseData={data} mallId={mallId} />}
@@ -230,10 +234,10 @@ const SurveyCard = ({ surveyData, mallId, queId }) => {
               <Typography variant="h6" gutterBottom>
                 <span style={{ opacity: "0.5" }}> Que. : </span>
                 {question}
-                <Chip
+                {/* <Chip
                   label={`Total User Answered: ${totalAnswers}`}
                   style={{ marginLeft: "20px" }}
-                />
+                /> */}
               </Typography>
               <Button
                 variant="contained"
@@ -250,10 +254,10 @@ const SurveyCard = ({ surveyData, mallId, queId }) => {
             <Typography variant="h6" gutterBottom>
               <span style={{ opacity: "0.5" }}> Que. : </span>
               {question}
-              <Chip
+              {/* <Chip
                 label={`Total User Answered: ${totalAnswers}`}
                 style={{ marginLeft: "20px" }}
-              />
+              /> */}
             </Typography>
           )}
           {typeOf === "multipleChoice" && (
