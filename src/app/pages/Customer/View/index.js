@@ -135,7 +135,7 @@ export default function CustomerReview() {
             />
           </ListItem>
         </List>
-        {console.log(`${process.env.REACT_APP_URL}${process.env.REACT_APP_IMAGES_PATH}/${user.bill}`)}
+        {/* {console.log(`${process.env.REACT_APP_URL}${process.env.REACT_APP_IMAGES_PATH}/${user.bill}`)} */}
         <Divider variant="fullWidth" />
         <ListItem
           sx={{
