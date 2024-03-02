@@ -26,14 +26,44 @@ import { BarLoader } from "react-spinners";
 import { useLocation } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Div from "@jumbo/shared/Div";
+import CustomTable from "app/pages/components/mui/Table";
 
 export default function CustomerReview() {
   const { state } = useLocation();
+  console.log(state?.allData?.questionAndAnswer);
   const [data, setData] = useState(state?.reviews);
   const [res, setRes] = useState(false);
   const [userAnswer, setUserAnswer] = useState(false);
   const [open, setOpen] = useState(false);
   const user = state.allData.user;
+
+  const columns = [
+    {
+      field: "question",
+      headerName: "Question",
+      sortable: true,
+      // render: (_, elm) => elm.user.name,
+    },
+    {
+      field: "answer",
+      headerName: "Answer",
+      sortable: true,
+      render: (_, elm) => elm?.answer?.map((ele)=>{
+        if(elm.typeOf == "stars"){
+         return <Rating
+          name={`rating-${ele}`}
+          value={parseFloat(ele)}
+          precision={0.5}
+          readOnly
+        />
+        }else{
+
+          return ele
+        }
+      }),
+    },
+  ];
+
   return (
     <>
       <Card style={{ padding: "16px", marginBottom: "10px" }}>
@@ -207,7 +237,8 @@ export default function CustomerReview() {
         <Typography variant="h1" gutterBottom textAlign="center">
           Responses
         </Typography>
-        <SurveyList responseData={state?.allData?.questionAndAnswer} />
+        <CustomTable  data={state?.allData?.questionAndAnswer} columns={columns} />
+        {/* <SurveyList responseData={state?.allData?.questionAndAnswer} /> */}
       </Card>
     </>
   );
@@ -330,19 +361,19 @@ const SurveyCard = ({ surveyData, mallId, queId }) => {
                 <span style={{ opacity: "0.5" }}> Que : &nbsp;</span>
                 {question}
               </Typography>
-              <Typography variant="body1" gutterBottom>
+              {/* <Typography variant="body1" gutterBottom>
                 <span style={{ opacity: "0.5" }}>Type : &nbsp;</span>
                 Multi Line
-              </Typography>
-              <Grid container spacing={2} margin="5px" alignItems="center">
-                <Grid item>
-                  <Typography sx={{ display: "inline", opacity: "0.5" }}>
+              </Typography> */}
+              <Grid container  alignItems="center">
+                <Grid item >
+                  <Typography sx={{ display: "inline", opacity: "0.5",border:"1px solid red"}}>
                     {/* <span style={{ opacity: "0.5" }}> Ans : &nbsp;</span> */}
                     Ans&nbsp;:&nbsp;&nbsp;
                   </Typography>
-                  <div>
-                    <Typography>{surveyData?.answer?.[0]}</Typography>
-                  </div>
+                  {/* <div> */}
+                    <Typography style={{border:"1px solid red"}}>{surveyData?.answer?.[0]}</Typography>
+                  {/* </div> */}
                 </Grid>
               </Grid>
             </Grid>

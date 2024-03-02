@@ -31,7 +31,9 @@ const CustomTable = ({ data, page, setPage, columns, actions, fetchData, totalCo
   };
 
   useEffect(() => {
-    fetchData({ page: page + 1, sortField, sortOrder });
+    if(fetchData){
+      fetchData({ page: page + 1, sortField, sortOrder });
+    }
   }, [page, sortField, sortOrder]);
 
   const renderCellContent = (row, column) => {
@@ -116,15 +118,18 @@ const CustomTable = ({ data, page, setPage, columns, actions, fetchData, totalCo
           )}
         </Table>
       </TableContainer>
+      {
+        setPage && 
       <TablePagination
-        rowsPerPageOptions={""}
-        component="div"
-        // count={totalCount * rowsPerPage}
-        count={totalCount}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
+      rowsPerPageOptions={""}
+      component="div"
+      // count={totalCount * rowsPerPage}
+      count={totalCount}
+      rowsPerPage={rowsPerPage}
+      page={page}
+      onPageChange={handleChangePage}
       />
+    }
     </Paper>
   );
 };

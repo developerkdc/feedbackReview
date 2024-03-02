@@ -96,13 +96,13 @@ const MetricsPage = () => {
             // action={<Chip label={"Today"} color={"primary"} size={"small"} />}
             wrapperSx={{ pt: 0 }}
           >
-            <Grid display="flex" gap="10px" flexWrap="wrap">
+            <Grid container spacing={1}>
               {/* <Grid item xs={12} sm={6} lg={3}>
               <BitcoinPrice />
             </Grid> */}
               {mall?.map((e) => {
                 return (
-                  <Grid item xs={12} sm={6} lg={3}>
+                  <Grid item  xs={12} sm={6} lg={3}>
                     <RipplePrice mall={e} />
                   </Grid>
                 );
@@ -116,7 +116,7 @@ const MetricsPage = () => {
             </Grid>
           </JumboCardQuick>
         </Grid>
-        <Grid item lg={12}>
+        <Grid item lg={12} spacing={2}>
           <JumboCardQuick
             title={
               <Typography variant={"h3"} mb={2}>
