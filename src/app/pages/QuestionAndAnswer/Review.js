@@ -59,7 +59,7 @@ export default function Review() {
   React.useEffect(() => {
     // reviewCall()
   }, [mallName]);
-  console.log(mallName);
+  // console.log(mallName);
   return (
     <>
       <Box sx={{ marginBottom: "30px" }}>

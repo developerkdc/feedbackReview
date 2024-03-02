@@ -50,7 +50,7 @@ const menus = [
     label: "Metrics",
     type: "nav-item",
     icon: <InsightsOutlinedIcon sx={{ fontSize: 20 }} />,
-    uri: "/metric",
+    uri: "/",
   },
   {
     label: "Mall",
@@ -62,7 +62,7 @@ const menus = [
     label: "Add Questions",
     type: "nav-item",
     icon: <QuestionMarkOutlinedIcon sx={{ fontSize: 20 }} />,
-    uri: "/",
+    uri: "/add-question",
     // children: [
     //   {
     //     uri: "/dashboards/misc",

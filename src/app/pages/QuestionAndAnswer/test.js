@@ -248,7 +248,7 @@ const SingleLineQuestion = ({
 };
 
 const SurveyCard = ({ surveyData, mallId, queId }) => {
-  console.log(surveyData);
+  // console.log(surveyData);
   const style = {
     position: "absolute",
     top: "50%",

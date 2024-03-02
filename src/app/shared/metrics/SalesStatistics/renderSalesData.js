@@ -25,7 +25,7 @@ const RenderSalesData = ({ mallId }) => {
   const [data, setData] = useState([]);
   const [mallData, setMallData] = useState([]);
 
-  console.log(mallId, "299999999999");
+  // console.log(mallId, "299999999999");
   useEffect(() => {
     (async function () {
       try {
@@ -37,7 +37,7 @@ const RenderSalesData = ({ mallId }) => {
         );
         setData(data?.Data?.[0]);
         setMallData(malldata?.data?.Data);
-        console.log(malldata.data, "3888");
+        // console.log(malldata.data, "3888");
       } catch (error) {
         console.error(error);
       }

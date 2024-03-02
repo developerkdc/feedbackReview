@@ -66,7 +66,7 @@ export default function BasicTable({ data, mall }) {
         const response = await axios.get(
           `https://feedbackreviewbackend.onrender.com/mappingQuestion/mall/list`
         );
-        console.log(response.data);
+        // console.log(response.data);
         setMappedQuestion(response?.data?.mappedquestion);
       } catch (error) {
         console.error("Error fetching mapped malls:", error);

@@ -129,7 +129,7 @@ export default function ListMall() {
       }
       try {
         let data = await axios.get(apiUrl);
-        console.log(data.data.data);
+        // console.log(data.data.data);
         setMallDetails(data?.data);
       } catch (error) {}
     })();

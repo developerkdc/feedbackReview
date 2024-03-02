@@ -36,7 +36,7 @@ const RipplePrice = ({ mall }) => {
         const nps = await axios.get(
           `https://feedbackreviewbackend.onrender.com/graph/monthwisenps?id=${mall?._id}`
         );
-        console.log(nps.data.Data, "--------------------repple");
+        // console.log(nps.data.Data, "--------------------repple");
         setNpsData(nps.data.Data);
         setData(
           data.Data.map((e) => ({

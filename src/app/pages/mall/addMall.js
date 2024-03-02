@@ -76,10 +76,10 @@ const AddUser = () => {
   const handleUserAdd = async (data) => {
     try {
       await axios.post(`https://feedbackreviewbackend.onrender.com/mall`, data);
-      showAlert("success", "User added successfully.");
+      showAlert("success", "Mall added successfully.");
       navigate("/mall");
     } catch (error) {
-      showAlert("error", error.response.data.message);
+      showAlert("error", "Something went wrong.");
     }
   };
   return (

@@ -105,13 +105,13 @@ export default function Customer() {
   };
 
   useEffect(() => {
-    console.log("object");
+    // console.log("object");
     (async () => {
       try {
         let data = await axios.get(
           `https://feedbackreviewbackend.onrender.com/mall`
         );
-        console.log(data?.data?.data);
+        // console.log(data?.data?.data);
         setMallList(data?.data?.data);
       } catch (error) {
         console.log(error.message);
