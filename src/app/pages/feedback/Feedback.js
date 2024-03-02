@@ -20,7 +20,7 @@ export default function Feedback() {
     setMall(mall.data.data);
     setMallname(mall?.data?.data[0]?._id);
   }, []);
-  console.log(mall);
+  // console.log(mall);
   return (
     <>
       <Box sx={{ marginBottom: "30px" }}>

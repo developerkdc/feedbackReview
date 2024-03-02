@@ -62,7 +62,7 @@ const ChartAppUsers = ({ mallId }) => {
       }
     })();
   }, [mallId]);
-  console.log(data, "-------------------------------");
+  // console.log(data, "-------------------------------");
   return (
     <React.Fragment>
       <Div sx={{ display: "flex", alignItems: "center" }}>

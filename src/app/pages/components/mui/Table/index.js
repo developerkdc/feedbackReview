@@ -14,7 +14,7 @@ import {
 import CustomActionMenu from "../Menu";
 
 const CustomTable = ({ data, page, setPage, columns, actions, fetchData, totalCount }) => {
-  console.log(totalCount);
+  // console.log(totalCount);
   const rowsPerPage = 10;
   const [sortField, setSortField] = useState("created_at");
   const [sortOrder, setSortOrder] = useState("desc");

@@ -18,7 +18,7 @@ import CustomerReview from "app/pages/Customer/View";
  **/
 const routesForPublic = [
   {
-    path: "/",
+    path: "/add-question",
     element: <Page component={Home} />,
   },
   {
@@ -42,7 +42,7 @@ const routesForPublic = [
     element: <Page component={MapQuestion} />,
   },
   {
-    path: "/metric",
+    path: "/",
     element: <Page component={MetricsPage} />,
   },
   {

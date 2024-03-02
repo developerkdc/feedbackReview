@@ -44,7 +44,7 @@ const a11yProps = (index) => {
 };
 
 const FullWidthTabs = ({ mallId }) => {
-  console.log(mallId);
+  // console.log(mallId);
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const [question, setQuestion] = React.useState([]);
@@ -66,7 +66,7 @@ const FullWidthTabs = ({ mallId }) => {
             value === 0 ? "stars" : ""
           }`
         );
-        console.log(questions);
+        // console.log(questions);
         setQuestion(questions.data.getMappingQuestions);
       })();
     }

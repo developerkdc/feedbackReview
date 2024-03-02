@@ -147,7 +147,7 @@ export default function CustomerReview() {
                 <Div>
                   {/* <img src={`http://localhost:8000/public/1709099364340-bill%20sample.png`} onClick={() => setOpen(true)} style={{ cursor: "pointer", height: "100px", width: "100px",border:"1px solid",padding:2,borderRadius:"5px" }} /> */}
                   <img
-                    src={`http://localhost:8000/public/${user.bill}`}
+                    src={user.bill}
                     alt="imgBill"
                     onClick={() => setOpen(true)}
                     style={{
@@ -161,7 +161,7 @@ export default function CustomerReview() {
                   />
                   {/* <ImagePopup imageUrl={`http://localhost:8000/public/1709099364340-bill%20sample.png`} open={open} setOpen={setOpen} /> */}
                   <ImagePopup
-                    imageUrl={`http://localhost:8000/public/${user.bill}`}
+                    imageUrl={user.bill}
                     open={open}
                     setOpen={setOpen}
                   />
@@ -406,11 +406,14 @@ const ImagePopup = ({ imageUrl, open, setOpen }) => {
       <Dialog open={open} onClose={handleClose}>
         {/* <DialogTitle>Image</DialogTitle> */}
         <DialogContent>
+          <a href={imageUrl} target="_blank">
           <img
             src={imageUrl}
             alt="Preview"
-            style={{ width: "100%", height: "80vh" }}
-          />
+            style={{ width: "100%", height: "100%" }}
+            // style={{objectFit:"contain"}}
+            />
+            </a>
         </DialogContent>
         {/* <DialogActions>
           <Button onClick={handleClose}>Close</Button>

@@ -12,7 +12,7 @@ import { capitalizeFLetter } from "@jumbo/utils";
 
 //todo: add ResponsiveContainer and fix the page reload ResponsiveContainer width issue
 const OnlineSignupChartFilled = ({ color, shadowColor, data, npsdata }) => {
-  console.log(typeof npsdata, "------------------------onlinesignup");
+  // console.log(typeof npsdata, "------------------------onlinesignup");
   return (
     <ResponsiveContainer height={80}>
       <LineChart data={data} className={"mx-auto"}>
@@ -32,7 +32,7 @@ const OnlineSignupChartFilled = ({ color, shadowColor, data, npsdata }) => {
             return active ? (
               <Div sx={{ color: "common.white" }}>
                 {payload.map((row, index) => {
-                  console.log(row);
+                  // console.log(row);
                   return (
                     <div
                       key={index}
