@@ -42,9 +42,9 @@ export default function QandA({ mallId }) {
       <Typography variant="h1" gutterBottom textAlign="center">
         Survey Responses
       </Typography>
-      <Typography variant="h5" gutterBottom textAlign="center">
+      {/* <Typography variant="h5" gutterBottom textAlign="center">
         Total Responses:- {data && data[Object.keys(data)[0]].totalAnswers}
-      </Typography>
+      </Typography> */}
 
       {mallId && res && data && (
         <SurveyList responseData={data} mallId={mallId} />
