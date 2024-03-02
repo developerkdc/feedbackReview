@@ -44,6 +44,8 @@ import CityReport from "./components/SalesReport/CityReport";
 import SiteAudienceInfo from "app/shared/metrics/WelcomSummary/components/SiteAudienceInfo";
 import SimpleRadialBarChart from "./components/SimpleRadialBarChart";
 import SiteAudienceAgeInfo from "./components/SiteAudienceAgeInfo";
+import ProfessionChart from "./components/ProfessionChart";
+import CityWiseChart from "./components/CityWiseChart";
 
 const MetricsPage = () => {
   const [mallId, setMallId] = React.useState("");
@@ -170,11 +172,17 @@ const MetricsPage = () => {
             <Grid item xs={12} sm={6} lg={4}>
               <SiteAudienceAgeInfo mallId={mallId} />
             </Grid>
-            <Grid item xs={12} md={6} lg={12}>
+            {/* <Grid item xs={12} md={6} lg={12}>
               <SalesReport mallId={mallId} />
             </Grid>
             <Grid item xs={12} md={6} lg={12}>
               <CityReport mallId={mallId} />
+            </Grid> */}
+            <Grid item xs={12} md={6} lg={12}>
+              <ProfessionChart mallId={mallId} />
+            </Grid>
+            <Grid item xs={12} md={6} lg={12}>
+              <CityWiseChart mallId={mallId} />
             </Grid>
           </>
         )}

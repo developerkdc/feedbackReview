@@ -98,6 +98,7 @@ const MultipleChoiceQuestion = ({
   question,
   options,
   optionCounts,
+  mallId, queId, handleGetUserAnswerCount, setOpenModal
 }) => {
   return (
     <div>
@@ -120,10 +121,20 @@ const MultipleChoiceQuestion = ({
             </Typography>
           </Grid>
           <Grid item>
-            <Chip
-              label={`Count: ${optionCounts[option] || 0}`}
-              variant="filled"
-            />
+            <Button
+              sx={{ bgcolor: "transparent", "&:hover": { bgcolor: "transparent" } }}
+              textAlign="center"
+              onClick={() => {
+                handleGetUserAnswerCount(queId, mallId,option);
+                setOpenModal(true);
+              }}
+            >
+              <Chip
+                label={`Count: ${optionCounts[option] || 0}`}
+                variant="filled"
+              />
+            </Button>
+
           </Grid>
         </Grid>
       ))}
@@ -149,7 +160,7 @@ const MultipleChoiceQuestion = ({
   );
 };
 
-const StarsQuestion = ({ questionType, question, optionCounts }) => {
+const StarsQuestion = ({ questionType, question, optionCounts, mallId, queId, handleGetUserAnswerCount, setOpenModal }) => {
   const starOptions = ["5", "4", "3", "2", "1"];
 
   return (
@@ -186,10 +197,19 @@ const StarsQuestion = ({ questionType, question, optionCounts }) => {
                 variant="filled"
               />
             ) : ( */}
-            <Chip
-              label={`Count: ${optionCounts[star] || 0}`}
-              variant="filled"
-            />
+            <Button
+              sx={{ bgcolor: "transparent", "&:hover": { bgcolor: "transparent" } }}
+              textAlign="center"
+              onClick={() => {
+                handleGetUserAnswerCount(queId, mallId,star);
+                setOpenModal(true);
+              }}
+            >
+              <Chip
+                label={`Count: ${optionCounts[star] || 0}`}
+                variant="filled"
+              />
+            </Button>
             {/* )} */}
           </Grid>
         </Grid>
@@ -203,6 +223,7 @@ const SingleLineQuestion = ({
   question,
   options,
   optionCounts,
+  mallId, queId, handleGetUserAnswerCount, setOpenModal
 }) => {
   return (
     <div>
@@ -225,10 +246,19 @@ const SingleLineQuestion = ({
             </Typography>
           </Grid>
           <Grid item>
-            <Chip
-              label={`Count: ${optionCounts[option] || 0}`}
-              variant="filled"
-            />
+            <Button
+              sx={{ bgcolor: "transparent", "&:hover": { bgcolor: "transparent" } }}
+              textAlign="center"
+              onClick={() => {
+                handleGetUserAnswerCount(queId, mallId,option);
+                setOpenModal(true);
+              }}
+            >
+              <Chip
+                label={`Count: ${optionCounts[option] || 0}`}
+                variant="filled"
+              />
+            </Button>
           </Grid>
         </Grid>
       ))}
@@ -277,7 +307,24 @@ const SurveyCard = ({ surveyData, mallId, queId }) => {
       const data = await axios.get(
         `https://feedbackreviewbackend.onrender.com/RatingAndReviews/getUserForQuestion?questionId=${queId}&mallId=${mallId}`
       );
+      console.log(data, "alalalalalala")
       setUserAnswer(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  var handleGetUserAnswerCount = async (queId, mallId,answer) => {
+    try {
+      // const data = await axios.get(
+      //   `https://feedbackreviewbackend.onrender.com/RatingAndReviews/getUserForQuestion?questionId=${queId}&mallId=${mallId}`
+      // );
+      console.log(answer)
+      const data = await axios.get(
+        `https://feedbackreviewbackend.onrender.com/RatingAndReviews/getUserForQuestion?questionId=${queId}&mallId=${mallId}`
+      );
+      setUserAnswer(data?.data?.filter((e)=> e?.questionAndAnswer?.answer?.includes(answer)));
     } catch (error) {
       console.log(error);
     }
@@ -327,6 +374,10 @@ const SurveyCard = ({ surveyData, mallId, queId }) => {
               question={question}
               options={options}
               optionCounts={optionCounts}
+              mallId={mallId}
+              queId={queId}
+              handleGetUserAnswerCount={handleGetUserAnswerCount}
+              setOpenModal={setOpenModal}
             />
           )}
 
@@ -335,6 +386,10 @@ const SurveyCard = ({ surveyData, mallId, queId }) => {
               questionType="Rating"
               question={question}
               optionCounts={optionCounts}
+              mallId={mallId}
+              queId={queId}
+              handleGetUserAnswerCount={handleGetUserAnswerCount}
+              setOpenModal={setOpenModal}
             />
           )}
 
@@ -344,62 +399,100 @@ const SurveyCard = ({ surveyData, mallId, queId }) => {
               question={question}
               options={options}
               optionCounts={optionCounts}
+              mallId={mallId}
+              queId={queId}
+              handleGetUserAnswerCount={handleGetUserAnswerCount}
+              setOpenModal={setOpenModal}
             />
           )}
         </CardContent>
       </Card>
+      <Modal keepMounted open={openModal} onClose={() => {
+        setOpenModal(false)
+        setUserAnswer([])
+      }}>
 
-      <Modal keepMounted open={openModal} onClose={() => setOpenModal(false)}>
         <Card sx={style}>
           <Typography variant="h4" gutterBottom mb="10px">
             <span style={{ opacity: "0.5" }}> Que. : </span>
             {question}
             <Chip
-              label={`Total User Answered: ${totalAnswers}`}
+              label={`Total User Answered: ${userAnswer?.length}`}
               style={{ marginLeft: "20px" }}
             />
           </Typography>
           {userAnswer &&
             userAnswer.length &&
-            userAnswer.map((response, index) => (
+            userAnswer?.map((response, index) => (
               <Card key={index} style={{ marginBottom: "10px" }}>
                 <CardContent>
                   <Grid
                     container
-                    style={{ display: "flex", justifyContent: "space-around" }}
+                    style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <Box width="30%">
+                    <Box width="20%">
                       <Typography variant="h5" component="div">
                         User Details
                       </Typography>
                       <Typography variant="body2">
                         <span style={{ opacity: "0.5" }}>Name:</span>{" "}
-                        {response.user.name || "--"}
+                        {response?.user?.name || "--"}
                       </Typography>
                       <Typography variant="body2">
                         <span style={{ opacity: "0.5" }}>Email:</span>{" "}
-                        {response.user.email || "--"}
+                        {response?.user?.email || "--"}
                       </Typography>
                       <Typography variant="body2">
                         <span style={{ opacity: "0.5" }}>Contact:</span>{" "}
-                        {response.user.contact || "--"}
+                        {response?.user?.contact || "--"}
                       </Typography>
                       <Typography variant="body2">
                         <span style={{ opacity: "0.5" }}>City:</span>{" "}
-                        {response.user.city || "--"}
+                        {response?.user?.city || "--"}
                       </Typography>
                       <Typography variant="body2">
                         <span style={{ opacity: "0.5" }}>Feedback:</span>{" "}
-                        {response.user.feedback || "--"}
+                        {response?.user?.feedback || "--"}
                       </Typography>
                     </Box>
 
-                    <Box width="70%">
+                    <Box width="20%" sx={{ mt: 3 }}>
+                      <Typography variant="body2">
+                        <span style={{ opacity: "0.5" }}>DOB:</span>{" "}
+                        {
+                          (function () {
+                            const date = new Date(response?.user?.dob);
+                            const options = {
+                              day: "2-digit",
+                              month: "2-digit",
+                              year: "numeric",
+                              // hour: "numeric",
+                              // minute: "numeric",
+                              // hour12: true,
+                              timeZone: "Asia/Kolkata", // Indian time zone
+                            };
+
+                            const indianDateTime = date.toLocaleString("en-IN", options);
+                            return indianDateTime;
+                          })() || "--"}
+                      </Typography>
+                      <Typography variant="body2">
+                        <span style={{ opacity: "0.5" }}>Profession:</span>{" "}
+                        {response?.user?.profession || "--"}
+                      </Typography>
+                      <Typography variant="body2">
+                        <span style={{ opacity: "0.5" }}>Gender:</span>{" "}
+                        {response?.user?.gender || "--"}
+                      </Typography>
+
+                    </Box>
+
+                    <Box width="50%">
                       <Typography variant="h5" component="div">
                         Answer
                       </Typography>
                       <Typography variant="body2">
-                        {response.questionAndAnswer.answer.join(", ")}
+                        {response?.questionAndAnswer?.answer?.join(", ")}
                       </Typography>
                     </Box>
                   </Grid>

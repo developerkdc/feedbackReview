@@ -47,18 +47,22 @@ export default function CustomerReview() {
     {
       field: "answer",
       headerName: "Answer",
+      width:"50%",
       sortable: true,
-      render: (_, elm) => elm?.answer?.map((ele)=>{
-        if(elm.typeOf == "stars"){
-         return <Rating
-          name={`rating-${ele}`}
-          value={parseFloat(ele)}
-          precision={0.5}
-          readOnly
-        />
-        }else{
-
-          return ele
+      render: (_, elm) => elm?.answer?.map((ele) => {
+        if (elm.typeOf == "stars") {
+          return <Rating
+            name={`rating-${ele}`}
+            value={parseFloat(ele)}
+            precision={0.5}
+            readOnly
+          />
+        } else {
+          return <Div>
+            <Typography >
+              {ele}
+            </Typography>
+          </Div>
         }
       }),
     },
@@ -237,7 +241,7 @@ export default function CustomerReview() {
         <Typography variant="h1" gutterBottom textAlign="center">
           Responses
         </Typography>
-        <CustomTable  data={state?.allData?.questionAndAnswer} columns={columns} />
+        <CustomTable data={state?.allData?.questionAndAnswer} columns={columns} />
         {/* <SurveyList responseData={state?.allData?.questionAndAnswer} /> */}
       </Card>
     </>
@@ -365,14 +369,14 @@ const SurveyCard = ({ surveyData, mallId, queId }) => {
                 <span style={{ opacity: "0.5" }}>Type : &nbsp;</span>
                 Multi Line
               </Typography> */}
-              <Grid container  alignItems="center">
+              <Grid container alignItems="center">
                 <Grid item >
-                  <Typography sx={{ display: "inline", opacity: "0.5",border:"1px solid red"}}>
+                  <Typography sx={{ display: "inline", opacity: "0.5", border: "1px solid red" }}>
                     {/* <span style={{ opacity: "0.5" }}> Ans : &nbsp;</span> */}
                     Ans&nbsp;:&nbsp;&nbsp;
                   </Typography>
                   {/* <div> */}
-                    <Typography style={{border:"1px solid red"}}>{surveyData?.answer?.[0]}</Typography>
+                  <Typography style={{ border: "1px solid red" }}>{surveyData?.answer?.[0]}</Typography>
                   {/* </div> */}
                 </Grid>
               </Grid>
@@ -438,13 +442,13 @@ const ImagePopup = ({ imageUrl, open, setOpen }) => {
         {/* <DialogTitle>Image</DialogTitle> */}
         <DialogContent>
           <a href={imageUrl} target="_blank">
-          <img
-            src={imageUrl}
-            alt="Preview"
-            style={{ width: "100%", height: "100%" }}
+            <img
+              src={imageUrl}
+              alt="Preview"
+              style={{ width: "100%", height: "100%" }}
             // style={{objectFit:"contain"}}
             />
-            </a>
+          </a>
         </DialogContent>
         {/* <DialogActions>
           <Button onClick={handleClose}>Close</Button>
