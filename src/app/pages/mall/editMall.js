@@ -75,7 +75,10 @@ const EditMall = () => {
 
   const handleUserAdd = async (data) => {
     try {
-      await axios.patch(`http://localhost:8000/mall/${id}`, data);
+      await axios.patch(
+        `https://feedbackreviewbackend.onrender.com/mall/${id}`,
+        data
+      );
       showAlert("success", "Mall updated successfully.");
       navigate("/mall");
     } catch (error) {

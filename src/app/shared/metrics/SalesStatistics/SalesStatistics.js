@@ -24,7 +24,7 @@ const SalesStatistics = ({ mallId }) => {
     (async function () {
       try {
         const { data } = await axios(
-          `${process.env.REACT_APP_URL}/graph/averages?id=${mallId}`
+          `https://feedbackreviewbackend.onrender.com/graph/averages?id=${mallId}`
         );
         setTotalFeedback(data?.Data[0]?.totalCount);
       } catch (error) {

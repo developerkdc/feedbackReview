@@ -18,7 +18,7 @@ const SiteAudienceInfo = ({ mallId }) => {
     (async function () {
       try {
         const { data } = await axios(
-          `${process.env.REACT_APP_URL}/graph/genderviseResult?id=${mallId}`
+          `https://feedbackreviewbackend.onrender.com/graph/genderviseResult?id=${mallId}`
         );
         setData(
           data?.Data[0]?.counts?.map((e, index) => ({

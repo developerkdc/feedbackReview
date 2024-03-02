@@ -58,7 +58,7 @@ const MetricsPage = () => {
   //     if (mallId) {
   //       (async () => {
   //         const questions = await axios.get(
-  //           `${process.env.REACT_APP_URL}/mappingQuestion/${mallId}?type=all`
+  //           `https://feedbackreviewbackend.onrender.com/mappingQuestion/${mallId}?type=all`
   //         );
   //         setQuestion(questions.data.getMappingQuestions);
   //       })();
@@ -66,9 +66,11 @@ const MetricsPage = () => {
   //   }, [mallId, value]);
 
   React.useEffect(() => {
-    // const mall = await axios.get(`${process.env.REACT_APP_URL}/mall`);
+    // const mall = await axios.get(`https://feedbackreviewbackend.onrender.com/mall`);
     (async () => {
-      const mall = await axios.get(`${process.env.REACT_APP_URL}/mall`);
+      const mall = await axios.get(
+        `https://feedbackreviewbackend.onrender.com/mall`
+      );
       setMall(mall?.data?.data);
       setMallId(mall?.data?.data?.[0]?._id);
     })();

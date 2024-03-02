@@ -27,14 +27,14 @@ const RipplePrice = ({ mall }) => {
   const [npsdata, setNpsData] = useState([]);
 
   React.useEffect(() => {
-    // const mall = await axios.get(`${process.env.REACT_APP_URL}/mall`);
+    // const mall = await axios.get(`https://feedbackreviewbackend.onrender.com/mall`);
     (async () => {
       try {
         const { data } = await axios.get(
-          `${process.env.REACT_APP_URL}/graph/mallMonthResult?id=${mall?._id}`
+          `https://feedbackreviewbackend.onrender.com/graph/mallMonthResult?id=${mall?._id}`
         );
         const nps = await axios.get(
-          `${process.env.REACT_APP_URL}/graph/monthwisenps?id=${mall?._id}`
+          `https://feedbackreviewbackend.onrender.com/graph/monthwisenps?id=${mall?._id}`
         );
         console.log(nps.data.Data, "--------------------repple");
         setNpsData(nps.data.Data);

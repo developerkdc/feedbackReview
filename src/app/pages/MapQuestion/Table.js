@@ -32,7 +32,7 @@ export default function BasicTable({ data, mall }) {
       removedMallIds.forEach(async (mallId) => {
         try {
           await axios.delete(
-            `${process.env.REACT_APP_URL}/mappingQuestion/${mallId}/${queId}`
+            `https://feedbackreviewbackend.onrender.com/mappingQuestion/${mallId}/${queId}`
           );
           showAlert("success", "Removed successfully.");
         } catch (error) {
@@ -44,7 +44,7 @@ export default function BasicTable({ data, mall }) {
     if (newMallIds.length > 0) {
       try {
         const mapped = await axios.post(
-          `${process.env.REACT_APP_URL}/mappingQuestion`,
+          `https://feedbackreviewbackend.onrender.com/mappingQuestion`,
           {
             mallId: filteredMallIds,
             questionId: queId,
@@ -64,7 +64,7 @@ export default function BasicTable({ data, mall }) {
     const fetchMappedMalls = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_URL}/mappingQuestion/mall/list`
+          `https://feedbackreviewbackend.onrender.com/mappingQuestion/mall/list`
         );
         console.log(response.data);
         setMappedQuestion(response?.data?.mappedquestion);
@@ -82,7 +82,9 @@ export default function BasicTable({ data, mall }) {
           <TableRow>
             <TableCell>Questions</TableCell>
             <TableCell align="left">Types</TableCell>
-            <TableCell align="left">Option 1</TableCell>
+            <TableCell align="left" padding="0px">
+              Option 1
+            </TableCell>
             <TableCell align="left">Option 2</TableCell>
             <TableCell align="left">Option 3</TableCell>
             <TableCell align="left">Option 4</TableCell>
@@ -111,11 +113,19 @@ export default function BasicTable({ data, mall }) {
               {row.typeOf === "stars" && (
                 <TableCell align="left">Stars</TableCell>
               )}
-              <TableCell align="left">{row.options[0]}</TableCell>
-              <TableCell align="left">{row.options[1]}</TableCell>
-              <TableCell align="left">{row.options[2]}</TableCell>
-              <TableCell align="left">{row.options[3]}</TableCell>
-              <TableCell align="left">
+              <TableCell align="left" padding="0px">
+                {row.options[0]}
+              </TableCell>
+              <TableCell align="left" padding="0px">
+                {row.options[1]}
+              </TableCell>
+              <TableCell align="left" padding="0px">
+                {row.options[2]}
+              </TableCell>
+              <TableCell align="left" padding="0px">
+                {row.options[3]}
+              </TableCell>
+              <TableCell align="left" padding="0px">
                 <MultipleSelectCheckmarks
                   mappedQuestions={mappedQuestions}
                   mall={mall}

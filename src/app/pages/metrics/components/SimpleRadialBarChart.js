@@ -37,7 +37,7 @@ const SimpleRadialBarChart = ({ mallId }) => {
     (async function () {
       try {
         const { data } = await axios(
-          `${process.env.REACT_APP_URL}/graph/agewiseResult?id=${mallId}`
+          `https://feedbackreviewbackend.onrender.com/graph/agewiseResult?id=${mallId}`
         );
         setData(
           data?.Data[0]?.ageGroups?.map((e, index) => ({
