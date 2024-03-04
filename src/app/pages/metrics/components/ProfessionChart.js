@@ -40,7 +40,7 @@ const ProfessionChart = ({mallId}) => {
         })();
     }, [mallId]);
     return (
-        <JumboDemoCard title={"Profession Wise Chart"} wrapperSx={{ pt: 0, backgroundColor: 'background.paper' }}>
+        <JumboDemoCard title={"Total Feedback - Profession Wise"} wrapperSx={{ pt: 0, backgroundColor: 'background.paper' }}>
             <ResponsiveContainer width="100%" height={200}>
                 <LineChart data={data} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
                     <XAxis dataKey="name" />

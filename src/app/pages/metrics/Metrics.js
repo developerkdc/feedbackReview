@@ -87,14 +87,14 @@ const MetricsPage = () => {
           <JumboCardQuick
             title={
               <Typography variant={"h3"} mb={2}>
-                {"Customer Satisfaction Score"}
+                {"Total User Feedback - Month Wise"}
               </Typography>
             }
-            subheader={
-              <Typography variant={"h6"} color={"text.secondary"} mb={0}>
-                {"Current Month v/s Last Month"}
-              </Typography>
-            }
+            // subheader={
+            //   <Typography variant={"h6"} color={"text.secondary"} mb={0}>
+            //     {"Current Month v/s Last Month"}
+            //   </Typography>
+            // }
             // action={<Chip label={"Today"} color={"primary"} size={"small"} />}
             wrapperSx={{ pt: 0 }}
           >
@@ -122,7 +122,7 @@ const MetricsPage = () => {
           <JumboCardQuick
             title={
               <Typography variant={"h3"} mb={2}>
-                {"NPS Score"}
+                {"Net Promoter Score - Month Wise"}
               </Typography>
             }
             wrapperSx={{ pt: 0 }}
