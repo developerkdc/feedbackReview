@@ -9,6 +9,7 @@ const MultipleSelectCheckmarks = ({
   setMallIds,
   mappedQuestions,
   setRemoveMallIds,
+  removedmallIds,
 }) => {
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -40,9 +41,9 @@ const MultipleSelectCheckmarks = ({
     const selectedMallIds = value.map((mall) => mall._id);
     const removedMallIds = existingMappedMalls
       .filter((mall) => !selectedMallIds.includes(mall._id))
-      .map((mall) => mall._id); 
+      .map((mall) => mall._id);
     setMallIds(selectedMallIds);
-    setRemoveMallIds(removedMallIds);
+    setRemoveMallIds([...removedmallIds, removedMallIds]);
     setExistingMappedMalls(value);
   };
 
