@@ -18,6 +18,7 @@ export default function BasicTable({ data, mall }) {
   const [removedMallIds, setRemoveMallIds] = React.useState([]);
   const [mappedQuestions, setMappedQuestion] = React.useState([]);
   const showAlert = ToastAlerts();
+  console.log(removedMallIds, "removedMallIds-----------");
   const handleSubmit = async function (queId) {
     const newMallIds = mallIds.filter(
       (mallId) => !removedMallIds.includes(mallId)
@@ -29,8 +30,10 @@ export default function BasicTable({ data, mall }) {
       return !isMapped;
     });
     if (removedMallIds.length > 0) {
-      removedMallIds.forEach(async (mallId) => {
+      console.log(removedMallIds.flat(), "removedMallIds.length");
+      removedMallIds.flat().forEach(async (mallId) => {
         try {
+          console.log(mallId, "mallID------------");
           await axios.delete(
             `https://feedbackreviewbackend.onrender.com/mappingQuestion/${mallId}/${queId}`
           );
@@ -41,7 +44,7 @@ export default function BasicTable({ data, mall }) {
       });
     }
 
-    if (newMallIds.length > 0) {
+    if (newMallIds.length > 0 && filteredMallIds.length > 0) {
       try {
         const mapped = await axios.post(
           `https://feedbackreviewbackend.onrender.com/mappingQuestion`,
@@ -49,6 +52,12 @@ export default function BasicTable({ data, mall }) {
             mallId: filteredMallIds,
             questionId: queId,
           }
+        );
+        console.log(
+          newMallIds.length,
+          "newMallIds.length",
+          filteredMallIds.length,
+          "filteredMallIds.length"
         );
         showAlert("success", "Mapped successfully.");
       } catch (error) {
@@ -83,11 +92,11 @@ export default function BasicTable({ data, mall }) {
             <TableCell>Questions</TableCell>
             <TableCell align="left">Types</TableCell>
             <TableCell align="left" padding="0px">
-              Option 1
+              Opt 1
             </TableCell>
-            <TableCell align="left">Option 2</TableCell>
-            <TableCell align="left">Option 3</TableCell>
-            <TableCell align="left">Option 4</TableCell>
+            <TableCell align="left">Opt 2</TableCell>
+            <TableCell align="left">Opt 3</TableCell>
+            <TableCell align="left">Opt 4</TableCell>
             <TableCell align="center">Location</TableCell>
             <TableCell align="center"></TableCell>
           </TableRow>
@@ -133,6 +142,7 @@ export default function BasicTable({ data, mall }) {
                   setMallIds={setMallIds}
                   setRemoveMallIds={setRemoveMallIds}
                   mallIds={mallIds}
+                  removedmallIds={removedMallIds}
                 />
               </TableCell>
               <TableCell align="left">
