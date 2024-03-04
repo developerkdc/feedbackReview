@@ -107,7 +107,7 @@ const FullWidthTabs = ({ mallId }) => {
                 <TableHead>
                   <TableRow>
                     <TableCell>Questions</TableCell>
-                    <TableCell align="left">Types</TableCell>
+                    {/* <TableCell align="left">Types</TableCell> */}
                     {/* <TableCell align="right">Option 1</TableCell>
                     <TableCell align="right">Option 2</TableCell>
                     <TableCell align="right">Option 3</TableCell>
@@ -125,11 +125,11 @@ const FullWidthTabs = ({ mallId }) => {
                       <TableCell component="th" scope="row">
                         {row.questionId.question}
                       </TableCell>
-                      <TableCell align="left">
+                      {/* <TableCell align="left">
                         {row.questionId.typeOf == "stars"
                           ? "Stars"
                           : row.questionId.typeOf}
-                      </TableCell>
+                      </TableCell> */}
                       {/* <TableCell align="right">
                         {row.questionId?.options[0]
                           ? row.questionId?.options[0]

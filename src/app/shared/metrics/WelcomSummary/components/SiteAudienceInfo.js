@@ -37,7 +37,7 @@ const SiteAudienceInfo = ({ mallId }) => {
     <React.Fragment>
       <JumboCardQuick
         // title={<Typography variant={"h3"}>{t('widgets.title.appUsers')}</Typography>}
-        title={<Typography variant={"h3"}>{"Mall Audience"}</Typography>}
+        title={<Typography variant={"h3"}>{"Total Feedback - Audience Wise"}</Typography>}
         // subheader={<Typography variant={"h6"} color={"text.secondary"}
         //                        mb={0}>{"For particular Mall"}</Typography>}
         wrapperSx={{ pt: 0 }}
