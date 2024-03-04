@@ -94,7 +94,7 @@ const CustomTable = ({ data, page, setPage, columns, actions, fetchData, totalCo
                       sx={{ padding: "8px 0px 8px 20px", paddingRight: column.width ? "20px" : "0px" }}
                       onClick={() => column.onClick && column.onClick(row)}
                     >
-                      <Typography noWrap width={column.width ? column.width : "auto"}>
+                      <Typography width={column.width ? column.width : "auto"}>
                         {renderCellContent(row, column)}
                       </Typography>
                     </TableCell>
