@@ -18,7 +18,6 @@ export default function BasicTable({ data, mall }) {
   const [removedMallIds, setRemoveMallIds] = React.useState([]);
   const [mappedQuestions, setMappedQuestion] = React.useState([]);
   const showAlert = ToastAlerts();
-  console.log(removedMallIds, "removedMallIds-----------");
   const handleSubmit = async function (queId) {
     const newMallIds = mallIds.filter(
       (mallId) => !removedMallIds.includes(mallId)
@@ -30,10 +29,8 @@ export default function BasicTable({ data, mall }) {
       return !isMapped;
     });
     if (removedMallIds.length > 0) {
-      console.log(removedMallIds.flat(), "removedMallIds.length");
       removedMallIds.flat().forEach(async (mallId) => {
         try {
-          console.log(mallId, "mallID------------");
           await axios.delete(
             `https://feedbackreviewbackend.onrender.com/mappingQuestion/${mallId}/${queId}`
           );
