@@ -38,7 +38,7 @@ export default function Customer() {
       render: (_, elm) => `${elm.ratingAvg} / 5`,
     },
     {
-      field: "email_id",
+      field: "user.email",
       headerName: "Email Id",
       sortable: true,
       render: (_, elm) => elm.user.email,
@@ -76,13 +76,13 @@ export default function Customer() {
       },
     },
     {
-      field: "mobile_no",
+      field: "user.contact",
       headerName: "Mobile",
       sortable: true,
       render: (_, elm) => elm.user.contact,
     },
     {
-      field: "city",
+      field: "user.city",
       headerName: "City",
       sortable: true,
       render: (_, elm) => elm.user.city,
