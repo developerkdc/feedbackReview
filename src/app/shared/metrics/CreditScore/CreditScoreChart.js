@@ -14,51 +14,55 @@ const CreditScoreChart = ({ score, mallId }) => {
   useEffect(() => {
     (async function () {
       try {
+        // const response = await axios(
+        //   `https://feedbackreviewbackend.onrender.com/graph/mallTotalStar?id=${mallId}`
+        // );
         const response = await axios(
-          `https://feedbackreviewbackend.onrender.com/graph/mallTotalStar?id=${mallId}`
+          `https://feedbackreviewbackend.onrender.com/graph/totalnpsScore?id=${mallId}`
         );
-        const data = response.data?.Data || [];
-        setFeedbackData(data);
-        let count1And2 = 0;
-        let count4And5 = 0;
-        data.forEach((feedback) => {
-          if (feedback?._id?.star === "1" || feedback?._id?.star === "2") {
-            count1And2 += feedback?.totalStar;
-          } else if (
-            feedback?._id?.star === "4" ||
-            feedback?._id?.star === "5"
-          ) {
-            count4And5 += feedback?.totalStar;
-          }
-        });
-        setStar1And2Count(count1And2);
-        setStar4And5Count(count4And5);
-        let totalStar = 0;
-        data.forEach((feedback) => {
-          totalStar += feedback.totalStar;
-        });
-        setTotalStarCount(totalStar);
+        const data = response.data?.Data[0]?.promoterPercentage || [];
+        setNps(Math.round(data));
+        // setFeedbackData(data);
+        // let count1And2 = 0;
+        // let count4And5 = 0;
+        // data.forEach((feedback) => {
+        //   if (feedback?._id?.star === "1" || feedback?._id?.star === "2") {
+        //     count1And2 += feedback?.totalStar;
+        //   } else if (
+        //     feedback?._id?.star === "4" ||
+        //     feedback?._id?.star === "5"
+        //   ) {
+        //     count4And5 += feedback?.totalStar;
+        //   }
+        // });
+        // setStar1And2Count(count1And2);
+        // setStar4And5Count(count4And5);
+        // let totalStar = 0;
+        // data.forEach((feedback) => {
+        //   totalStar += feedback.totalStar;
+        // });
+        // setTotalStarCount(totalStar);
       } catch (error) {
         console.error(error);
       }
     })();
   }, [mallId]);
 
-  useEffect(() => {
-    if (star1And2Count > 0) {
-      let percentage = (star1And2Count / totalStarCount) * 100;
-      setDetractor(percentage);
-    }
-    if (star4And5Count > 0) {
-      let percentage = (star4And5Count / totalStarCount) * 100;
-      setPromoter(percentage);
-    }
-  }, [star1And2Count, star4And5Count, totalStarCount]);
+  // useEffect(() => {
+  //   if (star1And2Count > 0) {
+  //     let percentage = (star1And2Count / totalStarCount) * 100;
+  //     setDetractor(percentage);
+  //   }
+  //   if (star4And5Count > 0) {
+  //     let percentage = (star4And5Count / totalStarCount) * 100;
+  //     setPromoter(percentage);
+  //   }
+  // }, [star1And2Count, star4And5Count, totalStarCount]);
 
-  useEffect(() => {
-    const npsValue = Math.round(promoter - detractor);
-    setNps(npsValue);
-  }, [promoter, detractor]);
+  // useEffect(() => {
+  //   const npsValue = Math.round(promoter - detractor);
+  //   setNps(npsValue);
+  // }, [promoter, detractor]);
   const clampedNPS = Math.min(Math.max(nps, -100), 100);
 
   return (
